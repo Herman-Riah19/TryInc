@@ -1,136 +1,205 @@
-import { createTheme } from '@mui/material/styles';
+import {
+  createTheme,
+  ThemeProvider as MuiThemeProvider,
+  responsiveFontSizes,
+  alpha
+} from '@mui/material'
+import { ThemeProvider } from '@mui/styles'
+import { fontWeight } from '@mui/system'
+import React, { createContext, useContext, useEffect, useState } from 'react'
+import { useCookie } from 'react-use'
 
-const theme = createTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 1000,
-      lg: 1200,
-      xl: 1920
-    }
-  },
-  components: {
-    MuiCardContent: {
-      styleOverrides: {
-        root: {
-          padding: '32px 24px',
-          '&:last-child': {
-            paddingBottom: '32px'
+export const ThemeContext = createContext({
+  switchTheme: () => { }
+})
+
+export const useThemeSwitch = () => useContext(ThemeContext)
+
+const SwitchThemeProvider = ({ children, ...rest }) => {
+  const [themeCookie, setCookie] = useCookie('theme')
+  const [themeType, _setThemeType] = useState('dark')
+  const initialTheme = createTheme({
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 600,
+        md: 960,
+        lg: 1280,
+        xl: 1920
+      }
+    },
+    palette: {
+      mode: themeType,
+      primary: {
+        main: '#040C42'
+      },
+      ...(themeType === 'light'
+        ? {
+          background: {
+            default: '#FFFFFF',
+            paper: '#F8F9FA'
+          },
+          text: {
+            primary: '#03232E'
+          }
+        }
+        : {
+          background: {
+            default: '#06043E',
+            paper: '#19174B'
+          }
+        })
+    },
+    typography: {
+      fontFamily: 'Poppins',
+      fontSize: 16,
+      h1: {
+        fontSize: 72, //theme.spacing(9)
+        fontWeight: 900
+      },
+      h2: {
+        fontSize: 64, //theme.spacing(8)
+        fontWeight: 900
+      },
+      h3: {
+        fontSize: 48, //theme.spacing(6)
+        fontWeight: 900
+      },
+      h4: {
+        fontSize: 40, //theme.spacing(5)
+        fontWeight: 900
+      },
+      h5: {
+        fontSize: 28, //theme.spacing(3.5)
+        fontWeight: 900
+      },
+      h6: {
+        fontSize: 24, //theme.spacing(3)
+        fontWeight: 900
+      },
+      body1: {
+        fontWeight: 'normal',
+        fontSize: 16,
+        fontFamily: 'Poppins'
+      },
+      body2: {
+        fontWeight: 'normal',
+        fontSize: 14,
+        fontFamily: 'Poppins'
+      },
+      subtitle1: {
+        fontSize: 20,
+        fontWeight: 200,
+        fontFamily: 'Poppins'
+      },
+      subtitle2: {
+        fontSize: 18,
+        fontFamily: 'Poppins',
+        fontWeight: 200,
+      }
+    },
+    components: {
+      MuiPaper: {
+        styleOverrides: {
+          rounded: {
+            borderRadius: 24
+          }
+        }
+      },
+      MuiTypography: {
+        styleOverrides: {
+          paragraph: {
+            marginBottom: 20
+          }
+        }
+      },
+      MuiButtonBase: {
+        styleOverrides: {
+          root: {
+            fontWeight: 700
+          }
+        }
+      },
+      MuiLink: {
+        styleOverrides: {
+          root: {
+            fontWeight: 400
           }
         }
       }
-    },
-    MuiCardHeader: {
-      defaultProps: {
-        titleTypographyProps: {
-          variant: 'h6'
-        },
-        subheaderTypographyProps: {
-          variant: 'body2'
-        }
-      },
-      styleOverrides: {
-        root: {
-          padding: '32px 24px'
-        }
-      }
-    },
-    MuiCssBaseline: {
-      styleOverrides: {
-        '*': {
-          boxSizing: 'border-box',
-          margin: 0,
-          padding: 0
-        },
-        html: {
-          MozOsxFontSmoothing: 'grayscale',
-          WebkitFontSmoothing: 'antialiased',
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: '100%',
-          width: '100%'
-        },
-        body: {
-          display: 'flex',
-          flex: '1 1 auto',
-          flexDirection: 'column',
-          minHeight: '100%',
-          width: '100%'
-        },
-        '#__next': {
-          display: 'flex',
-          flex: '1 1 auto',
-          flexDirection: 'column',
-          height: '100%',
-          width: '100%'
-        }
-      }
-    },
-  },
-  palette: {
-    type: 'dark',
-    primary: {
-      main: '#05043D',
-      contrastText: '#ffffff',
-      dark: '#19174B',
-      light: '#19174B',
-    },
-    secondary: {
-      main: '#f50057',
-      light: '#e22266',
-      dark: '#bd0445',
-      contrastText: '#ffffff',
-    },
-    background: {
-      default: '#FFFFFF',
-      paper: '#F8F9FA',
-    },
-    text: {
-      primary: '#201f1f',
-      secondary: 'rgba(0,0,0,0.57)',
-      disabled: 'rgba(0,0,0,0.38)',
-      hint: 'rgba(0,0,0,0.38)',
-    },
-    success: {
-      main: '#00d65f',
-      light: '#40c17a',
-      dark: '#037f3a',
-    },
-    error: {
-      main: '#ec3224',
-      light: '#ec5a4e',
-      dark: '#a6261c',
-      contrastText: '#ffffff',
-    },
-    info: {
-      main: '#08A8B1',
-      light: '#3abcc3',
-      dark: '#057379',
-    },
-    divider: 'rgba(53,48,48,0.12)',
-    fontFamily: 'Poppins, sans-serif',
-    neutral: {
-      100: '#F3F4F6',
-      200: '#E5E7EB',
-      300: '#D1D5DB',
-      400: '#9CA3AF',
-      500: '#6B7280',
-      600: '#4B5563',
-      700: '#374151',
-      800: '#1F2937',
-      900: '#111827'
-    },
-    action: {
-      active: '#6B7280',
-      focus: 'rgba(55, 65, 81, 0.12)',
-      hover: 'rgba(55, 65, 81, 0.04)',
-      selected: 'rgba(55, 65, 81, 0.08)',
-      disabledBackground: 'rgba(55, 65, 81, 0.12)',
-      disabled: 'rgba(55, 65, 81, 0.26)'
-    },
-  },
-  
-});
+    }
+  })
+  const setThemeType = (theme) => {
+    console.log('theme changed')
+    _setThemeType(theme)
+    setCookie(theme)
+  }
+  useEffect(() => {
+    setThemeType((themeCookie) ?? 'light')
+  }, [themeCookie])
 
-export default theme;
+  return (
+    <ThemeProvider>
+      <ThemeContext.Provider
+        value={{ switchTheme: () => setThemeType(themeType === 'light' ? 'dark' : 'light') }}
+      >
+        <MuiThemeProvider
+          {...rest}
+          theme={responsiveFontSizes(
+            createTheme(initialTheme, {
+              palette: {
+                text: {
+                  secondary: alpha(initialTheme.palette.text.primary, 0.5)
+                }
+              },
+              typography: {
+                body1Semi: {
+                  ...initialTheme.typography.body1,
+                  color: alpha(initialTheme.palette.text.secondary, 0.5)
+                },
+                body2Semi: {
+                  ...initialTheme.typography.body2,
+                  color: alpha(initialTheme.palette.text.secondary, 0.5)
+                },
+                subtitle1Semi: {
+                  ...initialTheme.typography.subtitle1,
+                  color: alpha(initialTheme.palette.text.primary, 0.5)
+                },
+                subtitle2Semi: {
+                  ...initialTheme.typography.subtitle2,
+                  color: alpha(initialTheme.palette.text.primary, 0.5)
+                }
+              },
+              components: {
+                MuiLink: {
+                  ...(themeType === 'light'
+                    ? {
+                      styleOverrides: {
+                        root: {
+                          color: initialTheme.palette.text.primary,
+                          textDecorationColor: initialTheme.palette.text.primary,
+                          transition: initialTheme.transitions.create([
+                            'color',
+                            'text-decoration-color'
+                          ]),
+                          '&:hover': {
+                            color: initialTheme.palette.primary.main,
+                            textDecorationColor: initialTheme.palette.primary.main
+                          }
+                        }
+                      }
+                    }
+                    : {})
+                }
+              }
+            })
+          )}
+        >
+          {children}
+        </MuiThemeProvider>
+      </ThemeContext.Provider>
+    </ThemeProvider>
+  )
+}
+
+export default SwitchThemeProvider

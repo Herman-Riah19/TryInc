@@ -14,12 +14,13 @@ export default class HomeController {
     const productUrl = await Drive.getUrl("./collections");
 
     let avatar = null
-    let avatarUrl = null
+    const avatarUrl = await Drive.getUrl("./avatar");
     if (auth.isAuthenticated) {
       const profile = await Profile.findBy("user_id", auth.user?.id);
       avatar = profile?.avatar;
-      avatarUrl = await Drive.getUrl("./avatar");
     }
+
+    const existProfiles = await Profile.all()
 
     return inertia.render("Home/Home", {
       users,
@@ -30,6 +31,7 @@ export default class HomeController {
       auth,
       avatar,
       avatarUrl,
+      existProfiles
     });
   }
 }

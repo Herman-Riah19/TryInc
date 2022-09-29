@@ -3,13 +3,12 @@ import { Box, Grid, Container, Button, Typography } from '@mui/material'
 import Navbar from "../../Components/MenuBar/Navbar"
 import CardPost from "../../Components/Card/CardPost"
 import { Link } from "@inertiajs/inertia-react"
-import Comment from "../../Components/Card/Comment"
 import CardProduct from "../../Components/Card/CardProduct"
 import CardUser from '../../Components/Card/CardUser'
 import Parallax from "../../Components/Parallax"
 import { presentationStyle } from "../../Style/component/presentationStyle"
 
-const Home = ({ users, posts, postUrl, products, productUrl, auth, avatar, avatarUrl }) => {
+const Home = ({ users, posts, postUrl, products, productUrl, auth, avatar, avatarUrl, existProfiles }) => {
   
   const classes = presentationStyle()
 
@@ -37,7 +36,13 @@ const Home = ({ users, posts, postUrl, products, productUrl, auth, avatar, avata
 
           </Grid>
           <Grid item sm={3} md={2}>
-            <img style={{ width: '250px', height: '250px', borderRadius: '15px', boxShadow: '0px 3px 6px rgba(100, 116, 139, 0.12)' }} src='/img/exemple.jpg' alt='this is an exemple NFT' />
+            <img 
+              style={{ 
+                width: '250px', 
+                height: '250px', 
+                borderRadius: '15px', 
+                boxShadow: '0px 3px 6px rgba(100, 116, 139, 0.12)' }} 
+              src='/img/exemple.jpg' alt='this is an exemple NFT' />
           </Grid>
         </Grid>
       </Parallax>
@@ -60,14 +65,20 @@ const Home = ({ users, posts, postUrl, products, productUrl, auth, avatar, avata
           ))}
         </Grid>
 
-        <Container sx={{ mt: '50px', mb: '50px', background: 'linear-gradient(to right, #283593, #5c6bc0)', width: '100%' }}>
+        <Container 
+          sx={{ 
+            mt: '50px', 
+            mb: '50px', 
+            background: 'linear-gradient(to right, #283593, #5c6bc0)', 
+            width: '100%' }}>
           <Typography variant='h3' className={classes.title}>Top of artists</Typography>
           <Grid container spacing={2}>
-            {users.map(user => {
-              const avatar = ''
+            {existProfiles.map(artist => {
+              const user = findUserById(artist.user_id)
+
               return (
                 <Grid item xs={12} sm={6} md={4} lg={3}>
-                  <CardUser user={user} avatar={avatar} />
+                  <CardUser user={user} avatar={`${avatarUrl}/${artist.avatar}`} />
                 </Grid>
               )
             })}
@@ -87,7 +98,6 @@ const Home = ({ users, posts, postUrl, products, productUrl, auth, avatar, avata
           </Grid>
         </Container>
         <Container>
-          <Comment />
         </Container>
       </Container>
     </Box>

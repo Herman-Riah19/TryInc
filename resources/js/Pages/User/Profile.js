@@ -28,7 +28,13 @@ const Profile = ({ user, profile, auth, products, productUrl, profileAvatarUrl,p
         <Container sx={{ mb: 10 }}>
           <div className={classes.banner} style={{backgroundImage: `url(${profileBannerUrl}/${profile.banner})`}} >
             <div className={classes.avatar}>
-              <Avatar alt={user.username} sx={{ boxShadow:"0 10px 30px -12px rgba(0, 0, 0, 0.42)", width: '100px', height: '100px' }} src={`${profileAvatarUrl}/${profile.avatar}`} />
+              <Avatar 
+                alt={user.username} 
+                sx={{ 
+                  boxShadow:"0 10px 30px -12px rgba(0, 0, 0, 0.42)", 
+                  width: '100px', 
+                  height: '100px' }} 
+                src={`${profileAvatarUrl}/${profile.avatar}`} />
             </div>
           </div>
           <Grid container>
