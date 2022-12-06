@@ -1,6 +1,7 @@
 import React from 'react'
 import {Box, Button, Container, Typography, TextField, MenuItem } from '@mui/material'
 import { usePage, useForm} from '@inertiajs/inertia-react'
+import Footer from '../../Components/Footer/Footer'
 
 const PostCreate = () => {
     const { categories } = usePage().props
@@ -74,6 +75,7 @@ const PostCreate = () => {
                 </Box>
 
             </Container>
+            <Footer />
         </Box>
     )
 }

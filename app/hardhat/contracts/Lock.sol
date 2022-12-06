@@ -4,31 +4,22 @@ pragma solidity ^0.8.9;
 // Import this file to use console.log
 import "hardhat/console.sol";
 
-contract Lock {
-    uint public unlockTime;
-    address payable public owner;
+struct Product {
+    mapping(address => uint) emmetter;
+    uint price;
+}
 
-    event Withdrawal(uint amount, uint when);
+contract ProductBuy {
+    mapping(uint => Product) product;
+    mapping(address => uint) public balance; 
 
-    constructor(uint _unlockTime) payable {
-        require(
-            block.timestamp < _unlockTime,
-            "Unlock time should be in the future"
-        );
+    event Sent(address owner, address receiver, uint amount);
 
-        unlockTime = _unlockTime;
-        owner = payable(msg.sender);
-    }
-
-    function withdraw() public {
-        // Uncomment this line to print a log in your terminal
-        // console.log("Unlock time is %o and block timestamp is %o", unlockTime, block.timestamp);
-
-        require(block.timestamp >= unlockTime, "You can't withdraw yet");
-        require(msg.sender == owner, "You aren't the owner");
-
-        emit Withdrawal(address(this).balance, block.timestamp);
-
-        owner.transfer(address(this).balance);
+    function sell(address receiver, uint keyProduct) public {
+        Product storage prod = product[keyProduct];
+        uint amount = prod.price;
+        balance[msg.sender] -= amount;
+        balance[receiver] += amount;
+        emit Sent(msg.sender, receiver, amount);
     }
 }

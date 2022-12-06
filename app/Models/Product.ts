@@ -30,7 +30,7 @@ export default class Product extends BaseModel {
   public isFree!: boolean
 
   @column()
-  public price!: number | null
+  public price!: number | 0
 
   @column()
   public asset!: string

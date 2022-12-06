@@ -2,9 +2,10 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Product from 'App/Models/Product'
 import User from 'App/Models/User'
 import Drive from '@ioc:Adonis/Core/Drive'
-import { string } from '@ioc:Adonis/Core/Helpers'
 import ProfileValidator from 'App/Validators/ProfileValidator'
 import Profile from 'App/Models/Profile'
+import { ProfileService } from 'App/Services/ProfileService'
+import AssetService from 'App/Services/AssetService'
 
 export default class ProfilesController {
   public async showProfile({ inertia, params, auth }: HttpContextContract) {
@@ -21,15 +22,21 @@ export default class ProfilesController {
     })
 
     const productUrl = await Drive.getUrl('./collections')
-    const profileAvatarUrl = await Drive.getUrl(`./avatar`)
     const profileBannerUrl = await Drive.getUrl(`./banner`)
+
+    const {
+      avatarUrl,
+      authenticateProfile,
+    } = await ProfileService.getAthenticateProfile(auth)
+
     return inertia.render('User/Profile', {
       user,
       profile,
       auth,
+      authenticateProfile,
       products,
       productUrl,
-      profileAvatarUrl,
+      avatarUrl,
       profileBannerUrl,
     })
   }
@@ -50,28 +57,13 @@ export default class ProfilesController {
   }
 
   public async edit({ request, response, session, auth }: HttpContextContract) {
-      const profile = await Profile.findBy('user_id', auth.user?.id)
+    const profile = await Profile.findBy('user_id', auth.user?.id)
 
-      const avatarFile = await request.file('avatar')
-      if (avatarFile) {
-        const avatarName = string.generateRandom(32) + '.' + avatarFile.extname
-        await avatarFile.moveToDisk(`./avatar/`, {
-          name: avatarName,
-        })
-        profile.avatar = avatarName
-      }
+    profile.avatar = await AssetService.uploadProfileFile(request, auth.user?.username, 'avatar')
+    profile.banner = await AssetService.uploadProfileFile(request, auth.user?.username, 'banner')
 
-      const bannerFile = await request.file('banner')
-      if (bannerFile) {
-        const bannerName = string.generateRandom(32) + '.' + bannerFile.extname
-        await bannerFile.moveToDisk(`./banner/`, {
-          name: bannerName,
-        })
-        profile.banner = bannerName
-      }
-
-      const data = await request.validate(ProfileValidator)
-      await profile.merge({ ...data }).save()
+    const data = await request.validate(ProfileValidator)
+    await profile.merge({ ...data }).save()
 
     session.flash('success', 'Your profile is enter')
     return response.redirect(`/profile/${auth.user?.username}`)

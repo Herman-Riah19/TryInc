@@ -1,11 +1,13 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', 'HomeController.home').as('home')
+Route.get('/collection', 'HomeController.collection').as('collections')
+Route.get('/search', 'HomeController.search').as('search')
 Route.get('/post/create', 'PostsController.create').as('post.create').middleware('auth')
 Route.post('/post/create', 'PostsController.store').as('post.store').middleware('auth')
 
-Route.get('/login', 'UsersController.loginShow').as('user.login.show')
-Route.post('/login', 'UsersController.login').as('user.login')
+Route.get('/login', 'UsersController.loginShow').as('user.login')
+Route.post('/login', 'UsersController.login')
 Route.get('/register', 'UsersController.registerShow').as('user.register.show')
 Route.post('/register', 'UsersController.register').as('user.register')
 Route.get('/logout', 'UsersController.logout').as('user.logout')
@@ -19,6 +21,14 @@ Route.group(() => {
     Route.get('/show/:id', 'ProductsController.show').as('product.show')
     Route.get('/download/:id', 'ProductsController.download').as('product.download')
 }).prefix('/product')
+
+Route.group(() => {
+    Route.get('/', 'DashbordsController.showDashbord')
+    Route.group(() => {
+        Route.get('/create', 'CategoriesController.formCategorie')
+        Route.post('/create', 'CategoriesController.saveCategorie')
+    }).prefix('/categorie')
+}).prefix('/dashbord').middleware('auth')
 
 Route.group(()=> {
     Route.get('/:username', 'ProfilesController.showProfile').as('profile.show')

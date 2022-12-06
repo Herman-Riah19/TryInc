@@ -8,10 +8,9 @@ const CardUser = ({ user, avatar }) => {
     <Card 
       sx={{ 
         m: '12px', 
-        background: 'linear-gradient(to right, #052644, #102048)', 
-        color: 'white', 
+        color: '#000', 
         borderRadius: '20px' }}>
-      <Link href={`/profile/${username}`} style={{color: 'white', textDecoration: 'none'}}>
+      <Link href={`/profile/${username}`} style={{color: '#000', textDecoration: 'none'}}>
         <CardHeader
           sx={{p: '5px', m:'5px'}}
           avatar={

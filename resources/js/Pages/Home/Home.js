@@ -2,15 +2,44 @@ import React from "react"
 import { Box, Grid, Container, Button, Typography } from '@mui/material'
 import Navbar from "../../Components/MenuBar/Navbar"
 import CardPost from "../../Components/Card/CardPost"
-import { Link } from "@inertiajs/inertia-react"
 import CardProduct from "../../Components/Card/CardProduct"
 import CardUser from '../../Components/Card/CardUser'
 import Parallax from "../../Components/Parallax"
-import { presentationStyle } from "../../Style/component/presentationStyle"
+import Footer from "../../Components/Footer/Footer"
+import CardCategorie from "../../Components/Card/CardCategorie"
+import { makeStyles } from '@mui/styles';
 
-const Home = ({ users, posts, postUrl, products, productUrl, auth, avatar, avatarUrl, existProfiles }) => {
-  
-  const classes = presentationStyle()
+const useStyle = makeStyles(() => ({
+  section: {
+    position: 'relative',
+    width: 'auto',
+    bgcolor: 'white',
+    margin: '50px'
+  },
+  title: {
+    position: 'relative',
+    fontSize: '32px',
+  },
+  userSection: {
+    mt: '50px',
+    mb: '50px',
+    width: 'auto'
+  }
+}))
+const Home = ({
+  users,
+  posts,
+  postUrl,
+  products,
+  productUrl,
+  categories,
+  categorieUrl,
+  auth,
+  authenticateProfile,
+  avatarUrl,
+  existProfiles }) => {
+
+  const classes = useStyle()
 
   const findUserById = (index) => {
     let user = new Object()
@@ -23,7 +52,7 @@ const Home = ({ users, posts, postUrl, products, productUrl, auth, avatar, avata
 
   return (
     <Box>
-      <Navbar auth={auth} avatar={`${avatarUrl}/${avatar}`}/>
+      <Navbar auth={auth} authAvatar={authenticateProfile ? `${avatarUrl}/${authenticateProfile.avatar}` : null} />
       <Parallax filter image='/img/parallax.jpg'>
         <Grid container sx={{ zIndex: '1', m: '25px' }}>
           <Grid item sm={12} md={8}>
@@ -35,26 +64,22 @@ const Home = ({ users, posts, postUrl, products, productUrl, auth, avatar, avata
             </Typography>
 
           </Grid>
-          <Grid item sm={3} md={2}>
-            <img 
-              style={{ 
-                width: '250px', 
-                height: '250px', 
-                borderRadius: '15px', 
-                boxShadow: '0px 3px 6px rgba(100, 116, 139, 0.12)' }} 
-              src='/img/exemple.jpg' alt='this is an exemple NFT' />
-          </Grid>
         </Grid>
       </Parallax>
-      <Container sx={{ position: 'absolute', height: '100%', bgcolor: 'white', borderRadius: '15px' }}>
-        {auth.guards.web.isLoggedIn && (
-          <Grid spacing={2} columns={{ xs: 4, md: 12 }} sx={{ margin: '25px' }}>
-            <Link href="/product/create" style={{textDecoration: 'none'}}>
-              <Button variant="contained">Publish new Product</Button>
-            </Link>
-          </Grid>
-        )}
-        <Grid container spacing={2} columns={{ xs: 4, md: 12 }}>
+
+      <Container class={classes.section}>
+        <Typography variant='h3' class={classes.title}>Browse by category</Typography>
+        <Grid container spacing={2} columns={{ xs: 2, md: 12 }}>
+          {categories.map(categ => (
+            <Grid item xs={4} md={4}>
+              <CardCategorie name={categ.name} slug={categ.slug} asset={`${categorieUrl}/${categ.asset}`} />
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+
+      <Container class={classes.section}>
+        <Grid container spacing={4} columns={{ xs: 4, md: 12 }}>
           {posts.map(post => (
             <Grid item xs={4} md={4}>
               <CardPost
@@ -65,13 +90,8 @@ const Home = ({ users, posts, postUrl, products, productUrl, auth, avatar, avata
           ))}
         </Grid>
 
-        <Container 
-          sx={{ 
-            mt: '50px', 
-            mb: '50px', 
-            background: 'linear-gradient(to right, #283593, #5c6bc0)', 
-            width: '100%' }}>
-          <Typography variant='h3' className={classes.title}>Top of artists</Typography>
+        <Container class={classes.userSection}>
+          <Typography variant='h3' class={classes.title}>Top of artists</Typography>
           <Grid container spacing={2}>
             {existProfiles.map(artist => {
               const user = findUserById(artist.user_id)
@@ -84,8 +104,8 @@ const Home = ({ users, posts, postUrl, products, productUrl, auth, avatar, avata
             })}
           </Grid>
         </Container>
-        <Container>
-          <Typography variant="h3" sx={classes.title}>All pictures </Typography>
+        <Container class={classes.userSection}>
+          <Typography variant="h3" class={classes.title}>All pictures </Typography>
           <Grid container spacing={2}>
             {products.map(product => {
               const user = findUserById(product.artiste_id)
@@ -100,8 +120,10 @@ const Home = ({ users, posts, postUrl, products, productUrl, auth, avatar, avata
         <Container>
         </Container>
       </Container>
+      <Footer />
     </Box>
   )
 }
 
 export default Home
+

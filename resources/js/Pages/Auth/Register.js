@@ -77,7 +77,7 @@ const Register = () => {
               required
               fullWidth
               id="username"
-              label="Username"
+              placeholder="Username"
               name="username"
               autoComplete="username"
               value={data.username}
@@ -89,7 +89,7 @@ const Register = () => {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              placeholder="Email Address"
               name="email"
               autoComplete="email"
               type="email"
@@ -98,7 +98,6 @@ const Register = () => {
               autoFocus
               onChange={handleChange}/>
             <FormControl sx={{ mt: 2, mb: 2 , width: '100%'}}variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
               <OutlinedInput
                 id="password"
                 name="password"
@@ -118,10 +117,10 @@ const Register = () => {
                     </IconButton>
                   </InputAdornment>
                 }
-                label="Password"
+                placeholder="Password"
               />
             </FormControl>
-            <Button type="submit" fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>Register</Button>
+            <Button type="submit" fullWidth variant='contained' color='secondary' sx={{ mt: 3, mb: 2 }}>Register</Button>
             <Grid container>
               <Grid item>
                 <Link href="/login">

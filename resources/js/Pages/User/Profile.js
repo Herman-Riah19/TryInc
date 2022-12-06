@@ -6,10 +6,11 @@ import TabImage from '../../Components/TabImage'
 import profileStyle from '../../Style/ProfileStyle'
 import { MoreVert, PersonAdd, Share } from '@mui/icons-material'
 import { Link } from '@inertiajs/inertia-react'
+import Footer from '../../Components/Footer/Footer'
 
 const useStyle = makeStyles(profileStyle)
 
-const Profile = ({ user, profile, auth, products, productUrl, profileAvatarUrl,profileBannerUrl }) => {
+const Profile = ({ user, profile, auth, authenticateProfile, products, productUrl, avatarUrl, profileBannerUrl }) => {
   const classes = useStyle()
 
   const [moreMenu, setMoreMenu] = useState(null);
@@ -23,7 +24,7 @@ const Profile = ({ user, profile, auth, products, productUrl, profileAvatarUrl,p
   };
   return (
     <Box>
-      <Navbar auth={auth} avatar={`${profileAvatarUrl}/${profile.avatar}`}/>
+      <Navbar auth={auth} authAvatar={authenticateProfile ? `${avatarUrl}/${authenticateProfile.avatar}` : null}/>
       <Box sx={{ mt: 5 }}>
         <Container sx={{ mb: 10 }}>
           <div className={classes.banner} style={{backgroundImage: `url(${profileBannerUrl}/${profile.banner})`}} >
@@ -34,17 +35,25 @@ const Profile = ({ user, profile, auth, products, productUrl, profileAvatarUrl,p
                   boxShadow:"0 10px 30px -12px rgba(0, 0, 0, 0.42)", 
                   width: '100px', 
                   height: '100px' }} 
-                src={`${profileAvatarUrl}/${profile.avatar}`} />
+                src={`${avatarUrl}/${profile.avatar}`} />
             </div>
           </div>
           <Grid container>
             <Grid item xs={7} sm={8} md={9}>
-              <Typography variant='h6'>{user.username}</Typography>
+              <Typography variant='h6'>
+                  {profile ? (
+                    <>
+                      {profile.lastname} {profile.firstname}
+                    </>
+                  ): user.username}
+              </Typography>
+              <Typography variant='paragraph'> {profile.biography} </Typography>
+              <Typography variant='body2'> {profile.company} </Typography>
             </Grid>
             <Grid item xs={4} sm={4} md={2}>
               <ButtonGroup variant='outlined'>
-                <Button variant='contained' endIcon={<PersonAdd />}>Follow</Button>
-                <IconButton>
+                <Button variant='contained' color='secondary' sx={{color:'white'}} endIcon={<PersonAdd />}>Follow</Button>
+                <IconButton variant='contained' color='secondary'>
                   <Share />
                 </IconButton>
                 {auth.guards.web.isLoggedIn && (
@@ -53,6 +62,8 @@ const Profile = ({ user, profile, auth, products, productUrl, profileAvatarUrl,p
                       id='more-button'
                       aria-controls={MoreButtonOpen ? 'basic-menu' : undefined}
                       aria-haspopup="true"
+                      color='secondary'
+                      variant='contained'
                       aria-expanded={MoreButtonOpen ? 'true' : undefined}
                       onClick={handleMoreButtonClick}>
                       <MoreVert />
@@ -66,7 +77,7 @@ const Profile = ({ user, profile, auth, products, productUrl, profileAvatarUrl,p
                         'aria-labelledby': 'basic-button',
                       }}>
                       <MenuItem>
-                        <Link href={`/profile/edit/${user.id}`} style={{textDecoration: 'none', color: 'black'}}>
+                        <Link href={`/profile/edit/${user.id}`} style={{textDecoration: 'none', color: 'white'}}>
                           <Typography variant='p' sx={{ textDecoration: 'none' }}>Edit</Typography>
                         </Link>
                       </MenuItem>
@@ -85,6 +96,7 @@ const Profile = ({ user, profile, auth, products, productUrl, profileAvatarUrl,p
             productUrl={productUrl} />
         </Container>
       </Box>
+      <Footer />
     </Box>
   )
 }

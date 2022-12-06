@@ -72,7 +72,7 @@ const Login = () => {
               required
               fullWidth
               id="uid"
-              label="Your Email Address"
+              placeholder="Your Email Address"
               name="uid"
               autoComplete="uid"
               value={data.uid}
@@ -81,7 +81,6 @@ const Login = () => {
               onChange={handleChange}
             />
             <FormControl sx={{ width: '100%' }} variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
               <OutlinedInput
                 id="password"
                 name="password"
@@ -101,7 +100,7 @@ const Login = () => {
                     </IconButton>
                   </InputAdornment>
                 }
-                label="Password"
+                placeholder="Password"
               />
             </FormControl>
             <FormControlLabel
@@ -116,6 +115,7 @@ const Login = () => {
               type="submit"
               fullWidth
               variant="contained"
+              color='secondary'
               sx={{ mt: 3, mb: 2 }}
             >
               Sign In

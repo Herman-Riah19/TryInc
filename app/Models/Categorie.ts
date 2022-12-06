@@ -11,6 +11,9 @@ export default class Categorie extends BaseModel {
   
   @column()
   public slug!: string
+
+  @column()
+  public asset!: string
   
   @hasMany(() => Product)
   public products!: HasMany<typeof Product>

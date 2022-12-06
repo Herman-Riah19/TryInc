@@ -4,23 +4,25 @@ import Post from "App/Models/Post";
 import Product from "App/Models/Product";
 import User from "App/Models/User";
 import Profile from "App/Models/Profile";
+import { ProfileService } from "App/Services/ProfileService";
+import Categorie from '../../Models/Categorie';
 
 export default class HomeController {
-  async home({ inertia, auth }: HttpContextContract) {
+  public async home({ inertia, auth }: HttpContextContract) {
     const posts = await Post.all();
-    const products = await Product.all();
-    const users = await User.all();
     const postUrl = await Drive.getUrl("./post");
+
+    const products = await Product.all();
     const productUrl = await Drive.getUrl("./collections");
 
-    let avatar = null
-    const avatarUrl = await Drive.getUrl("./avatar");
-    if (auth.isAuthenticated) {
-      const profile = await Profile.findBy("user_id", auth.user?.id);
-      avatar = profile?.avatar;
-    }
+    const users = await User.all();
 
-    const existProfiles = await Profile.all()
+    const categories = await Categorie.all();
+    const categorieUrl = await Drive.getUrl('./Categories');
+
+    const { avatarUrl, authenticateProfile } = await ProfileService.getAthenticateProfile(auth);
+
+    const existProfiles = await Profile.all();
 
     return inertia.render("Home/Home", {
       users,
@@ -28,10 +30,36 @@ export default class HomeController {
       postUrl,
       products,
       productUrl,
+      categories,
+      categorieUrl,
       auth,
-      avatar,
+      authenticateProfile,
       avatarUrl,
       existProfiles
     });
+  }
+
+  public async collection({inertia, auth}: HttpContextContract) {
+    const { avatarUrl, authenticateProfile } = await ProfileService.getAthenticateProfile(auth);
+    const users = await User.all();
+
+    const products = await Product.all();
+    const productUrl = await Drive.getUrl("./collections");
+    return inertia.render('Home/Collections', { auth,avatarUrl, authenticateProfile, products, productUrl, users })
+  }
+
+  public async search({ inertia, request, auth }: HttpContextContract) {
+    const { avatarUrl, authenticateProfile } = await ProfileService.getAthenticateProfile(auth);
+
+    const products = await Product.query().whereRaw(
+      'MATCH (name, description)',
+      request.input('keyWord')
+    );
+
+    const productUrl = await Drive.getUrl("./collections");
+
+    const users = await User.all();
+
+    return inertia.render('Home/Search', { auth, avatarUrl, authenticateProfile, products, productUrl, users })
   }
 }

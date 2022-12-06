@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import { Box, Grid, Container, TextField, Button, AppBar, Toolbar, IconButton, Typography, Divider } from '@mui/material'
 import { Link, useForm } from '@inertiajs/inertia-react'
 import { ArrowBack, PhotoCamera } from '@mui/icons-material'
+import Footer from '../../Components/Footer/Footer'
 
-const EditUser = ({ user, profile, auth }) => {
-    const [userAvatar, setUserAvatar] = useState('')
-    const [userBanner, setUserBanner] = useState('')
+const EditUser = ({ user, profile, auth, profileAvatarUrl, profileBannerUrl }) => {
+    const [userAvatar, setUserAvatar] = useState(``)
+    const [userBanner, setUserBanner] = useState(``)
 
     const { data, setData, errors } = useForm({
         avatar: '',
@@ -21,9 +22,7 @@ const EditUser = ({ user, profile, auth }) => {
         youtubeUrl: profile.youtube_url,
     })
 
-    console.log(data.facebookUrl)
-
-    const readFileUser = (event) => {
+    const readFileUser = async (event) => {
         const fileReader = new FileReader()
         if (event.target.id === 'avatar') {
             fileReader.onload = () => {
@@ -31,14 +30,14 @@ const EditUser = ({ user, profile, auth }) => {
                     setUserAvatar(fileReader.result)
                 }
             }
-            fileReader.readAsDataURL(event.target.files[0])
+            await fileReader.readAsDataURL(event.target.files[0])
         } else if (event.target.id === 'banner') {
             fileReader.onload = () => {
                 if (fileReader.readyState === 2) {
                     setUserBanner(fileReader.result)
                 }
             }
-            fileReader.readAsDataURL(event.target.files[0])
+            await fileReader.readAsDataURL(event.target.files[0])
         }
     }
 
@@ -63,7 +62,7 @@ const EditUser = ({ user, profile, auth }) => {
                     </Link>
                 </Toolbar>
             </AppBar>
-            <Container sx={{ mt: 10 }}>
+            <Container sx={{ mt: 10, height:'100%' }}>
                 <form method='post' action={`/profile/edit/${auth.guards.web.user.id}`} encType="multipart/form-data">
                     <Typography variant='h4' sx={{ textAlign: 'center', m: 5 }}>Edit the user account</Typography>
                     <Grid container spacing={4} sx={{ mb: 3, ml: 5, mr: 5, mt: '5px' }}>
@@ -197,6 +196,7 @@ const EditUser = ({ user, profile, auth }) => {
                                 onChange={handleChange} />
                         </Grid>
                     </Grid>
+                    <Divider />
                     <Grid container spacing={4} sx={{ mb: 3, ml: 5, mr: 5, mt: '5px' }}>
                         <Grid item md={4}>
                             <Typography variant='h6'>Social Media</Typography>
@@ -248,9 +248,10 @@ const EditUser = ({ user, profile, auth }) => {
                                 onChange={handleChange} />
                         </Grid>
                     </Grid>
-                    <Button type="submit" fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>Register</Button>
+                    <Button type="submit" fullWidth variant='contained' color='secondary' sx={{ mt: 3, mb: 2 }}>Register</Button>
                 </form>
             </Container>
+            <Footer />
         </Box>
     )
 }
