@@ -50,12 +50,3 @@ const Categories = (props) => {
 }
 
 export default Categories
-
-/**
- * 15 * 6 000
- * 1 * 20 000: Boky => Teneno ilay izy, Ambarao ilay Izy, Raiso ilay izy 
- * 20 000
- * 5 * 6 000: TBP
- * 3 * 5 000 : Fiderana
- * 20 000: Montre
- */
