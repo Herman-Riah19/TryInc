@@ -24,18 +24,14 @@ export default class HomeController {
 
     const existProfiles = await Profile.all();
 
-    return inertia.render("Home/Home", {
-      users,
-      posts,
-      postUrl,
-      products,
-      productUrl,
-      categories,
-      categorieUrl,
-      auth,
-      authenticateProfile,
-      avatarUrl,
-      existProfiles
+    const bannerUrl = await Drive.getUrl('./banner');
+
+    return inertia.render("Home/Home", { 
+      users, auth, authenticateProfile, 
+      avatarUrl, bannerUrl, existProfiles,
+      posts, postUrl, 
+      products, productUrl, 
+      categories, categorieUrl, 
     });
   }
 
@@ -52,14 +48,50 @@ export default class HomeController {
     const { avatarUrl, authenticateProfile } = await ProfileService.getAthenticateProfile(auth);
 
     const products = await Product.query().whereRaw(
-      'MATCH (name, description)',
-      request.input('keyWord')
+            `name = '${request.input('keyWord')}'`
     );
 
     const productUrl = await Drive.getUrl("./collections");
 
     const users = await User.all();
 
-    return inertia.render('Home/Search', { auth, avatarUrl, authenticateProfile, products, productUrl, users })
+    return inertia.render('Home/Search', { auth, avatarUrl, authenticateProfile, products, productUrl, users });
+  }
+
+  public async artistList({ inertia, auth }: HttpContextContract) {
+    const { avatarUrl, authenticateProfile } = await ProfileService.getAthenticateProfile(auth);
+    const artists = await User.all();
+    const profiles = await Profile.all();
+    const bannerUrl = await Drive.getUrl('./banner');
+
+    return inertia.render("Home/ArtistList",{ auth, avatarUrl, authenticateProfile, artists, profiles, bannerUrl });
+  }
+
+  public async categorieList({ inertia, auth, params }: HttpContextContract) {
+    const { avatarUrl, authenticateProfile } = await ProfileService.getAthenticateProfile(auth);
+
+    const categories = await Categorie.all();
+    const categorieUrl = await Drive.getUrl('./Categories');
+
+    const categorie = await Categorie.findBy('name', params.name.replace('_',' '))
+
+    const products = Array<Product>()
+    const allProducts = await Product.all()
+    allProducts.map((prod) => {
+      if(prod.categorieId == categorie?.id) {
+        products.push(prod)
+      }
+    })
+
+    const productUrl = await Drive.getUrl("./collections");
+
+    const artists = await User.all();
+
+    return inertia.render("Home/Categories", {
+      auth, avatarUrl, authenticateProfile,
+      categorie, categories, categorieUrl,
+      products, productUrl,
+      artists
+    });
   }
 }

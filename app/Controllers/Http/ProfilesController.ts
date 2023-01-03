@@ -59,11 +59,11 @@ export default class ProfilesController {
   public async edit({ request, response, session, auth }: HttpContextContract) {
     const profile = await Profile.findBy('user_id', auth.user?.id)
 
-    profile.avatar = await AssetService.uploadProfileFile(request, auth.user?.username, 'avatar')
-    profile.banner = await AssetService.uploadProfileFile(request, auth.user?.username, 'banner')
+    profile!.avatar = await AssetService.uploadProfileFile(request, auth.user?.username, 'avatar')
+    profile!.banner = await AssetService.uploadProfileFile(request, auth.user?.username, 'banner')
 
     const data = await request.validate(ProfileValidator)
-    await profile.merge({ ...data }).save()
+    await profile!.merge({ ...data }).save()
 
     session.flash('success', 'Your profile is enter')
     return response.redirect(`/profile/${auth.user?.username}`)

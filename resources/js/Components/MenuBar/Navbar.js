@@ -19,7 +19,7 @@ const Navbar = ({ auth, authAvatar }) => {
     },
     {
       title: 'Artists',
-      link: '/',
+      link: '/artist-list',
     },
     {
       title: 'Create',

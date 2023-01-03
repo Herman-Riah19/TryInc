@@ -3,6 +3,8 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/', 'HomeController.home').as('home')
 Route.get('/collection', 'HomeController.collection').as('collections')
 Route.get('/search', 'HomeController.search').as('search')
+Route.get('/artist-list', 'HomeController.artistList').as('artist.list')
+Route.get('/categorie/:name', 'HomeController.categorieList').as('categorie.list')
 Route.get('/post/create', 'PostsController.create').as('post.create').middleware('auth')
 Route.post('/post/create', 'PostsController.store').as('post.store').middleware('auth')
 
@@ -24,9 +26,11 @@ Route.group(() => {
 
 Route.group(() => {
     Route.get('/', 'DashbordsController.showDashbord')
+    Route.get('/collections', 'DashbordsController.collections')
+    Route.delete('/collections/:id', 'DashbordsController.deleteProduct').as('dash.product.delete')
     Route.group(() => {
-        Route.get('/create', 'CategoriesController.formCategorie')
-        Route.post('/create', 'CategoriesController.saveCategorie')
+        Route.get('/create', 'DashbordsController.createCategorie')
+        Route.post('/create', 'DashbordsController.saveCategorie')
     }).prefix('/categorie')
 }).prefix('/dashbord').middleware('auth')
 

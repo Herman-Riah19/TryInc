@@ -41,6 +41,7 @@ export default class ProductsController {
   async show({ inertia, params, auth }: HttpContextContract) {
     const product = await Product.findBy('id', params.id)
     const assetUrl = await Drive.getUrl('./collections')
+    
     const artist = await User.findBy('id', product?.artisteId)
     const profile = await Profile.findBy('user_id', artist?.id)
 

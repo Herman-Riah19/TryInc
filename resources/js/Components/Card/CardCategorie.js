@@ -1,22 +1,18 @@
 import React from 'react'
 import { Card, CardActionArea, CardActions, CardContent, CardMedia, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import { Link } from '@inertiajs/inertia-react'
 
 const useStyle = makeStyles(() => ({
     cardBody: {
         boxSizing: 'border-box',
         overflow: 'hidden',
         inset: '0px',
-        height: '250px',
     },
     cardMedia: {
         objectFit: 'cover',
-        height: '0',
-        minHeight: '100%',
-        maxHeight: '100%',
-        width: '0',
-        minWidth: '100%',
-        maxWidth: '100%',
+        height: '100px',
+        width: '100%'
     },
     cardFooter: {
         height: '50px',
@@ -29,21 +25,24 @@ const useStyle = makeStyles(() => ({
         textAlign: 'center',
     },
 }))
-const CardCategorie = ({ name, slug, asset }) => {
+const CardCategorie = ({ categorie, categorieUrl }) => {
     const classes = useStyle()
+    const categorieName = categorie.name.replace(' ','_')
     return (
         <Card>
             <CardActionArea>
-                <CardContent class={classes.cardBody}>
-                    <CardMedia
-                        component='img'
-                        class={classes.cardMedia}
-                        image={asset}
-                        alt={slug} />
-                </CardContent>
+                <Link href={`/categorie/${categorieName}`}>
+                    <CardContent class={classes.cardBody}>
+                        <CardMedia
+                            component='img'
+                            class={classes.cardMedia}
+                            image={`${categorieUrl}/${categorie.asset}`}
+                            alt={categorie.slug} />
+                    </CardContent>
+                </Link>
             </CardActionArea>
             <CardActions class={classes.cardFooter}>
-                <Typography variant="h3" class={classes.cardTitle}>{name}</Typography>
+                <Typography variant="h3" class={classes.cardTitle}>{categorie.name}</Typography>
             </CardActions>
         </Card>
     )

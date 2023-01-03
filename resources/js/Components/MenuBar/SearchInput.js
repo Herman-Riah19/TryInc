@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled, alpha } from '@mui/material/styles';
-import { InputBase } from '@mui/material';
+import { Button, InputBase } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useForm } from '@inertiajs/inertia-react';
 
@@ -38,10 +38,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
+      width: '20ch',
     },
   },
 }));
@@ -64,9 +61,6 @@ const SearchInput = () => {
 
   return (
     <Search action='/search' method='get'>
-      <SearchIconWrapper>
-        <SearchIcon />
-      </SearchIconWrapper>
       <StyledInputBase
         type='search'
         id='keyWord'
@@ -76,6 +70,11 @@ const SearchInput = () => {
         placeholder="Search…"
         inputProps={{ 'aria-label': 'search' }}
       />
+      <Button type='submit'>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+      </Button>
     </Search>
   )
 }

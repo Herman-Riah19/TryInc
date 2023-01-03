@@ -49,10 +49,6 @@ const TabImage = ({ products, username, productUrl }) => {
                         icon={<Info />}
                         iconPosition="start"
                         label='About' />
-                    <Tab
-                        icon={<Foundation />}
-                        iconPosition="start"
-                        label='Illustration' />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>

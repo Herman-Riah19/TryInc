@@ -6,6 +6,7 @@ import CardProduct from "../../Components/Card/CardProduct"
 const Search = (props) => {
     const { auth, avatarUrl, authenticateProfile, products, productUrl, users } = props
 
+    console.log(products)
     const findUserById = (index) => {
         let user = new Object()
         users.map((data) => {
@@ -14,6 +15,8 @@ const Search = (props) => {
         })
         return user
     }
+
+    const user = findUserById(products.artiste_id)
 
 
     return (
@@ -25,14 +28,9 @@ const Search = (props) => {
                 <Divider />
 
                 <Grid container spacing={2}>
-                    {products.map(product => {
-                        const user = findUserById(product.artiste_id)
-                        return (
                             <Grid item xs={12} sm={6} md={4} lg={3}>
-                                <CardProduct product={product} username={user.username} url={productUrl} />
+                                <CardProduct product={products} username={user.username} url={productUrl} />
                             </Grid>
-                        )
-                    })}
                 </Grid>
             </Container>
         </Box>
