@@ -15,13 +15,16 @@ const useStyle = makeStyles(() => ({
         width: '100%'
     },
     cardFooter: {
-        height: '50px',
+        height: '25px',
         padding: '0px',
+        m: '0',
         alignItems: 'center'
     },
     cardTitle: {
+        position: 'relative',
+        top: '-15px',
+        color: '#fff',
         fontSize: '22px',
-        marginTop: '15px',
         textAlign: 'center',
     },
 }))

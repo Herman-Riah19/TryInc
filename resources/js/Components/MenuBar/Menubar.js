@@ -5,7 +5,7 @@ import { Menu, Notifications, Settings } from '@mui/icons-material'
 
 const Menubar = () => {
   return (
-    <AppBar sx={{ backgroundColor: 'white', boxShadow: 'none' }}>
+    <AppBar sx={{ boxShadow: 'none' }}>
       <Toolbar sx={{ p: '0' }}>
         <Typography variant='h6'>Trinkx</Typography>
         <Box sx={{ flexGrow: 1 }}>

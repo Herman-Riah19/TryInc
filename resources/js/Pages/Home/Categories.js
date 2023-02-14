@@ -1,9 +1,18 @@
 import React from 'react';
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { Box, Container, Grid } from '@mui/material';
 import Navbar from '../../Components/MenuBar/Navbar';
-import SidebarHome from '../../Components/MenuBar/SidebarHome';
 import CardProduct from "../../Components/Card/CardProduct";
+import Title from '../../Components/Title';
+import CardCategorie from '../../Components/Card/CardCategorie';
 import Footer from '../../Components/Footer/Footer';
+
+const style = {
+    section: {
+        position: 'relative',
+        width: 'auto',
+        margin: '10px'
+    },
+}
 
 const Categories = (props) => {
     const { auth, avatarUrl, authenticateProfile, categorie, categories, categorieUrl, products, productUrl, artists } = props;
@@ -20,31 +29,30 @@ const Categories = (props) => {
     return (
         <Box>
             <Navbar auth={auth} authAvatar={authenticateProfile ? `${avatarUrl}/${authenticateProfile.avatar}` : null} />
-            <Grid container sx={{mt:'75px', height: "50rem"}}>
-                <Grid item sx={(theme) => ({
-                    [theme.breakpoints.up('xs')]: { display: 'none' },
-                    [theme.breakpoints.up('md')]: { display: 'block' }
-                })}
-                    xs={0} sm={0} md={3} lg={3}>
-                    <SidebarHome categories={categories} categorieUrl={categorieUrl} />
-                </Grid>
-                <Grid item xs={12} sm={12} md={9} lg={9}>
-                    <Container>
-                        <Typography variant='h5' >List of {categorie.name} style</Typography>
-                        <Grid container spacing={2}>
-                            {products.map(product => {
-                                const user = findUserById(product.artiste_id)
-                                return (
-                                    <Grid item xs={12} sm={5} md={4} lg={3}>
-                                        <CardProduct product={product} username={user.username} url={productUrl} />
-                                    </Grid>
-                                )
-                            })}
-                        </Grid>
-                    </Container>
-                </Grid>
-            </Grid>
-            <Footer />
+            <Container sx={{ mt: '100px'}}>
+                <Container sx={style.section}>
+                    <Grid container spacing={2} columns={{ xs: 2, md: 12 }}>
+                        {categories.map(categ => (
+                            <Grid item xs={3} md={3}>
+                                <CardCategorie categorie={categ} categorieUrl={categorieUrl} />
+                            </Grid>
+                        ))}
+                    </Grid>
+                </Container>
+                <Container sx={style.section}>
+                    <Grid container spacing={2}>
+                        {products.map(product => {
+                            const user = findUserById(product.artiste_id)
+                            return (
+                                <Grid item xs={12} sm={4} md={4} lg={4}>
+                                    <CardProduct product={product} username={user.username} url={productUrl} />
+                                </Grid>
+                            )
+                        })}
+                    </Grid>
+                </Container>
+            </Container>
+            <Footer auth={auth} />
         </Box>
     )
 }

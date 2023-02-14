@@ -5,36 +5,37 @@ const theme = createTheme ({
   breakpoints: {
     values: {
       xs: 0,
-      sm: 600,
-      md: 1000,
+      sm: 768,
+      md: 1024,
       lg: 1280,
       xl: 1920
     }
   },
   palette: {
     primary: {
-      main: '#00ccff',
+      main: '#35414c',
     },
     secondary: {
-      main: '#00cdff',
+      main: '#008eff',
     },
     warning: {
-      main: '#F34040',
+      main: '#f87070',
     },
     success: {
-      main: '#3D50FF',
+      main: '#00cd5c',
     },
     background: {
-      default: '#ffffff',
-      paper: '#f8f9fa'
+      default: '#2a3036',
+      paper: '#35414c',
     },
     error: {
       main: red.A400,
     },
     divider: '#19174b',
     text: {
-      primary: '#000',
-      secondary: '#5EC6B8',
+      primary: '#fff',
+      secondary: '#c7d4e1',
+      thirdy: '#c7d4e1'
     },
   },
   typography: {
@@ -43,7 +44,7 @@ const theme = createTheme ({
       'Poppins',
       'Nunito',
     ].join(','),
-    color: '#ffffff',
+    color: '#fff',
     fontWeightLight: 400,
     fontWeightRegular: 500,
     fontWeightMedium: 600,

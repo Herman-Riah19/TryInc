@@ -1,14 +1,29 @@
 import React, { useState } from 'react'
 import { Link, useForm } from '@inertiajs/inertia-react'
-import { Box, Grid, Typography, Avatar, TextField, FormControlLabel, FormControl, InputLabel, OutlinedInput, Checkbox, Button, Paper, InputAdornment, IconButton, Container } from '@mui/material'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Avatar, Box, Container, IconButton, InputAdornment, Checkbox, FormControl, FormControlLabel, InputLabel, OutlinedInput, TextField, Typography, Button, Grid, FormHelperText } from '@mui/material'
+import { LockClockOutlined, Visibility, VisibilityOff } from '@mui/icons-material'
+
+const style = {
+  form: {
+    mt: 10,
+    padding: 5,
+    borderRadius: '5px',
+    boxShadow: '5px 5px 10px #8ea5d9',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    zIndex: 1
+  },
+  avatar: {
+    margin: 1,
+    bgcolor: 'secondary.main'
+  }
+}
 
 const Login = () => {
-  const { data, setData, errors } = useForm({
+  const { data, setData, errors} = useForm({
     uid: '',
-    password: '',
+    password: '', 
     rememberMe: false
   })
 
@@ -32,62 +47,31 @@ const Login = () => {
   }
 
   return (
-    <Grid container component='main' sx={{ height: '100vh' }}>
-      <Grid item xs={false} sm={4} md={7}
-        sx={{
-          backgroundImage: 'url(/img/login_banner.jpg)',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}>
-        <Container sx={{ m: 10 }}>
-          <Typography component='h2' sx={{ color: 'white', fontSize: '50px' }}>
-            Welcome to Hidroid!
-          </Typography>
-          <Typography component='h4' sx={{ color: 'white', fontSize: '50px' }}>
-            Let's Login
-          </Typography>
-
-        </Container>
-      </Grid>
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <Box
-          sx={{
-            my: 8,
-            mx: 4,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1 }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <Box component="form" method='post' sx={{ mt: 1 }}>
+      <Container component='main' maxWidth='xs'>
+        <Box sx={style.form}>
+          <Avatar sx={style.avatar}> <LockClockOutlined /> </Avatar>
+          <Typography component='h1' variant='h5'>Sign in</Typography>
+          <Box component='form' method='post'>
             <TextField
               margin="normal"
-              required
               fullWidth
               id="uid"
-              placeholder="Your Email Address"
+              label="Email Address"
               name="uid"
               autoComplete="uid"
-              value={data.uid}
-              helperText={errors.uid}
               autoFocus
-              onChange={handleChange}
+              value={data.uid}
+              onChange={handleChange} 
+              error={errors?.uid}
+              helperText={errors?.uid && errors?.uid}
             />
-            <FormControl sx={{ width: '100%' }} variant="outlined">
+
+            <FormControl error={errors?.password} sx={{ width: '100%' }} variant="outlined">
+              <InputLabel htmlFor="password">Password</InputLabel>
               <OutlinedInput
                 id="password"
                 name="password"
                 type={showPassword ? 'text' : 'password'}
-                value={data.password}
-                helperText={errors.password}
-                onChange={handleChange}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -100,8 +84,13 @@ const Login = () => {
                     </IconButton>
                   </InputAdornment>
                 }
-                placeholder="Password"
+                label="Password"
+                value={data.password}
+                onChange={handleChange} 
               />
+              <FormHelperText sx={{color: 'red'}}>
+                {errors?.password && errors?.password.message}
+                </FormHelperText>
             </FormControl>
             <FormControlLabel
               control={
@@ -111,17 +100,11 @@ const Login = () => {
                   color="primary" />}
               label="Remember me"
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color='secondary'
-              sx={{ mt: 3, mb: 2 }}
-            >
+            <Button type="submit" fullWidth variant="contained" color='secondary' sx={{ mt: 3, mb: 2 }} >
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs>
+              <Grid item lg={12}>
                 <Link href="/">
                   Forgot password?
                 </Link>
@@ -134,8 +117,7 @@ const Login = () => {
             </Grid>
           </Box>
         </Box>
-      </Grid>
-    </Grid>
+      </Container>
   )
 }
 

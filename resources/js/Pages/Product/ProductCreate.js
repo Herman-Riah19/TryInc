@@ -3,7 +3,6 @@ import { Box, Button, Container, Typography, TextField, MenuItem, AppBar, Toolba
 import { useForm, Link } from '@inertiajs/inertia-react'
 import { PhotoCamera, ArrowBack } from '@mui/icons-material'
 import { makeStyles } from '@mui/styles'
-import Footer from '../../Components/Footer/Footer'
 
 const useStyle = makeStyles(() => ({
   btnUpload: {
@@ -157,12 +156,11 @@ const ProductCreate = ({ categories }) => {
                 )}
               </Grid>
             </Grid>
-            <Button sx={{ mt: 5 }} type='submit' variant="contained" fullWidth>Save</Button>
+            <Button sx={{ mt: 5 }} type='submit' variant="contained" color='secondary' fullWidth>Save</Button>
           </form>
         </Box>
 
       </Container>
-      <Footer />
     </Box>
   )
 }

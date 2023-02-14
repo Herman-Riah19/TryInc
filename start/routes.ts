@@ -5,9 +5,7 @@ Route.get('/collection', 'HomeController.collection').as('collections')
 Route.get('/search', 'HomeController.search').as('search')
 Route.get('/artist-list', 'HomeController.artistList').as('artist.list')
 Route.get('/categorie/:name', 'HomeController.categorieList').as('categorie.list')
-Route.get('/post/create', 'PostsController.create').as('post.create').middleware('auth')
-Route.post('/post/create', 'PostsController.store').as('post.store').middleware('auth')
-
+Route.get('/post/:title', 'PostsController.show').as('post.show')
 Route.get('/login', 'UsersController.loginShow').as('user.login')
 Route.post('/login', 'UsersController.login')
 Route.get('/register', 'UsersController.registerShow').as('user.register.show')
@@ -32,6 +30,10 @@ Route.group(() => {
         Route.get('/create', 'DashbordsController.createCategorie')
         Route.post('/create', 'DashbordsController.saveCategorie')
     }).prefix('/categorie')
+    Route.group(() => {
+        Route.get('/create', 'PostsController.create').as('post.create')
+        Route.post('/create', 'PostsController.store').as('post.store')
+    }).prefix('/post')
 }).prefix('/dashbord').middleware('auth')
 
 Route.group(()=> {

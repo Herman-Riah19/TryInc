@@ -14,10 +14,6 @@ const Navbar = ({ auth, authAvatar }) => {
       link: '/collection',
     },
     {
-      title: 'NFT',
-      link: '/',
-    },
-    {
       title: 'Artists',
       link: '/artist-list',
     },
@@ -50,22 +46,15 @@ const Navbar = ({ auth, authAvatar }) => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar color='default' >
+      <AppBar >
         <Toolbar sx={{ p: '0' }}>
           <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-            <Link href='/' style={{ textDecoration: 'none', color: '#000'}}>
+            <Link href='/' style={{ textDecoration: 'none', color:'#fff'}}>
               Trink
             </Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
+            <IconButton size="large" aria-label="account of current user" aria-controls="menu-appbar" aria-haspopup="true" onClick={handleOpenNavMenu}>
               <MenuIcon />
             </IconButton>
             <Menu
@@ -88,7 +77,7 @@ const Navbar = ({ auth, authAvatar }) => {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Link href={page.link} style={{ textDecoration: 'none', color: '#000'}}>
+                  <Link href={page.link} style={{ textDecoration: 'none', color:'#fff'}}>
                     {page.title}
                   </Link>
                 </MenuItem>
@@ -101,9 +90,9 @@ const Navbar = ({ auth, authAvatar }) => {
                 key={page}
                 onClick={handleCloseNavMenu}
                 variant='text'
-                sx={{ m: 2, display: 'block', color:'#000' }}
+                sx={{ m: 2, display: 'block', color: '#fff' }}
               >
-                <Link href={page.link} style={{ textDecoration: 'none',}}>
+                <Link href={page.link} style={{ textDecoration: 'none', color:'#fff',}}>
                   {page.title}
                 </Link>
               </Button>
@@ -143,22 +132,22 @@ const Navbar = ({ auth, authAvatar }) => {
                   open={Boolean(anchorE)}
                   onClose={handleClose}
                   sx={{ mt: '50px', p: '10px' }}>
-                  <Link href={`/profile/${auth.guards.web.user.username.replace(' ', '_')}`} style={{ color: '#000e', textDecoration: 'none' }}>
+                  <Link href={`/profile/${auth.guards.web.user.username.replace(' ', '_')}`} style={{ textDecoration: 'none', color:'#fff' }}>
                     <MenuItem> <Person sx={{ mr: '10px', width: '20px' }} /> Profile</MenuItem>
                   </Link>
-                  <MenuItem onClick={handleClose}> <Settings sx={{ mr: '10px', width: '20px' }} /> Setting</MenuItem>
-                  <Link href='/logout' style={{ textDecoration: 'none' }}>
+                  <MenuItem onClick={handleClose} sx={{color: '#fff' }}> <Settings sx={{ mr: '10px', width: '20px'}} /> Setting</MenuItem>
+                  <Link href='/logout' style={{ textDecoration: 'none', color:'#fff' }}>
                     <MenuItem> <Logout sx={{ mr: '10px', width: '20px' }} /> Logout</MenuItem>
                   </Link>
                 </Menu>
               </Box>
             ) : (
               <Box>
-                <Link href='/login' style={{ textDecoration: 'none' }}>
-                  <Button sx={{ marginLeft:'5px', color:'#fff' }} variant='contained' color='secondary'>Login</Button>
+                <Link href='/login' style={{ textDecoration: 'none', color:'#fff' }}>
+                  <Button sx={{ marginLeft:'5px', color:'#fff', borderRadius: '10px 0px 10px 0px' }} variant='contained' color='secondary'>Login</Button>
                 </Link>
                 <Link href='/register' style={{ textDecoration: 'none' }}>
-                  <Button sx={{ marginLeft:'5px' }} variant='contained' color='warning'>Register</Button>
+                  <Button sx={{ marginLeft:'5px', color:'#fff', borderRadius: '10px 0px 10px 0px' }} variant='contained' color='warning' >Register</Button>
                 </Link>
               </Box>
             )}

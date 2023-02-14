@@ -96,7 +96,7 @@ const Profile = ({ user, profile, auth, authenticateProfile, products, productUr
             productUrl={productUrl} />
         </Container>
       </Box>
-      <Footer />
+      <Footer auth={auth}/>
     </Box>
   )
 }

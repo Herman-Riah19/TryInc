@@ -39,9 +39,12 @@ export default class HomeController {
     const { avatarUrl, authenticateProfile } = await ProfileService.getAthenticateProfile(auth);
     const users = await User.all();
 
+    const categories = await Categorie.all();
+    const categorieUrl = await Drive.getUrl('./Categories');
+
     const products = await Product.all();
     const productUrl = await Drive.getUrl("./collections");
-    return inertia.render('Home/Collections', { auth,avatarUrl, authenticateProfile, products, productUrl, users })
+    return inertia.render('Home/Collections', { auth,avatarUrl, authenticateProfile,categories, categorieUrl, products, productUrl, users })
   }
 
   public async search({ inertia, request, auth }: HttpContextContract) {

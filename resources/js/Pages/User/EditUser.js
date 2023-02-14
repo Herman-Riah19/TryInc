@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Box, Grid, Container, TextField, Button, AppBar, Toolbar, IconButton, Typography, Divider } from '@mui/material'
 import { Link, useForm } from '@inertiajs/inertia-react'
 import { ArrowBack, PhotoCamera } from '@mui/icons-material'
-import Footer from '../../Components/Footer/Footer'
 
 const EditUser = ({ user, profile, auth, profileAvatarUrl, profileBannerUrl }) => {
     const [userAvatar, setUserAvatar] = useState(``)
@@ -62,10 +61,10 @@ const EditUser = ({ user, profile, auth, profileAvatarUrl, profileBannerUrl }) =
                     </Link>
                 </Toolbar>
             </AppBar>
-            <Container sx={{ mt: 10, height:'100%' }}>
+            <Container sx={{ mt: 10, height:'100%', color: '#000'  }}>
                 <form method='post' action={`/profile/edit/${auth.guards.web.user.id}`} encType="multipart/form-data">
                     <Typography variant='h4' sx={{ textAlign: 'center', m: 5 }}>Edit the user account</Typography>
-                    <Grid container spacing={4} sx={{ mb: 3, ml: 5, mr: 5, mt: '5px' }}>
+                    <Grid container spacing={4} sx={{ mb: 3, ml: 5, mr: 5, mt: '5px', color: '#000'}}>
                         <Grid item md={4}>
                             <Typography variant='h5'>Presentation</Typography>
                         </Grid>
@@ -251,7 +250,6 @@ const EditUser = ({ user, profile, auth, profileAvatarUrl, profileBannerUrl }) =
                     <Button type="submit" fullWidth variant='contained' color='secondary' sx={{ mt: 3, mb: 2 }}>Register</Button>
                 </form>
             </Container>
-            <Footer />
         </Box>
     )
 }

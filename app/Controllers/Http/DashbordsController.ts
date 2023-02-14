@@ -63,7 +63,7 @@ export default class DashbordsController {
   }
 
   public async editProduct({ inertia, auth }: HttpContextContract) {
-    return inertia.render('Dashbord/EditProduct', {})
+    return inertia.render('Dashbord/EditProduct', {auth})
   }
 
   public async deleteProduct({ params, response }: HttpContextContract) {

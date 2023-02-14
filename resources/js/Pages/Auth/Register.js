@@ -1,10 +1,24 @@
 import React, { useState } from 'react'
 import { useForm, Link } from '@inertiajs/inertia-react'
-import { Box, Grid, Container, Typography, Avatar, TextField, FormControl, InputLabel, InputAdornment, IconButton, OutlinedInput, Button } from '@mui/material'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Box, Grid, Container, Typography, Avatar, TextField, FormControl, InputLabel, InputAdornment, IconButton, OutlinedInput, FormHelperText, Button } from '@mui/material'
+import { LockClockOutlined, Visibility, VisibilityOff } from '@mui/icons-material'
 
+const style = {
+  form: {
+    mt: 10,
+    padding: 5,
+    borderRadius: '5px',
+    boxShadow: '5px 5px 10px #8ea5d9',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    zIndex: 1
+  },
+  avatar: {
+    margin: 1,
+    bgcolor: 'secondary.main'
+  }
+}
 const Register = () => {
   const { data, setData, errors } = useForm({
     username: '',
@@ -32,79 +46,45 @@ const Register = () => {
   }
 
   return (
-    <Grid container component='main' sx={{ height: '100vh' }}>
-      <Grid item xs={false} sm={4} md={7}
-        sx={{
-          backgroundImage: 'url("/img/login_banner.jpg")',
-          backgroundRepeat: 'no-repeat',
-          backgroundColor: (t) =>
-            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
-        }}>
-        <Container sx={{m: 10}}>
-          <Typography 
-            component='h2' 
-            sx={{color: 'white', fontSize: '50px'}}>
-              Welcome to Hidroid!
-          </Typography>
-          <Typography 
-            component='h4' 
-            sx={{color: 'white', fontSize: '50px'}}>
-              Let's Login
-          </Typography>
-        </Container>
-      </Grid>
-      <Grid item xs={12} sm={8} md={5} >
-        <Box
-          sx={{
-            my: 8,
-            mx: 4,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1 }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Register
-          </Typography>
-          <Box component="form" method='post' sx={{ mt: 1 }}>
+    <Container component='main' maxWidth='xs'>
+        <Box sx={style.form}>
+          <Avatar sx={style.avatar}> <LockClockOutlined /> </Avatar>
+          <Typography component='h1' variant='h5'>Register</Typography>
+          <Box component='form' method='post'>
             <TextField
               margin="normal"
-              required
               fullWidth
               id="username"
-              placeholder="Username"
+              label="Enter your name"
               name="username"
               autoComplete="username"
-              value={data.username}
-              errors={errors.username}
               autoFocus
-              onChange={handleChange} />
+              value={data.username}
+              onChange={handleChange} 
+              error={errors?.username}
+              helperText={errors?.username && errors?.username}
+            />
+
             <TextField
               margin="normal"
-              required
               fullWidth
               id="email"
-              placeholder="Email Address"
+              label="Email Address"
               name="email"
               autoComplete="email"
-              type="email"
-              value={data.email}
-              errors={errors.email}
               autoFocus
-              onChange={handleChange}/>
-            <FormControl sx={{ mt: 2, mb: 2 , width: '100%'}}variant="outlined">
+              value={data.email}
+              onChange={handleChange} 
+              error={errors?.email}
+              helperText={errors?.email && errors?.email}
+            />
+
+            <FormControl error={errors?.password} sx={{ width: '100%' }} variant="outlined">
+              <InputLabel htmlFor="password">Password</InputLabel>
               <OutlinedInput
                 id="password"
                 name="password"
                 type={showPassword ? 'text' : 'password'}
-                value={data.password}
-                errors={errors.password}
-                onChange={handleChange}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -117,21 +97,27 @@ const Register = () => {
                     </IconButton>
                   </InputAdornment>
                 }
-                placeholder="Password"
+                label="Password"
+                value={data.password}
+                onChange={handleChange} 
               />
+              <FormHelperText sx={{color: 'red'}}>
+                {errors?.password && errors?.password}
+                </FormHelperText>
             </FormControl>
-            <Button type="submit" fullWidth variant='contained' color='secondary' sx={{ mt: 3, mb: 2 }}>Register</Button>
+            <Button type="submit" fullWidth variant="contained" color='secondary' sx={{ mt: 3, mb: 2 }} >
+              Register
+            </Button>
             <Grid container>
               <Grid item>
                 <Link href="/login">
-                  {"Already have a account? Sign In"}
+                  {"Already have an account. Sign in"}
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-      </Grid>
-    </Grid>
+      </Container>
   )
 }
 

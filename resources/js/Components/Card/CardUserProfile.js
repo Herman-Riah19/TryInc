@@ -14,7 +14,8 @@ const style = {
         height: '100px'
     },
     username: {
-        textTransform: 'capitalize'
+        textTransform: 'capitalize',
+        color: '#fff'
     }
 }
 const CardUserProfile = (props) => {
@@ -23,7 +24,7 @@ const CardUserProfile = (props) => {
     return (
         <Card>
             <CardActionArea>
-                <Link href={`/profile/${user.username}`}>
+                <Link href={`/profile/${user.username.split(' ').join('_')}`}>
                     <CardMedia
                         component="img"
                         image={`${bannerUrl}/${profile.banner}`}

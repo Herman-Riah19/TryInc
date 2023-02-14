@@ -1,52 +1,57 @@
 import React from 'react'
-import { Card, CardActionArea, CardActions, Typography, CardMedia, Button } from '@mui/material'
+import { Card, CardActionArea, CardActions, Typography, CardMedia, Button, Box, CardContent } from '@mui/material'
 import { Link } from "@inertiajs/inertia-react"
-import { makeStyles } from '@mui/styles'
+import { Comment, Favorite } from '@mui/icons-material'
 
-const useStyle = makeStyles((theme) => ({
+const classes = {
     card: {
-        backgroundColor: '#0000',
-        marginTop: '120px'
+        marginTop: '50px',
     },
     img: {
         height: '300px'
     },
-    cardAction: {
+    cardContent: {
+        display: 'flex',
+        margin: 0,
         justifyContent: 'space-between',
         textDecoration: 'none',
     },
+    cardAction: {
+        justifyContent: 'space-between'
+    },
     title: {
         fontWeight: 700,
-        fontStyle: 'bold'
+        margin: '12px',
+        fontStyle: 'bold',
+        color: '#fff'
+    },
+    button: {
+        color: 'white',
+        margin: '10px',
+        height: '25px'
     }
-}))
+}
 
 const CardProduct = ({ product, username, url }) => {
-    const classes = useStyle()
     return (
         <Card sx={classes.card}>
             <CardActionArea>
                 <Link href={`/product/show/${product.id}`}>
                     <CardMedia
                         component="img"
-                        className={classes.img}
+                        sx={classes.img}
                         image={`${url}/${username}/${product.asset}`}
                         alt={product.title} />
                 </Link>
-                <CardActions className={classes.cardAction}>
-                    <Typography variant='body2' className={classes.title}>
+                <CardContent sx={classes.cardContent}>
+                    <Typography variant='body' sx={classes.title}>
                         {product.name}
                     </Typography>
-                    {product.price != 0 && (
-                        <Button
-                            variant='contained'
-                            color='secondary'
-                            sx={{ color: '#FFF' }}
-                            endIcon={<img src='/logos_ethereum.png' style={{ width: '15px' }} />}>
-                            {product.price}
-                        </Button>
-                    )}
-                </CardActions>
+                    <Button variant='contained' color='secondary' sx={classes.button}
+                        startIcon={<img src='/logos_ethereum.png' style={{ width: '10px' }} />}>
+                        {product.price}
+                    </Button>
+                </CardContent>
             </CardActionArea>
         </Card>
     )

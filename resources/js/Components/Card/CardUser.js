@@ -3,7 +3,7 @@ import { Avatar, Card, CardHeader, Typography } from '@mui/material'
 import React from 'react'
 
 const CardUser = ({ user, avatar }) => {
-  const username = user.username.replace(' ', '_')
+  const username = user.username.split(' ').join('_')
   return (
     <Card 
       sx={{ 
@@ -20,7 +20,7 @@ const CardUser = ({ user, avatar }) => {
               src={avatar} />
           }
           title={user.username}
-          subheader={<Typography variant='small'>{user.email}</Typography>} />
+          subheader={<Typography variant='small' color='text.thirdy'>{user.email}</Typography>} />
       </Link>
     </Card>
   )

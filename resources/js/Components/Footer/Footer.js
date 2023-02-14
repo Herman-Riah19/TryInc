@@ -12,10 +12,12 @@ const useStyles = makeStyles(theme => ({
     paddingRight: 130
   },
   logoTitle: {
+    color: '#fff',
     marginTop: 26,
     fontSize: 24
   },
   logoSubTitle: {
+    color: '#fff',
     fontSize: 18
   },
   paper: {
@@ -25,10 +27,12 @@ const useStyles = makeStyles(theme => ({
     borderRadius: 50
   },
   title: {
+    color:'#fff',
     fontSize: 18,
     fontWeight: 800,
   },
   link: {
+    color:'text.secondary',
     paddingTop: '0.5rem',
     paddingBottom: '0.5rem',
     textDecoration: 'none',
@@ -41,16 +45,18 @@ const useStyles = makeStyles(theme => ({
     marginTop: 50,
   },
   footerText: {
+    color: '#fff',
     marginRight: 'auto'
   },
   footerLink: {
+    color: '#fff',
     fontSize: 14,
     textDecoration: 'none',
     transition: '.2s ease-in 0s',
   },
 }))
 
-const Footer = () => {
+const Footer = ({ auth }) => {
   const theme = useTheme()
   const classes = useStyles(theme)
 
@@ -84,10 +90,15 @@ const Footer = () => {
                 <Link href='/' className={classes.link}>
                   Home
                 </Link>
-                <Link href='/' className={classes.link}>
-                  Profile
+                {auth.guards.web.isLoggedIn && (
+                  <Link href={`/profile/${auth.guards.web.user.username.replace(' ', '_')}`} className={classes.link}>
+                    Profile
+                  </Link>
+                )}
+                <Link href={'/collection'} className={classes.link}>
+                  Collections
                 </Link>
-                <Link href='/' className={classes.link}>
+                <Link href={'/product/create'} className={classes.link}>
                   Create
                 </Link>
               </Grid>

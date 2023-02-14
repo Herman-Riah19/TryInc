@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { Box, Tabs, Tab, Typography, Grid } from '@mui/material'
 import ImageIcon from '@mui/icons-material/Image'
-import { Foundation, Info } from '@mui/icons-material'
+import { Info } from '@mui/icons-material'
 import AutoAwesomeMosaicIcon from '@mui/icons-material/AutoAwesomeMosaic'
 import CardProduct from './Card/CardProduct'
 
-function TabPanel(props) {
+export function TabPanel(props) {
     const { children, value, index, ...other } = props;
 
     return (
@@ -35,8 +35,15 @@ const TabImage = ({ products, username, productUrl }) => {
 
     return (
         <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider ' }}>
-                <Tabs value={value} textColor='white' onChange={handleChange} aria-label='Tabulation des images'>
+            <Box sx={{}}>
+                <Tabs
+                    value={value}
+                    indicatorColor="secondary"
+                    textColor='secondary'
+                    variant="scrollable"
+                    scrollButtons="auto"
+                    onChange={handleChange}
+                    aria-label='Tabulation des images'>
                     <Tab
                         icon={<ImageIcon />}
                         iconPosition="start"
@@ -44,7 +51,7 @@ const TabImage = ({ products, username, productUrl }) => {
                     <Tab
                         icon={<AutoAwesomeMosaicIcon />}
                         iconPosition="start"
-                        label='Collection' />
+                        label='Collection'/>
                     <Tab
                         icon={<Info />}
                         iconPosition="start"

@@ -9,7 +9,7 @@ import AssetService from 'App/Services/AssetService'
 
 export default class ProfilesController {
   public async showProfile({ inertia, params, auth }: HttpContextContract) {
-    const username = await params.username.replace('_', ' ')
+    const username = await params.username.split('_').join(' ')
     const user = await User.findBy('username', username)
     const profile = await Profile.findBy('user_id', user?.id)
 
@@ -68,8 +68,6 @@ export default class ProfilesController {
     session.flash('success', 'Your profile is enter')
     return response.redirect(`/profile/${auth.user?.username}`)
   }
-
-  public async update({}: HttpContextContract) {}
 
   public async destroy({}: HttpContextContract) {}
 }

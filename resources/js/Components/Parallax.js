@@ -13,6 +13,7 @@ const styles = {
         margin: "0",
         padding: "0",
         border: "0",
+        borderRadius: '10px',
         display: "flex",
         alignItems: "center",
     },
@@ -48,13 +49,7 @@ const Parallax = (props) => {
         [className]: className !== undefined,
     })
     return (
-        <div
-            className={parallaxClasses}
-            style={{
-                ...style,
-                backgroundImage: "url(" + image + ")",
-            }}
-        >
+        <div className={parallaxClasses} style={{ ...style, backgroundImage: "url(" + image + ")" }} >
             {children}
         </div>
     )

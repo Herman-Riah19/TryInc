@@ -7,10 +7,8 @@ export default class PostValidator {
 
   public schema = schema.create({
     title: schema.string({ trim: true }, [rules.maxLength(100)]),
-    description: schema.string.optional({ trim: true }, [rules.maxLength(255)]),
-    body: schema.string.optional({ trim: true }, [rules.maxLength(255)]),
-    publishAtDate: schema.date.optional({ format: 'yyyy-MM-dd' }),
-		publishAtTime: schema.date.optional({ format: 'HH:mm' }),
+    description: schema.string.optional({ trim: true }),
+    body: schema.string.optional({ trim: true }),
   })
   public messages: CustomMessages = {}
 }

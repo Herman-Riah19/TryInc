@@ -2,6 +2,7 @@ import React from 'react'
 import { Box, Container, Divider, Grid, Typography } from '@mui/material'
 import Navbar from '../../Components/MenuBar/Navbar'
 import CardProduct from "../../Components/Card/CardProduct"
+import Footer from '../../Components/Footer/Footer'
 
 const Search = (props) => {
     const { auth, avatarUrl, authenticateProfile, products, productUrl, users } = props
@@ -28,11 +29,12 @@ const Search = (props) => {
                 <Divider />
 
                 <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6} md={4} lg={3}>
-                                <CardProduct product={products} username={user.username} url={productUrl} />
-                            </Grid>
+                    <Grid item xs={12} sm={6} md={4} lg={3}>
+                        <CardProduct product={products} username={user.username} url={productUrl} />
+                    </Grid>
                 </Grid>
             </Container>
+            <Footer auth={auth} />
         </Box>
     )
 }

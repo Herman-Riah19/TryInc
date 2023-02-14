@@ -1,5 +1,5 @@
 import { Button, ListItemIcon, ListItemText, MenuItem, MenuList, Toolbar } from '@mui/material'
-import { Category, Collections, Home, ManageAccounts, Menu } from '@mui/icons-material'
+import { Category, Collections, Home, ManageAccounts, Menu, PostAdd } from '@mui/icons-material'
 import React from 'react'
 import { Link } from '@inertiajs/inertia-react'
 
@@ -25,6 +25,16 @@ const Sidebar = () => {
                 <ListItemText>
                     <Link href={'/dashbord'}>
                         Dashboard
+                    </Link>
+                </ListItemText>
+            </MenuItem>
+            <MenuItem sx={itemActiveStyle}>
+                <ListItemIcon >
+                    <PostAdd />
+                </ListItemIcon>
+                <ListItemText>
+                    <Link href={'/dashbord/post/create'}>
+                        Post
                     </Link>
                 </ListItemText>
             </MenuItem>

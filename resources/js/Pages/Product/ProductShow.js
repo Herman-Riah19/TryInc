@@ -8,6 +8,8 @@ import Footer from '../../Components/Footer/Footer'
 
 const styles = makeStyles(() => ({
   imgShow: {
+    minWidth: '120px',
+    minHeight: '120px',
     maxWidth: '500px', 
     maxHeight: '500px', 
     borderRadius: '20px'
@@ -32,15 +34,15 @@ const ProductShow = ({ product, auth, assetUrl, artist, profile, avatarUrl, cate
   return (
     <Box>
       <Navbar auth={auth} authAvatar={authenticateProfile ? `${avatarUrl}/${authenticateProfile.avatar}` : null} />
-      <Container sx={{ marginTop: '80px' }}>
-        <Grid container spacing={2} columns={{ xs: 4, md: 12 }}>
-          <Grid item xs={4} md={5} sm={6}>
+      <Container sx={{ mt: '100px' }}>
+        <Grid container spacing={2}>
+          <Grid item sm={6} md={7} lg={6}>
             <img
               class={classes.imgShow}
               src={`${assetUrl}/${artist.username}/${product.asset}`}
               alt={product.name} />
           </Grid>
-          <Grid item xs={4} md={6} sm={6}>
+          <Grid item sm={12} md={5} lg={6}>
             <CardProductShow
               artiste={artist}
               avatar={`${avatarUrl}/${profile.avatar}`}
@@ -63,7 +65,7 @@ const ProductShow = ({ product, auth, assetUrl, artist, profile, avatarUrl, cate
           </Grid>
         </Box>
       </Container>
-      <Footer />
+      <Footer auth={auth}/>
     </Box>
   )
 }
