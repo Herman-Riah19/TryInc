@@ -133,8 +133,6 @@ export default function Home({
                     </Paper>
                 </Container>
 
-
-
                 <Container sx={style.section}>
                     <Title title='Top of picture' link='/collection' />
                     <Grid container spacing={2}>
