@@ -32,6 +32,9 @@ const style = {
         fontWeight: 700,
         color: '#fff',
         textTransform: 'capitalize'
+    },
+    userList: {
+        padding: 5, color: '#fff' 
     }
 }
 
@@ -109,7 +112,7 @@ export default function Home({
                 </Container>
 
                 <Container sx={style.section}>
-                    <Paper elevation={0} sx={{ padding: 5, color: '#fff' }}>
+                    <Paper elevation={0} sx={style.userList}>
                         <Title title='Top artist' link='/artist-list' />
                         <Grid container spacing={4} columns={{ xs: 4, md: 12 }}>
                             {users.map(artist => {
