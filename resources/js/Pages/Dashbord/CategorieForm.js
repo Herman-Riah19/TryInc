@@ -9,6 +9,7 @@ const DialogCreateCategory = () => {
 
     const { data, setData, errors } = useForm({
         name: '',
+        description: '',
         slug: '',
         asset: ''
     })
@@ -53,9 +54,21 @@ const DialogCreateCategory = () => {
                     minRows={5}
                     id='slug'
                     name='slug'
-                    errors={errors.name}
+                    errors={errors.slug}
                     placeholder='slug of your post'
                     value={data.slug}
+                    onChange={handleChange} />
+                <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    minRows={5}
+                    multiline
+                    id='description'
+                    name='description'
+                    errors={errors.description}
+                    placeholder='Description of your categorie'
+                    value={data.description}
                     onChange={handleChange} />
                 <Button
                     sx={{

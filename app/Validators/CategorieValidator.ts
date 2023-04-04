@@ -6,6 +6,7 @@ export default class CategorieValidator {
 
   public schema = schema.create({
     name: schema.string({ trim: true }, [rules.maxLength(100)]),
+    description: schema.string({ trim: true }),
     slug: schema.string({ trim: true }, [rules.maxLength(10)]),
   })
 

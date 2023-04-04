@@ -1,20 +1,23 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column, computed, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column, computed } from '@ioc:Adonis/Lucid/Orm'
 import { slugify } from '@ioc:Adonis/Addons/LucidSlugify'
 import User from './User'
 import Categorie from './Categorie'
-import Comment from './Comment'
 import State from 'App/Enums/Constants'
+import Collection from './Collection'
 
 export default class Product extends BaseModel {
   @column({ isPrimary: true })
   public id!: string
 
   @column()
-  public artisteId!: number
+  public userId!: number
 
   @column()
   public categorieId!: number
+  
+  @column()
+  public collectionId!: number
 
   @column()
   @slugify({
@@ -53,8 +56,8 @@ export default class Product extends BaseModel {
   @belongsTo(() => Categorie)
   public categorie!: BelongsTo<typeof Categorie>
 
-  @hasMany(() => Comment)
-  public comments!: HasMany<typeof Comment>
+  @belongsTo(() => Collection)
+  public collection!: BelongsTo<typeof Collection>
 
   @computed()
   public get isPublished(): boolean {

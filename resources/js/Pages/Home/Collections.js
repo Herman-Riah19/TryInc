@@ -75,7 +75,7 @@ const Collections = ({ auth, avatarUrl, authenticateProfile, categories, product
           <TabPanel value={value} index={0}>
             <Grid container spacing={2}>
               {products.map(product => {
-                const user = findUserById(product.artiste_id)
+                const user = findUserById(product.user_id)
                 return (
                   <Grid item xs={12} sm={6} md={4} lg={3}>
                     <CardProduct product={product} username={user.username} url={productUrl} />
@@ -92,7 +92,7 @@ const Collections = ({ auth, avatarUrl, authenticateProfile, categories, product
               <TabPanel value={value} index={key}>
                 <Grid container spacing={2}>
                   {productsInThisCategorie.map(product => {
-                    const user = findUserById(product.artiste_id)
+                    const user = findUserById(product.user_id)
                     return (
                       <Grid item xs={12} sm={6} md={4} lg={3}>
                         <CardProduct product={product} username={user.username} url={productUrl} />

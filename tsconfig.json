@@ -35,7 +35,8 @@
       "@adonisjs/lucid",
       "@eidellev/inertia-adonisjs",
       "@adonisjs/auth",
-      "@adonisjs/lucid-slugify"
+      "@adonisjs/lucid-slugify",
+      "adminjs-adonis"
     ],
     "target": "es2020",
     "module": "commonjs",

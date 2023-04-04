@@ -13,10 +13,10 @@ const theme = createTheme ({
   },
   palette: {
     primary: {
-      main: '#35414c',
+      main: '#fff',
     },
     secondary: {
-      main: '#008eff',
+      main: '#0094FF',
     },
     warning: {
       main: '#f87070',
@@ -25,8 +25,8 @@ const theme = createTheme ({
       main: '#00cd5c',
     },
     background: {
-      default: '#2a3036',
-      paper: '#35414c',
+      default: '#181A2D',
+      paper: '#212439',
     },
     error: {
       main: red.A400,
@@ -40,9 +40,7 @@ const theme = createTheme ({
   },
   typography: {
     fontSize: 12,
-    fontFamily: [
-      'Poppins',
-      'Nunito',
+    fontFamily: ['Inter','Nunito'
     ].join(','),
     color: '#fff',
     fontWeightLight: 400,
@@ -54,36 +52,44 @@ const theme = createTheme ({
       fontSize: '1rem',
     },
     h1: {
-      fontSize: 72, //theme.spacing(9)
+      fontFamily: 'Inter',
+      fontSize: 66, //theme.spacing(9)
       fontWeight: 900
     },
     h2: {
-      fontSize: 64, //theme.spacing(8)
+      fontFamily: 'Inter',
+      fontSize: 60, //theme.spacing(8)
       fontWeight: 900
     },
     h3: {
-      fontSize: 48, //theme.spacing(6)
-      fontWeight: 900
+      fontFamily: 'Inter',
+      fontSize: 51, //theme.spacing(6)
+      fontWeight: 800
     },
     h4: {
-      fontSize: 40, //theme.spacing(5)
-      fontWeight: 900
+      fontFamily: 'Inter',
+      fontSize: 32, //theme.spacing(5)
+      fontWeight: 700
     },
     h5: {
-      fontSize: 28, //theme.spacing(3.5)
-      fontWeight: 900
+      fontFamily: 'Inter',
+      fontSize: 25, //theme.spacing(3.5)
+      fontWeight: 600
     },
     h6: {
-      fontSize: 24, //theme.spacing(3)
-      fontWeight: 900
+      fontFamily: 'Inter',
+      fontSize: 20, //theme.spacing(3)
+      fontWeight: 500
     },
     body1: {
+      fontFamily: 'Nunito',
       fontWeight: 'normal',
-      fontSize: 16,
+      fontSize: 18,
     },
     body2: {
+      fontFamily: 'Nunito',
       fontWeight: 'normal',
-      fontSize: 14,
+      fontSize: 20,
     },
   },
   shape: {

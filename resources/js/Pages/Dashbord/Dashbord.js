@@ -5,7 +5,7 @@ import CardProduct from '../../Components/Card/CardProduct'
 import CardCategorie from '../../Components/Card/CardCategorie'
 
 const Dashbord = (props) => {
-    const { products, productUrl, users, categories, categorieUrl } = props
+    const { products, productUrl, users, categories, categorieUrl, auth } = props
 
     const findUserById = (index) => {
         let user = new Object()
@@ -17,24 +17,24 @@ const Dashbord = (props) => {
     }
 
     return (
-        <Container sx={{ m: '10px', width: 'auto' }}>
+        <Container sx={{ mt: '50px', width: 'auto' }}>
             <Container>
-                <Typography variant='h6'>Categories</Typography>
-                <Grid container spacing={2} columns={{ xs: 4, md: 8 }}>
+                <Typography variant='h4' sx={{m: 1}}>Categories</Typography>
+                <Grid container spacing={2}>
                     {categories.map(categ => (
-                        <Grid item xs={4} md={4}>
-                            <CardCategorie categorie={categ} categorieUrl={categorieUrl} />
+                        <Grid item xs={6} sm={4} md={3} lg={2}>
+                            <CardCategorie categorie={categ} categorieUrl={categorieUrl} auth={auth}/>
                         </Grid>
                     ))}
                 </Grid>
             </Container>
             <Container>
-                <Typography variant='h6'>Liste des Produits</Typography>
-                <Grid container spacing={2} sx={{maxWidth: 900}} columns={{ xs: 4, md: 8 }}>
+                <Typography variant='h4' sx={{m: 1}}>Liste des Produits</Typography>
+                <Grid container spacing={2}>
                     {products.map(product => {
-                        const user = findUserById(product.artiste_id)
+                        const user = findUserById(product.user_id)
                         return (
-                            <Grid item xs={12} sm={6} md={4} lg={3}>
+                            <Grid item xs={12} sm={6} md={5} lg={4}>
                                 <CardProduct product={product} username={user.username} url={productUrl} />
                             </Grid>
                         )

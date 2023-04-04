@@ -18,7 +18,7 @@ const ArtistList = ({ auth, avatarUrl, authenticateProfile, artists, profiles, b
       <Navbar auth={auth} authAvatar={authenticateProfile ? `${avatarUrl}/${authenticateProfile.avatar}` : null} />
       <Container sx={{ mt: '100px' }}>
         <Container sx={style.section}>
-          <Typography variant='h6'>All Artists</Typography>
+          <Typography variant='h4'>All Artists</Typography>
           <Grid container spacing={2}>
             {artists.map(artist => {
               let profile = new Object()
@@ -28,11 +28,13 @@ const ArtistList = ({ auth, avatarUrl, authenticateProfile, artists, profiles, b
               })
               return (
                 <Grid item xs={12} sm={6} md={4} lg={3}>
-                  <CardUserProfile
-                    user={artist}
-                    profile={profile}
-                    avatarUrl={avatarUrl}
-                    bannerUrl={bannerUrl} />
+                  {artist.role_id != 2 &&
+                    <CardUserProfile
+                      user={artist}
+                      profile={profile}
+                      avatarUrl={avatarUrl}
+                      bannerUrl={bannerUrl} />
+                  }
                 </Grid>
               )
             }

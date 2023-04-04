@@ -5,7 +5,7 @@ import classNames from 'classnames';
 const styles = {
     parallax: {
         height: "60vh",
-        maxHeight: "750px",
+        maxHeight: "500px",
         overflow: "hidden",
         position: "relative",
         backgroundPosition: "center center",

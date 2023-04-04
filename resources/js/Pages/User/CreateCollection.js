@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Box, Button, Container, Typography, TextField, MenuItem, AppBar, Toolbar, Grid } from '@mui/material'
-import { useForm, Link } from '@inertiajs/inertia-react'
+import { Box, Button, Container, Typography, TextField, AppBar, Toolbar, Grid } from '@mui/material'
 import { PhotoCamera, ArrowBack } from '@mui/icons-material'
+import { useForm, Link } from '@inertiajs/inertia-react'
 import { makeStyles } from '@mui/styles'
 
 const useStyle = makeStyles(() => ({
@@ -13,20 +13,13 @@ const useStyle = makeStyles(() => ({
     backgroundPosition: 'center',
   }
 }))
-
-const ProductCreate = ({ categories, auth }) => {
+const CreateCollection = ({ user }) => {
   const [imageFile, setImageFile] = useState('')
-
-  const classes = useStyle()
-
   const { data, setData, errors } = useForm({
-    name: '',
-    description: '',
-    isFree: false,
-    asset: '',
-    categorieId: 1,
+    collectionName: '',
+    collectionDescription: '',
+    collectionAsset: '',
   })
-
 
   const handleChange = async (event) => {
     const key = event.target.id;
@@ -42,14 +35,16 @@ const ProductCreate = ({ categories, auth }) => {
         setImageFile(fileReader.result)
       }
     }
-    await fileReader.readAsDataURL(key === 'asset' && event.target.files[0])
+    await fileReader.readAsDataURL(key === 'collectionAsset' && event.target.files[0])
   }
+
+  const classes = useStyle()
 
   return (
     <Box>
       <AppBar color='background'>
         <Toolbar>
-          <Link href={`/`}>
+          <Link href={`/profile/${user.username.split(' ').join('_')}`}>
             <Button variant='contained' color='primary' startIcon={<ArrowBack />}>
               Back
             </Button>
@@ -59,7 +54,7 @@ const ProductCreate = ({ categories, auth }) => {
       <Container component="main">
         <Box sx={{ marginTop: 8 }} >
           <Typography variant='h4' sx={{ textAlign: 'center' }}>
-            Create a new Product
+            Create a new Collection
           </Typography>
           <form method="post" encType="multipart/form-data">
             <Grid container spacing={2}>
@@ -71,14 +66,14 @@ const ProductCreate = ({ categories, auth }) => {
                   <input
                     margin="normal"
                     type="file"
-                    id='asset'
-                    name='asset'
+                    id='collectionAsset'
+                    name='collectionAsset'
                     accept='image/*'
-                    value={data.asset}
+                    value={data.collectionAsset}
                     onChange={handleChange}
                     style={{ position: 'absolute', opacity: 0, justifyContent: 'center' }} />
                   {!imageFile && <PhotoCamera />}
-                  <span>{errors.asset}</span>
+                  <span>{errors.collectionAsset}</span>
                 </Button>
               </Grid>
               <Grid item sm={6} md={8}>
@@ -87,44 +82,25 @@ const ProductCreate = ({ categories, auth }) => {
                   margin="normal"
                   required
                   fullWidth
-                  id='name'
-                  name='name'
-                  placeholder='Name of product'
-                  errors={errors.name}
-                  value={data.name}
+                  id='collectionName'
+                  name='collectionName'
+                  placeholder='Title of Collection'
+                  errors={errors.collectionName}
+                  value={data.collectionName}
                   onChange={handleChange} />
+
                 <TextField
                   margin="normal"
                   multiline
                   required
                   fullWidth
                   minRows={5}
-                  id='description'
-                  name='description'
-                  placeholder='Description of your product'
-                  errors={errors.description}
-                  value={data.description}
+                  id='collectionDescription'
+                  name='collectionDescription'
+                  placeholder='Description of your collection'
+                  errors={errors.collectionDescription}
+                  value={data.collectionDescription}
                   onChange={handleChange} />
-
-
-                <TextField
-                  margin='normal'
-                  fullWidth
-                  select
-                  required
-                  id='categorieId'
-                  name='categorieId'
-                  placeholder='Choose your categories type'
-                  value={data.categorieId}
-                  errors={errors.categorieId}
-                  onChange={e => setData('categorieId', parseInt(e.target.value))}>
-
-                  {categories.map(cat => (
-                    <MenuItem key={cat.id} value={cat.id}>
-                      {cat.name}
-                    </MenuItem>
-                  ))}
-                </TextField>
 
               </Grid>
             </Grid>
@@ -137,4 +113,4 @@ const ProductCreate = ({ categories, auth }) => {
   )
 }
 
-export default ProductCreate
+export default CreateCollection

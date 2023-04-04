@@ -14,7 +14,6 @@ const useStyles = makeStyles(theme => ({
   logoTitle: {
     color: '#fff',
     marginTop: 26,
-    fontSize: 24
   },
   logoSubTitle: {
     color: '#fff',
@@ -66,11 +65,11 @@ const Footer = ({ auth }) => {
         <Paper className={classes.paper} elevation={0}>
           <Grid container spacing={4}>
             <Grid item className={classes.logoBlock} xs={12} lg={6} direction='column' alignItems='flex-start'>
-              <Typography variant='h3' className={classes.logoTitle} paragraph>
+              <Typography variant='h1' className={classes.logoTitle} paragraph>
                 Trink
               </Typography>
               <Typography className={classes.logoSubTitle} variant="body1Semi" paragraph>
-                This is the new artiste platform to sell and buy an digital drawing using NFT technologie
+                This is the new artiste platform to share, present and at futur buy your art with the NFT technologie!
               </Typography>
             </Grid>
             <Grid container item xs={12} lg={6} spacing={4}>
@@ -95,8 +94,8 @@ const Footer = ({ auth }) => {
                     Profile
                   </Link>
                 )}
-                <Link href={'/collection'} className={classes.link}>
-                  Collections
+                <Link href={'/explores'} className={classes.link}>
+                  Explores
                 </Link>
                 <Link href={'/product/create'} className={classes.link}>
                   Create

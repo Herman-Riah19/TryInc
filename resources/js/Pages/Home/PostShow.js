@@ -5,6 +5,7 @@ import Parallax from '../../Components/Parallax'
 import Footer from "../../Components/Footer/Footer"
 
 const PostShow = ({ post, auth, posts, postUrl, avatarUrl, authenticateProfile }) => {
+  console.log(post)
   return (
     <Box>
       <Navbar auth={auth} authAvatar={authenticateProfile ? `${avatarUrl}/${authenticateProfile.avatar}` : null} />
@@ -15,9 +16,9 @@ const PostShow = ({ post, auth, posts, postUrl, avatarUrl, authenticateProfile }
           </Container>
         </Parallax>
         <Box sx={{ m: '50px' }}>
-          <Container>
-            <Typography variant='p'>{post.description}</Typography>
-            <Typography dangerouslySetInnerHTML={{ __html: post.body}} variant='body' />
+          <Container sx={{maxWidth: '1000px'}}>
+            <Typography dangerouslySetInnerHTML={{ __html: post.description}} variant='body2'/>
+            <Typography dangerouslySetInnerHTML={{ __html: post.body}} variant='body2' sx={{maxWidth: '1000px', m: 0}} />
           </Container>
         </Box>
       </Container>

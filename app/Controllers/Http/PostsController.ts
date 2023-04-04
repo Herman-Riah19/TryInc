@@ -18,7 +18,7 @@ export default class PostsController {
 
         const thumbnail = await request.file('postImage')
         if(thumbnail) {
-            const newName = string.generateRandom(32) + '.' + thumbnail.extname
+            const newName = `${string.generateRandom(32)}.${thumbnail.extname}`
             await thumbnail.moveToDisk('./post/', {name: newName})
             post.postImage = newName
         }
@@ -30,12 +30,21 @@ export default class PostsController {
     }
 
     public async show({ inertia, params, auth }: HttpContextContract) {
-        const post = await Post.findBy('title', params.title.split('_').join(' '))
+        const post = await Post.findBy('slug', params.slug)
         const posts = await Post.all()
         const postUrl = await Drive.getUrl("./post")
 
         const { avatarUrl, authenticateProfile } = await ProfileService.getAthenticateProfile(auth)
 
         return inertia.render('Home/PostShow', {post, auth, posts, postUrl, avatarUrl, authenticateProfile})
+    }
+
+    public async postList({ inertia, auth }: HttpContextContract) {
+        const posts = await Post.all()
+        const postUrl = await Drive.getUrl("./post")
+
+        const { avatarUrl, authenticateProfile } = await ProfileService.getAthenticateProfile(auth)
+
+        return inertia.render('Home/PostList', { auth, posts, postUrl, avatarUrl, authenticateProfile })
     }
 }

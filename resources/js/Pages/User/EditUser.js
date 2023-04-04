@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Box, Grid, Container, TextField, Button, AppBar, Toolbar, IconButton, Typography, Divider } from '@mui/material'
+import { Box, Grid, Container, TextField, Button, AppBar, Toolbar, Typography, Divider } from '@mui/material'
 import { Link, useForm } from '@inertiajs/inertia-react'
 import { ArrowBack, PhotoCamera } from '@mui/icons-material'
 
-const EditUser = ({ user, profile, auth, profileAvatarUrl, profileBannerUrl }) => {
+const EditUser = ({ user, profile, auth}) => {
     const [userAvatar, setUserAvatar] = useState(``)
     const [userBanner, setUserBanner] = useState(``)
 
@@ -55,16 +55,16 @@ const EditUser = ({ user, profile, auth, profileAvatarUrl, profileBannerUrl }) =
             <AppBar color='background'>
                 <Toolbar>
                     <Link href={`/profile/${user.username.replace(' ', '_')}`}>
-                        <IconButton variant='contained'>
-                            <ArrowBack />
-                        </IconButton>
+                        <Button variant='contained' color='primary' startIcon={<ArrowBack />}>
+                            Back
+                        </Button>
                     </Link>
                 </Toolbar>
             </AppBar>
-            <Container sx={{ mt: 10, height:'100%', color: '#000'  }}>
+            <Container sx={{ mt: 10, height: '100%', color: '#fff' }}>
                 <form method='post' action={`/profile/edit/${auth.guards.web.user.id}`} encType="multipart/form-data">
                     <Typography variant='h4' sx={{ textAlign: 'center', m: 5 }}>Edit the user account</Typography>
-                    <Grid container spacing={4} sx={{ mb: 3, ml: 5, mr: 5, mt: '5px', color: '#000'}}>
+                    <Grid container spacing={4} sx={{ mb: 3, ml: 5, mr: 5, mt: '5px', color: '#fff' }}>
                         <Grid item md={4}>
                             <Typography variant='h5'>Presentation</Typography>
                         </Grid>

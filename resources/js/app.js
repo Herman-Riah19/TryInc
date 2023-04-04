@@ -16,7 +16,7 @@ InertiaProgress.init({
 
 WebFont.load({
   google: {
-    families: ['Poppins', 'Nunito']
+    families: ['Inter', 'Nunito']
   }
 })
 

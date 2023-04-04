@@ -7,7 +7,6 @@ export default class LoginValidator {
   public schema = schema.create({
     uid: schema.string(),
     password: schema.string(),
-    remember_me: schema.boolean.optional()
   });
 
   public messages: CustomMessages = {

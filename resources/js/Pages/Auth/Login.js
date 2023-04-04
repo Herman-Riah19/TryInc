@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useForm } from '@inertiajs/inertia-react'
-import { Avatar, Box, Container, IconButton, InputAdornment, Checkbox, FormControl, FormControlLabel, InputLabel, OutlinedInput, TextField, Typography, Button, Grid, FormHelperText } from '@mui/material'
+import { Avatar, Box, Container, IconButton, InputAdornment, FormControl, InputLabel, OutlinedInput, TextField, Typography, Button, Grid, FormHelperText } from '@mui/material'
 import { LockClockOutlined, Visibility, VisibilityOff } from '@mui/icons-material'
 
 const style = {
@@ -23,8 +23,7 @@ const style = {
 const Login = () => {
   const { data, setData, errors} = useForm({
     uid: '',
-    password: '', 
-    rememberMe: false
+    password: '',
   })
 
   const [showPassword, setShowPassword] = useState(false)
@@ -92,20 +91,12 @@ const Login = () => {
                 {errors?.password && errors?.password.message}
                 </FormHelperText>
             </FormControl>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={data.rememberMe}
-                  onChange={handleChange}
-                  color="primary" />}
-              label="Remember me"
-            />
             <Button type="submit" fullWidth variant="contained" color='secondary' sx={{ mt: 3, mb: 2 }} >
               Sign In
             </Button>
             <Grid container>
               <Grid item lg={12}>
-                <Link href="/">
+                <Link href={`/login/forgot-password`}>
                   Forgot password?
                 </Link>
               </Grid>

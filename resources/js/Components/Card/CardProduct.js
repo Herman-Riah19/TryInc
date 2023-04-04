@@ -47,10 +47,6 @@ const CardProduct = ({ product, username, url }) => {
                     <Typography variant='body' sx={classes.title}>
                         {product.name}
                     </Typography>
-                    <Button variant='contained' color='secondary' sx={classes.button}
-                        startIcon={<img src='/logos_ethereum.png' style={{ width: '10px' }} />}>
-                        {product.price}
-                    </Button>
                 </CardContent>
             </CardActionArea>
         </Card>

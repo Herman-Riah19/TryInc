@@ -16,12 +16,12 @@ export default class ProfilesController {
     const products = Array<Product>()
     const allProducts = await Product.all()
     allProducts.map((prod) => {
-      if (prod.artisteId == user?.id) {
+      if (prod.userId == user?.id) {
         products.push(prod)
       }
     })
 
-    const productUrl = await Drive.getUrl('./collections')
+    const productUrl = await Drive.getUrl('./products')
     const profileBannerUrl = await Drive.getUrl(`./banner`)
 
     const {

@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { Box, Tabs, Tab, Typography, Grid } from '@mui/material'
+import { Box, Tabs, Tab, Typography, Grid, Button, Container } from '@mui/material'
 import ImageIcon from '@mui/icons-material/Image'
 import { Info } from '@mui/icons-material'
 import AutoAwesomeMosaicIcon from '@mui/icons-material/AutoAwesomeMosaic'
 import CardProduct from './Card/CardProduct'
+import { Link } from '@inertiajs/inertia-react'
 
 export function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -25,7 +26,7 @@ export function TabPanel(props) {
     );
 }
 
-const TabImage = ({ products, username, productUrl }) => {
+const TabImage = ({ products, username, profile, avatar, banner, productUrl }) => {
     const [value, setValue] = useState(0)
 
     const handleChange = (event, newValue) => {
@@ -34,7 +35,7 @@ const TabImage = ({ products, username, productUrl }) => {
     };
 
     return (
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: '100%', m: 0 }}>
             <Box sx={{}}>
                 <Tabs
                     value={value}
@@ -47,15 +48,18 @@ const TabImage = ({ products, username, productUrl }) => {
                     <Tab
                         icon={<ImageIcon />}
                         iconPosition="start"
-                        label='All' />
+                        label='All'
+                        sx={{ textTransform: 'capitalize' }} />
                     <Tab
                         icon={<AutoAwesomeMosaicIcon />}
                         iconPosition="start"
-                        label='Collection'/>
+                        label='Collection'
+                        sx={{ textTransform: 'capitalize' }} />
                     <Tab
                         icon={<Info />}
                         iconPosition="start"
-                        label='About' />
+                        label='About'
+                        sx={{ textTransform: 'capitalize' }} />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
@@ -70,13 +74,59 @@ const TabImage = ({ products, username, productUrl }) => {
                 </Grid>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                Item two
+                <Link href={'/profile/collection/new'}>
+                    <Button variant='contained' color='secondary'>
+                        Create a new Collection
+                    </Button>
+                </Link>
             </TabPanel>
             <TabPanel value={value} index={2}>
-                Item Tree
-            </TabPanel>
-            <TabPanel value={value} index={3}>
-                Item Four
+                <Container sx={{ m: 2 }}>
+                    <Grid container spacing={2}>
+                        <Grid item md={4}>
+                            <img src={`${avatar}/${profile.avatar}`} alt={profile.lastname} style={{ borderRadius: '20px' }} />
+                        </Grid>
+                        <Grid item md={7}>
+                            <Box>
+                                <Typography variant='h4' sx={{m:2}}>Informations</Typography>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '600px' }}>
+                                    <Typography variant='h6'>Name : </Typography>
+                                    <Typography variant='p'>{profile.lastname}</Typography>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '600px' }}>
+                                    <Typography variant='h6'>Firstname : </Typography>
+                                    <Typography variant='p'>{profile.firstname}</Typography>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '600px' }}>
+                                    <Typography variant='h6'>Biographies : </Typography>
+                                    <Typography variant='p'>{profile.biography}</Typography>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '600px' }}>
+                                    <Typography variant='h6'>Location : </Typography>
+                                    <Typography variant='p'>{profile.location}</Typography>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '600px' }}>
+                                    <Typography variant='h6'>Company : </Typography>
+                                    <Typography variant='p'>{profile.company}</Typography>
+                                </div>
+
+                                <Typography variant='h4' sx={{m:2}}>Contacts</Typography>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '600px' }}>
+                                    <Typography variant='h6'>Facebook : </Typography>
+                                    <a href={profile.facebook_url}>{profile.lastname}</a>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '600px' }}>
+                                    <Typography variant='h6'>Instagram : </Typography>
+                                    <a href={profile.instagram_url}>{profile.lastname}</a>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '600px' }}>
+                                    <Typography variant='h6'>Twitter : </Typography>
+                                    <a href={profile.twitter_url}>{profile.lastname}</a>
+                                </div>
+                            </Box>
+                        </Grid>
+                    </Grid>
+                </Container>
             </TabPanel>
         </Box>
     )

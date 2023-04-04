@@ -13,7 +13,7 @@ export default class HomeController {
     const postUrl = await Drive.getUrl("./post");
 
     const products = await Product.all();
-    const productUrl = await Drive.getUrl("./collections");
+    const productUrl = await Drive.getUrl("./products");
 
     const users = await User.all();
 
@@ -43,8 +43,13 @@ export default class HomeController {
     const categorieUrl = await Drive.getUrl('./Categories');
 
     const products = await Product.all();
-    const productUrl = await Drive.getUrl("./collections");
-    return inertia.render('Home/Collections', { auth,avatarUrl, authenticateProfile,categories, categorieUrl, products, productUrl, users })
+    const productUrl = await Drive.getUrl("./products");
+    return inertia.render('Home/Collections', { 
+      auth, avatarUrl, authenticateProfile,
+      categories, categorieUrl, 
+      products, productUrl, 
+      users 
+    });
   }
 
   public async search({ inertia, request, auth }: HttpContextContract) {
@@ -54,7 +59,7 @@ export default class HomeController {
             `name = '${request.input('keyWord')}'`
     );
 
-    const productUrl = await Drive.getUrl("./collections");
+    const productUrl = await Drive.getUrl("./products");
 
     const users = await User.all();
 
@@ -76,7 +81,7 @@ export default class HomeController {
     const categories = await Categorie.all();
     const categorieUrl = await Drive.getUrl('./Categories');
 
-    const categorie = await Categorie.findBy('name', params.name.replace('_',' '))
+    const categorie = await Categorie.findBy('name', params.name.split('_').join(' '))
 
     const products = Array<Product>()
     const allProducts = await Product.all()
@@ -86,7 +91,7 @@ export default class HomeController {
       }
     })
 
-    const productUrl = await Drive.getUrl("./collections");
+    const productUrl = await Drive.getUrl("./products");
 
     const artists = await User.all();
 

@@ -7,9 +7,12 @@ import AssetService from 'App/Services/AssetService'
 import CategorieValidator from 'App/Validators/CategorieValidator'
 
 export default class DashbordsController {
-  async showDashbord({ inertia }: HttpContextContract) {
+  async showDashbord({ inertia, auth, response }: HttpContextContract) {
+    if(auth.user?.roleId != 2) {
+      return response.redirect('/login')
+    }
     const products = await Product.all()
-    const productUrl = await Drive.getUrl('./collections')
+    const productUrl = await Drive.getUrl('./products')
 
     const users = await User.all()
 
@@ -22,12 +25,16 @@ export default class DashbordsController {
       users,
       categories,
       categorieUrl,
+      auth
     })
   }
 
-  public async collections({ inertia }:HttpContextContract) {
+  public async collections({ inertia, auth, response }:HttpContextContract) {
+    if(auth.user?.roleId != 2) {
+      return response.redirect('/login')
+    }
     const products = await Product.all()
-    const productUrl = await Drive.getUrl('./collections')
+    const productUrl = await Drive.getUrl('./products')
 
     const users = await User.all()
 
@@ -40,10 +47,14 @@ export default class DashbordsController {
       users,
       categories,
       categorieUrl,
+      auth
     })
   }
 
-  public createCategorie({ inertia }: HttpContextContract) {
+  public createCategorie({ inertia,auth, response }: HttpContextContract) {
+    if(auth.user?.roleId != 2) {
+      return response.redirect('/login')
+    }
     return inertia.render('Dashbord/CategorieForm')
   }
 
@@ -62,7 +73,16 @@ export default class DashbordsController {
     return response.redirect('/dashbord')
   }
 
-  public async editProduct({ inertia, auth }: HttpContextContract) {
+  public async deleteCategorie({ response, params }: HttpContextContract) {
+    const categorie = await Categorie.findOrFail(params.id)
+    await categorie?.delete()
+    return response.redirect('/dashbord/collections')
+  }
+
+  public async editProduct({ inertia, auth, response }: HttpContextContract) {
+    if(auth.user?.roleId != 2) {
+      return response.redirect('/login')
+    }
     return inertia.render('Dashbord/EditProduct', {auth})
   }
 

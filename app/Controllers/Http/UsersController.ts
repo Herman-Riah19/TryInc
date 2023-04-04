@@ -5,6 +5,7 @@ import LoginValidator from 'App/Validators/LoginValidator'
 import RegisterValidator from 'App/Validators/RegisterValidator'
 import Hash from '@ioc:Adonis/Core/Hash'
 import Profile from 'App/Models/Profile'
+import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class UsersController {
   public async registerShow({inertia}: HttpContextContract) {
@@ -13,7 +14,7 @@ export default class UsersController {
 
   public async register({auth, session, request, response}: HttpContextContract) {
     const data = await request.validate(RegisterValidator)
-    const user = await User.create(data)
+    const user = await User.create({...data, roleId: 1})
 
     const profile = new Profile()
     await profile.merge({
@@ -29,7 +30,7 @@ export default class UsersController {
   }
 
   public async login({auth, request, response, session}: HttpContextContract) {
-    const { uid, password, remember_me } = await request.validate(LoginValidator)
+    const { uid, password } = await request.validate(LoginValidator)
 
     
     const loginAttemptRemaining = await AuthAttemptsService.getRemainingAttempts(uid)
@@ -45,7 +46,7 @@ export default class UsersController {
         return response.badRequest('Invalid credentials password')
       }
   
-      await auth.login(user, remember_me)
+      await auth.login(user)
       await AuthAttemptsService.deleteBadAttempts(uid)
     } catch (error) {
       await AuthAttemptsService.recordLoginAttempt(uid)
@@ -64,5 +65,48 @@ export default class UsersController {
     session.flash('success', 'You have been logged out')
 
     return response.redirect().toRoute('home')
+  }
+
+  public async forgotPasswordShow({inertia}:HttpContextContract) {
+    return inertia.render('Auth/ForgotPassword')
+  }
+  
+  public async forgotPassword({request, response}:HttpContextContract) {
+    const passwordValidate = await schema.create({
+      email: schema.string(),
+    })
+
+    const data = await request.validate({ schema: passwordValidate})
+    const user = await User.query().where('email', data.email).firstOrFail()
+
+    //return response.redirect().toRoute('user.login.password', { username: user?.username})
+    return response.redirect(`/login/new-password/${user.username}`)
+  }
+  
+  public async newPasswordShow({ inertia, params }:HttpContextContract) {
+    const user = await User.query().where('username', params.username).firstOrFail()
+    return inertia.render('Auth/NewPassword', { user })
+  }
+  
+  public async newPassword({ session, request, response, auth }:HttpContextContract) {
+    const passwordValidate = await schema.create({
+      email: schema.string(),
+      password: schema.string({trim: true}),
+    })
+
+    const data = await request.validate({ schema: passwordValidate})
+    const user = await User.query().where('email', data.email).firstOrFail()
+
+    if(user?.password == data.password) {
+      //return response.redirect().toRoute('user.login.password', { email: user?.email})
+      return response.redirect(`/login/new-password/${user.username}`)
+    } 
+
+    await user?.merge({ password: data.password}).save()
+
+    await auth.login(user)
+
+    session.flash('success', `Welcome back, ${auth.user!.username}!`)
+    return response.redirect('/')
   }
 }

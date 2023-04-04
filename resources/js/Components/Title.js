@@ -1,27 +1,27 @@
 import React from 'react'
-import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import { Grid, Typography, Button } from '@mui/material'
 import { Link } from '@inertiajs/inertia-react'
+import { East } from '@mui/icons-material';
 
-const style = {
+const style = theme => ({
     title: {
         position: 'relative',
-        fontSize: '32px',
-        margin: '20px'
+        margin: '10px'
     },
     titleButton: {
         height: '50px',
-        margin: '20px', 
-        borderRadius: '10px 0px 10px 0px'
+        margin: '10px', 
     },
-}
+})
 const Title = ({title, link}) => {
     return (
-        <Grid container sx={{ justifyContent: 'space-between' }}>
-            <Typography variant='h3' sx={style.title}>{title}</Typography>
-            <Button variant='contained' color='secondary' sx={style.titleButton} endIcon={<ArrowCircleRightIcon />}>
-                <Link href={link}>Look all</Link>
-            </Button>
+        <Grid container sx={{ justifyContent: 'space-between', m: 3 }}>
+            <Typography variant='h4' sx={style.title}>{title}</Typography>
+            {link && (
+                <Button variant='outlined' color='secondary' sx={style.titleButton} endIcon={<East />}>
+                    <Link href={link}>View all</Link>
+                </Button>
+            )}
         </Grid>
     )
 }

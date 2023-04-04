@@ -1,25 +1,33 @@
-import { Button, ListItemIcon, ListItemText, MenuItem, MenuList, Toolbar } from '@mui/material'
-import { Category, Collections, Home, ManageAccounts, Menu, PostAdd } from '@mui/icons-material'
+import { ListItemIcon, ListItemText, MenuItem, MenuList } from '@mui/material'
+import { Category, Collections, Home, ManageAccounts, PostAdd } from '@mui/icons-material'
 import React from 'react'
 import { Link } from '@inertiajs/inertia-react'
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen }) => {
 
     const itemActiveStyle = {
         margin: 1,
         padding: 2,
+        color: 'white'
     }
 
     return (
-        <MenuList>
-            <Toolbar>
-                <ListItemIcon>
-                    <Menu />
-                </ListItemIcon>
-                <ListItemText>Menu app</ListItemText>
-            </Toolbar>
+        <MenuList sx={theme => ({
+            position: 'fixed',
+            background:'#35414c',
+            zIndex: 1,
+            height: '50rem',
+            transition: 'width 2s',
+            display: isOpen ? 'block':'none', 
+            [theme.breakpoints.down('md')]: {
+                display: isOpen ? 'none':'block'
+            },
+            [theme.breakpoints.up('sm')]: {
+                display: isOpen ? 'block':'none'
+            }
+        })}>
             <MenuItem sx={itemActiveStyle}>
-                <ListItemIcon >
+                <ListItemIcon sx={{color:'white'}}>
                     <Home />
                 </ListItemIcon>
                 <ListItemText>
@@ -29,7 +37,7 @@ const Sidebar = () => {
                 </ListItemText>
             </MenuItem>
             <MenuItem sx={itemActiveStyle}>
-                <ListItemIcon >
+                <ListItemIcon sx={{color:'white'}}>
                     <PostAdd />
                 </ListItemIcon>
                 <ListItemText>
@@ -39,7 +47,7 @@ const Sidebar = () => {
                 </ListItemText>
             </MenuItem>
             <MenuItem sx={itemActiveStyle}>
-                <ListItemIcon >
+                <ListItemIcon sx={{color:'white'}}>
                     <Collections />
                 </ListItemIcon>
                 <ListItemText>
@@ -49,7 +57,7 @@ const Sidebar = () => {
                 </ListItemText>
             </MenuItem>
             <MenuItem sx={itemActiveStyle}>
-                <ListItemIcon >
+                <ListItemIcon sx={{color:'white'}}>
                     <Category />
                 </ListItemIcon>
                 <ListItemText>
@@ -59,7 +67,7 @@ const Sidebar = () => {
                 </ListItemText>
             </MenuItem>
             <MenuItem sx={itemActiveStyle}>
-                <ListItemIcon >
+                <ListItemIcon sx={{color:'white'}}>
                     <ManageAccounts />
                 </ListItemIcon>
                 <ListItemText>

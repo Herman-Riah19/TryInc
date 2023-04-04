@@ -9,6 +9,7 @@ import Application from '@ioc:Adonis/Core/Application'
 import ProductValidator from 'App/Validators/ProductValidator'
 import AssetService from 'App/Services/AssetService'
 import { ProfileService } from 'App/Services/ProfileService'
+import Collection from 'App/Models/Collection'
 
 export default class ProductsController {
   async create({ inertia, auth, response }: HttpContextContract) {
@@ -17,7 +18,16 @@ export default class ProductsController {
     }
     const categories = await Categorie.all()
     const stateEnum = State
-    return inertia.render('Product/ProductCreate', { categories, stateEnum })
+    const allCollections = await Collection.all()
+    const authCollections = Array<Collection>()
+
+    allCollections.map(collection => {
+      if(collection.userId == auth.user?.id) {
+        authCollections.push(collection)
+      }
+    })
+
+    return inertia.render('Product/ProductCreate', { categories, stateEnum, auth, authCollections })
   }
 
   async store({ request, response, session, auth }: HttpContextContract) {
@@ -25,14 +35,14 @@ export default class ProductsController {
 
     product.asset = await AssetService.uploadFile(
       request,
-      `./collections/${auth.user?.username}/`,
+      `./products/${auth.user?.username}/`,
       'asset',
     )
 
     const data = await request.validate(ProductValidator)
 
     product
-      .merge({ ...data, stateId: State.PUBLIC, artisteId: auth.user?.id })
+      .merge({ ...data, stateId: State.PUBLIC, userId: auth.user?.id })
       .save()
     session.flash('success', 'Your product is saved')
     return response.redirect('/')
@@ -40,9 +50,9 @@ export default class ProductsController {
 
   async show({ inertia, params, auth }: HttpContextContract) {
     const product = await Product.findBy('id', params.id)
-    const assetUrl = await Drive.getUrl('./collections')
+    const assetUrl = await Drive.getUrl('./products')
     
-    const artist = await User.findBy('id', product?.artisteId)
+    const artist = await User.findBy('id', product?.userId)
     const profile = await Profile.findBy('user_id', artist?.id)
 
     const categorie = await Categorie.findBy('id', product?.categorieId)
@@ -80,7 +90,7 @@ export default class ProductsController {
 
   async download({ response, params }: HttpContextContract) {
     const file = await Product.findBy('id', params.id)
-    const artiste = await User.findBy('id', file?.artisteId)
+    const artiste = await User.findBy('id', file?.userId)
     const filePath = Application.tmpPath(
       `uploads/collections/${artiste?.username}/${file?.name}`,
     )
