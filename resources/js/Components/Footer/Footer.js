@@ -7,6 +7,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     height: '500px',
     marginTop: 154,
+    marginBottom: 50
   },
   logoBlock: {
     paddingRight: 130

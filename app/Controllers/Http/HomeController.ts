@@ -44,10 +44,15 @@ export default class HomeController {
 
     const products = await Product.all();
     const productUrl = await Drive.getUrl("./products");
+
+    const posts = await Post.all();
+    const postUrl = await Drive.getUrl("./post");
+
     return inertia.render('Home/Collections', { 
       auth, avatarUrl, authenticateProfile,
       categories, categorieUrl, 
-      products, productUrl, 
+      products, productUrl,
+      posts, postUrl,  
       users 
     });
   }

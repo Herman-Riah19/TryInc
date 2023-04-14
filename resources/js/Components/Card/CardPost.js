@@ -2,14 +2,14 @@ import React from 'react'
 import {Card, CardContent, CardActionArea, CardMedia, Typography} from '@mui/material'
 import { Link } from '@inertiajs/inertia-react'
 
-const CardPost = ({title, slug, content, imageUrl}) => {
+const CardPost = ({title, slug, content, imageUrl, classes}) => {
     
   return (
-    <Card>
+    <Card sx={classes}>
         <CardActionArea>
             <Link href={`/post/${slug}`}>
-                <CardMedia component="img" height="140" image={imageUrl} alt={title}/>
-                <CardContent>
+                <CardMedia component="img" sx={{height: '120px'}} image={imageUrl} alt={title}/>
+                <CardContent sx={{height: '220px'}}>
                     <Typography gutterBottom variant='h5' component="div">
                         {title}
                     </Typography>

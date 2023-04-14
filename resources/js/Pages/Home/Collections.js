@@ -2,8 +2,13 @@ import { Box, Container, Grid, Typography, Toolbar, Tabs, Tab } from '@mui/mater
 import React, { useState } from 'react'
 import Navbar from '../../Components/MenuBar/Navbar'
 import CardProduct from "../../Components/Card/CardProduct"
+import CardPost from "../../Components/Card/CardPost"
 import Footer from '../../Components/Footer/Footer'
 import { TabPanel } from '../../Components/TabImage'
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
+import Title from '../../Components/Title'
+
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 const style = {
   section: {
@@ -13,7 +18,7 @@ const style = {
   },
 }
 
-const Collections = ({ auth, avatarUrl, authenticateProfile, categories, products, productUrl, users }) => {
+const Collections = ({ auth, avatarUrl, authenticateProfile, categories, products, productUrl, posts, postUrl, users }) => {
 
   const [value, setValue] = useState(0)
 
@@ -104,6 +109,35 @@ const Collections = ({ auth, avatarUrl, authenticateProfile, categories, product
             )
           })}
         </Container>
+
+        <Container sx={style.section}>
+                    <Title title='Blog post' link={'/posts'} />
+                    <Swiper
+                        // install Swiper modules
+                        modules={[Navigation, Pagination, A11y]}
+                        spaceBetween={50}
+                        slidesPerView={3}
+                        navigation
+                        pagination={{ clickable: true }}
+                        scrollbar={{ draggable: true }}
+                        onSwiper={(swiper) => console.log(swiper)}
+                        onSlideChange={() => console.log('slide change')}
+                    >
+                        <Grid container spacing={4} columns={{ xs: 4, md: 12 }}>
+                            {posts.map(post => (
+                                <Grid item xs={4} md={4}>
+                                    <SwiperSlide>
+                                        <CardPost
+                                            title={post.title}
+                                            slug={post.slug}
+                                            content={post.description}
+                                            imageUrl={`${postUrl}/${post.post_image}`} />
+                                    </SwiperSlide>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </Swiper>
+                </Container>
 
       </Container>
       <Footer auth={auth} />

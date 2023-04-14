@@ -34,9 +34,9 @@ const CardCategorie = ({ categorie, categorieUrl, auth }) => {
 
     const isLoggedIn = auth.guards.web.isLoggedIn
     let admin = ''
-    if(isLoggedIn) {
+    if (isLoggedIn) {
         admin = auth.guards.web.user.id
-    } 
+    }
 
     return (
         <Card>
@@ -48,16 +48,16 @@ const CardCategorie = ({ categorie, categorieUrl, auth }) => {
                             class={classes.cardMedia}
                             image={`${categorieUrl}/${categorie.asset}`}
                             alt={categorie.slug} />
+                            <Typography variant="h3" class={classes.cardTitle}>{categorie.name}</Typography>
                     </CardContent>
                 </Link>
             </CardActionArea>
             <CardActions class={classes.cardFooter}>
-                    <Typography variant="h3" class={classes.cardTitle}>{categorie.name}</Typography>
-                    {admin == 1 && (
-                        <Link href={`/categorie/delete/${categorie.id}`} class={classes.deleteBtn}>
-                            <Button variant='contained' fullWidth color='warning' endIcon={<Delete />} >Delete</Button>
-                        </Link>
-                    )}
+                {admin == 1 && (
+                    <Link href={`/categorie/delete/${categorie.id}`} class={classes.deleteBtn}>
+                        <Button variant='contained' fullWidth color='warning' endIcon={<Delete />} >Delete</Button>
+                    </Link>
+                )}
             </CardActions>
         </Card>
     )
