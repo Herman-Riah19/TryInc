@@ -177,6 +177,7 @@ const EditUser = ({ user, profile, auth}) => {
                                 id="biography"
                                 label="Biography"
                                 name="biography"
+                                multiline
                                 autoComplete="biography"
                                 value={data.biography}
                                 helperText={errors.biography}

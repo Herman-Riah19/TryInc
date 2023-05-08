@@ -10,7 +10,7 @@ import Footer from '../../Components/Footer/Footer'
 
 const useStyle = makeStyles(profileStyle)
 
-const Profile = ({ user, profile, auth, authenticateProfile, products, productUrl, avatarUrl, profileBannerUrl }) => {
+const Profile = ({ user, profile, auth, authenticateProfile, products, productUrl, avatarUrl, profileBannerUrl, collections, collectionUrl }) => {
   const classes = useStyle()
 
   const [moreMenu, setMoreMenu] = useState(null);
@@ -112,6 +112,8 @@ const Profile = ({ user, profile, auth, authenticateProfile, products, productUr
             avatar={avatarUrl}
             banner={profileBannerUrl}
             productUrl={productUrl}
+            collections={collections}
+            collectionUrl={collectionUrl}
             auth={auth} />
         </Container>
       </Box>

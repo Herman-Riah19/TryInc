@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Container, Grid, Typography, Fab } from '@mui/material'
+import { Box, Container, Grid, Typography, Fab, Stack} from '@mui/material'
 import CardPost from "../../Components/Card/CardPost"
 import CardProduct from "../../Components/Card/CardProduct"
 import CardUserProfile from '../../Components/Card/CardUserProfile'
@@ -9,9 +9,8 @@ import CardCategorie from "../../Components/Card/CardCategorie"
 import Navbar from "../../Components/MenuBar/Navbar"
 import { Link } from "@inertiajs/inertia-react"
 import Title from '../../Components/Title'
-import { Category, RssFeed, SupervisorAccount } from '@mui/icons-material'
-
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { Category, RssFeed, SupervisorAccount} from '@mui/icons-material'
+import { Navigation, A11y } from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -92,54 +91,80 @@ export default function Home({ users, posts, postUrl, products, productUrl, cate
 
                 <Container sx={style.section}>
                     <Title title='Categories list' link='/categorie/Illustration' />
+
                     <Swiper
-                        // install Swiper modules
-                        modules={[Navigation, Pagination, A11y]}
-                        spaceBetween={50}
-                        slidesPerView={4}
+                        modules={[Navigation, A11y]}
+                        breakpoints={{
+                            425: {
+                                slidesPerView: 1,
+                                spaceBetween: 10
+                            },
+                            768: {
+                                slidesPerView: 2,
+                                spaceBetween: 10
+                            },
+                            1020: {
+                                slidesPerView: 3,
+                                spaceBetween: 15
+                            },
+                            1440: {
+                                slidesPerView: 4,
+                                spaceBetween: 15
+                            },
+                        }}
                         navigation
                         pagination={{ clickable: true }}
                         scrollbar={{ draggable: true }}
-                        onSwiper={(swiper) => console.log(swiper)}
-                        onSlideChange={() => console.log('slide change')}
                     >
-                        <Grid container spacing={2} sx={{ padding: 2 }}>
-                            {categories.map(categ => (
-                                <Grid item xs={12} sm={6} md={4} lg={4}>
-                                    <SwiperSlide>
-                                        <CardCategorie categorie={categ} categorieUrl={categorieUrl} auth={auth} />
-                                    </SwiperSlide>
-                                </Grid>
-                            ))}
-                        </Grid>
+                        {categories.map(categ => (
+                            <SwiperSlide>
+                                <CardCategorie categorie={categ} categorieUrl={categorieUrl} auth={auth} />
+                            </SwiperSlide>
+                        ))}
                     </Swiper>
                 </Container>
 
                 <Container sx={style.section}>
-                    <Title title='Top of picture' link='/explores' />
+                    <Title title='Top artist' link='/artist-list' />
                     <Swiper
-                        // install Swiper modules
-                        modules={[Navigation, Pagination, A11y]}
-                        spaceBetween={50}
-                        slidesPerView={4}
+                        modules={[Navigation, A11y]}
+                        breakpoints={{
+                            425: {
+                                slidesPerView: 1,
+                                spaceBetween: 10
+                            },
+                            768: {
+                                slidesPerView: 2,
+                                spaceBetween: 10
+                            },
+                            1020: {
+                                slidesPerView: 3,
+                                spaceBetween: 10
+                            },
+                        }}
                         navigation
                         pagination={{ clickable: true }}
                         scrollbar={{ draggable: true }}
-                        onSwiper={(swiper) => console.log(swiper)}
-                        onSlideChange={() => console.log('slide change')}
                     >
-                        <Grid container spacing={2}>
-                            {products.map(product => {
-                                const user = findUserById(product.user_id)
-                                return (
-                                    <Grid item xs={12} sm={5} md={4} lg={3}>
-                                        <SwiperSlide>
-                                            <CardProduct product={product} username={user.username} url={productUrl} />
-                                        </SwiperSlide>
-                                    </Grid>
-                                )
-                            })}
-                        </Grid>
+                        {users.map(artist => {
+                            let profile = new Object()
+                            existProfiles.map(pro => {
+                                if (pro.user_id == artist.id)
+                                    profile = pro
+                            })
+                            return (
+                                <SwiperSlide>
+                                    {artist.role_id != 2 &&
+                                        <CardUserProfile
+                                            user={artist}
+                                            profile={profile}
+                                            avatarUrl={avatarUrl}
+                                            bannerUrl={bannerUrl} />
+                                    }
+                                </SwiperSlide>
+                            )
+                        }
+                        )}
                     </Swiper>
                 </Container>
 
@@ -161,30 +186,23 @@ export default function Home({ users, posts, postUrl, products, productUrl, cate
                             </Grid>
                             <Grid item md={4}>
                                 <Swiper
-                                    // install Swiper modules
-                                    modules={[Navigation, Pagination, A11y]}
+                                    modules={[Navigation, A11y]}
                                     spaceBetween={50}
                                     slidesPerView={1}
                                     navigation
                                     pagination={{ clickable: true }}
                                     scrollbar={{ draggable: true }}
-                                    onSwiper={(swiper) => console.log(swiper)}
-                                    onSlideChange={() => console.log('slide change')}
                                 >
-                                    <Grid container spacing={2} columns={{ xs: 4 }}>
-                                        {posts.map(post => (
-                                            <Grid item xs={5} md={5}>
-                                                <SwiperSlide>
-                                                    <CardPost
-                                                        title={post.title}
-                                                        slug={post.slug}
-                                                        content={post.description}
-                                                        imageUrl={`${postUrl}/${post.post_image}`}
-                                                        classes={{ height: '350px' }} />
-                                                </SwiperSlide>
-                                            </Grid>
-                                        ))}
-                                    </Grid>
+                                    {posts.map(post => (
+                                        <SwiperSlide>
+                                            <CardPost
+                                                title={post.title}
+                                                slug={post.slug}
+                                                content={post.description}
+                                                imageUrl={`${postUrl}/${post.post_image}`}
+                                                classes={{ height: '350px' }} />
+                                        </SwiperSlide>
+                                    ))}
                                 </Swiper>
                             </Grid>
                         </Grid>
@@ -192,70 +210,54 @@ export default function Home({ users, posts, postUrl, products, productUrl, cate
                 </Container>
 
                 <Container sx={style.section}>
-                    <Title title='Top artist' link='/artist-list' />
-                    <Swiper
-                        // install Swiper modules
-                        modules={[Navigation, Pagination, A11y]}
-                        spaceBetween={50}
-                        slidesPerView={3}
-                        navigation
-                        pagination={{ clickable: true }}
-                        scrollbar={{ draggable: true }}
-                        onSwiper={(swiper) => console.log(swiper)}
-                        onSlideChange={() => console.log('slide change')}
-                    >
-                        <Grid container spacing={2} sx={{ padding: 2 }}>
-                            {users.map(artist => {
-                                let profile = new Object()
-                                existProfiles.map(pro => {
-                                    if (pro.user_id == artist.id)
-                                        profile = pro
-                                })
-                                return (
-                                    <Grid item xs={12} sm={6} md={4} lg={4}>
-                                        <SwiperSlide>
-                                            {artist.role_id != 2 &&
-                                                <CardUserProfile
-                                                    user={artist}
-                                                    profile={profile}
-                                                    avatarUrl={avatarUrl}
-                                                    bannerUrl={bannerUrl} />
-                                            }
-                                        </SwiperSlide>
-                                    </Grid>
-                                )
-                            }
-                            )}
-                        </Grid>
-                    </Swiper>
+                    <Title title='Top of picture' link='/explores' />
+                    <Grid container spacing={2}>
+                        {products.map(product => {
+                            const user = findUserById(product.user_id)
+                            return (
+                                <Grid item xs={12} sm={5} md={4} lg={3}>
+                                    <CardProduct product={product} username={user.username} url={productUrl} />
+                                </Grid>
+                            )
+                        })}
+                    </Grid>
                 </Container>
 
                 <Container sx={style.section}>
                     <Title title='Blog post' link={'/posts'} />
                     <Swiper
-                        // install Swiper modules
-                        modules={[Navigation, Pagination, A11y]}
-                        spaceBetween={50}
-                        slidesPerView={3}
+                        modules={[Navigation, A11y]}
+                        breakpoints={{
+                            425: {
+                                slidesPerView: 1,
+                                spaceBetween: 10
+                            },
+                            768: {
+                                slidesPerView: 2,
+                                spaceBetween: 10
+                            },
+                            1020: {
+                                slidesPerView: 3,
+                                spaceBetween: 10
+                            },
+                            1440: {
+                                slidesPerView: 4,
+                                spaceBetween: 10
+                            },
+                        }}
                         navigation
                         pagination={{ clickable: true }}
                         scrollbar={{ draggable: true }}
-                        onSwiper={(swiper) => console.log(swiper)}
-                        onSlideChange={() => console.log('slide change')}
                     >
-                        <Grid container spacing={4} columns={{ xs: 4, md: 12 }}>
-                            {posts.map(post => (
-                                <Grid item xs={4} md={4}>
-                                    <SwiperSlide>
-                                        <CardPost
-                                            title={post.title}
-                                            slug={post.slug}
-                                            content={post.description}
-                                            imageUrl={`${postUrl}/${post.post_image}`} />
-                                    </SwiperSlide>
-                                </Grid>
-                            ))}
-                        </Grid>
+                        {posts.map(post => (
+                            <SwiperSlide>
+                                <CardPost
+                                    title={post.title}
+                                    slug={post.slug}
+                                    content={post.description}
+                                    imageUrl={`${postUrl}/${post.post_image}`} />
+                            </SwiperSlide>
+                        ))}
                     </Swiper>
                 </Container>
             </Container>

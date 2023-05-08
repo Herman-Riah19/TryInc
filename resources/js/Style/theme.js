@@ -79,7 +79,7 @@ const theme = createTheme ({
     h6: {
       fontFamily: 'Inter',
       fontSize: 20, //theme.spacing(3)
-      fontWeight: 500
+      fontWeight: 600
     },
     body1: {
       fontFamily: 'Nunito',

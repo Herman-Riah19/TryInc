@@ -111,33 +111,42 @@ const Collections = ({ auth, avatarUrl, authenticateProfile, categories, product
         </Container>
 
         <Container sx={style.section}>
-                    <Title title='Blog post' link={'/posts'} />
-                    <Swiper
-                        // install Swiper modules
-                        modules={[Navigation, Pagination, A11y]}
-                        spaceBetween={50}
-                        slidesPerView={3}
-                        navigation
-                        pagination={{ clickable: true }}
-                        scrollbar={{ draggable: true }}
-                        onSwiper={(swiper) => console.log(swiper)}
-                        onSlideChange={() => console.log('slide change')}
-                    >
-                        <Grid container spacing={4} columns={{ xs: 4, md: 12 }}>
-                            {posts.map(post => (
-                                <Grid item xs={4} md={4}>
-                                    <SwiperSlide>
-                                        <CardPost
-                                            title={post.title}
-                                            slug={post.slug}
-                                            content={post.description}
-                                            imageUrl={`${postUrl}/${post.post_image}`} />
-                                    </SwiperSlide>
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </Swiper>
-                </Container>
+          <Title title='Blog post' link={'/posts'} />
+          <Swiper
+            modules={[Navigation, A11y]}
+            breakpoints={{
+              425: {
+                slidesPerView: 1,
+                spaceBetween: 10
+              },
+              768: {
+                slidesPerView: 2,
+                spaceBetween: 10
+              },
+              1020: {
+                slidesPerView: 3,
+                spaceBetween: 10
+              },
+              1440: {
+                slidesPerView: 4,
+                spaceBetween: 10
+              },
+            }}
+            navigation
+            pagination={{ clickable: true }}
+            scrollbar={{ draggable: true }}
+          >
+            {posts.map(post => (
+              <SwiperSlide>
+                <CardPost
+                  title={post.title}
+                  slug={post.slug}
+                  content={post.description}
+                  imageUrl={`${postUrl}/${post.post_image}`} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </Container>
 
       </Container>
       <Footer auth={auth} />

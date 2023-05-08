@@ -11,13 +11,13 @@ export default class Collection extends BaseModel {
   public userId!: number
 
   @column()
-  public collectionName!: string
+  public name!: string
 
   @column()
-  public collectionDescription!: string | null
+  public description!: string | null
 
   @column()
-  public collectionAsset!: string
+  public asset!: string
 
   @belongsTo(() => User)
   public user!: BelongsTo<typeof User>

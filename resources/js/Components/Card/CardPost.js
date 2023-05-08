@@ -8,7 +8,7 @@ const CardPost = ({title, slug, content, imageUrl, classes}) => {
     <Card sx={classes}>
         <CardActionArea>
             <Link href={`/post/${slug}`}>
-                <CardMedia component="img" sx={{height: '120px'}} image={imageUrl} alt={title}/>
+                <CardMedia component="img" sx={{height: '120px',overflow: 'hidden'}} image={imageUrl} alt={title}/>
                 <CardContent sx={{height: '220px'}}>
                     <Typography gutterBottom variant='h5' component="div">
                         {title}

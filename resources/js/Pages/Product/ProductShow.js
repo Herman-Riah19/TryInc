@@ -10,9 +10,10 @@ const styles = makeStyles(() => ({
   imgShow: {
     minWidth: '120px',
     minHeight: '120px',
-    maxWidth: '500px',
+    maxWidth: '600px',
     maxHeight: '500px',
-    borderRadius: '20px'
+    borderRadius: '20px',
+    textAlign: 'center'
   },
   title: {
     fontSize: '25px',

@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Product from 'App/Models/Product'
+import Collection from 'App/Models/Collection'
 import User from 'App/Models/User'
 import Drive from '@ioc:Adonis/Core/Drive'
 import ProfileValidator from 'App/Validators/ProfileValidator'
@@ -29,6 +30,15 @@ export default class ProfilesController {
       authenticateProfile,
     } = await ProfileService.getAthenticateProfile(auth)
 
+    const collections = Array<Collection>()
+    const allCollection = await Collection.all()
+    allCollection.map( coll => {
+      if(coll.userId == user?.id) 
+        collections.push(coll)
+    })
+
+    const collectionUrl = await Drive.getUrl('./collections')
+
     return inertia.render('User/Profile', {
       user,
       profile,
@@ -38,6 +48,8 @@ export default class ProfilesController {
       productUrl,
       avatarUrl,
       profileBannerUrl,
+      collections,
+      collectionUrl
     })
   }
 

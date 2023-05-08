@@ -5,7 +5,7 @@ import { Comment, Favorite } from '@mui/icons-material'
 
 const classes = {
     card: {
-        marginTop: '50px',
+        marginTop: '20px',
     },
     img: {
         height: '300px'
@@ -41,7 +41,7 @@ const CardProduct = ({ product, username, url }) => {
                         component="img"
                         sx={classes.img}
                         image={`${url}/${username}/${product.asset}`}
-                        alt={product.title} />
+                        alt={product.name} />
                 </Link>
                 <CardContent sx={classes.cardContent}>
                     <Typography variant='body' sx={classes.title}>

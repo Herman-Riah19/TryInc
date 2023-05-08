@@ -8,11 +8,11 @@ import { ProfileService } from "App/Services/ProfileService";
 import Categorie from '../../Models/Categorie';
 
 export default class HomeController {
-  public async home({ inertia, auth }: HttpContextContract) {
+  public async home({ inertia, auth, }: HttpContextContract) {
     const posts = await Post.all();
     const postUrl = await Drive.getUrl("./post");
 
-    const products = await Product.all();
+    const products = await Product.all()
     const productUrl = await Drive.getUrl("./products");
 
     const users = await User.all();

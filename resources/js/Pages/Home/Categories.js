@@ -32,6 +32,7 @@ const style = {
         marginBottom: '50px',
         backgroundPosition: "center center",
         backgroundSize: "cover",
+        overflow: 'hidden',
         "&:before": {
           background: "rgba(0, 0, 0, 0.5)",
         },

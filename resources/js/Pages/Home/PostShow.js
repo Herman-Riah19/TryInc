@@ -9,7 +9,7 @@ const PostShow = ({ post, auth, posts, postUrl, avatarUrl, authenticateProfile }
   return (
     <Box>
       <Navbar auth={auth} authAvatar={authenticateProfile ? `${avatarUrl}/${authenticateProfile.avatar}` : null} />
-      <Container sx={{ mt: '70px' }}>
+      <Container sx={{ mt: '70px', background: '#fff' }}>
         <Parallax filter image={`${postUrl}/${post.post_image}`}>
           <Container sx={{ textAlign: 'center', zIndex: '1', m: '25px' }}>
             <Typography variant='h4' color='white'>{post.title}</Typography>
@@ -17,7 +17,7 @@ const PostShow = ({ post, auth, posts, postUrl, avatarUrl, authenticateProfile }
         </Parallax>
         <Box sx={{ m: '50px' }}>
           <Container sx={{maxWidth: '1000px'}}>
-            <Typography dangerouslySetInnerHTML={{ __html: post.description}} variant='body2'/>
+            <Typography dangerouslySetInnerHTML={{ __html: post.description}} variant='body2'sx={{background: '#212439',p:10}}/>
             <Typography dangerouslySetInnerHTML={{ __html: post.body}} variant='body2' sx={{maxWidth: '1000px', m: 0}} />
           </Container>
         </Box>

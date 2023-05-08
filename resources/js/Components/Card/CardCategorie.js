@@ -11,7 +11,7 @@ const useStyle = makeStyles(() => ({
         inset: '0px',
     },
     cardMedia: {
-        objectFit: 'cover',
+        objectFit: 'fill',
         height: '100px',
         width: '100%'
     },

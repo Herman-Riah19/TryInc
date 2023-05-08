@@ -13,12 +13,13 @@ const useStyle = makeStyles(() => ({
     backgroundPosition: 'center',
   }
 }))
+
 const CreateCollection = ({ user }) => {
   const [imageFile, setImageFile] = useState('')
   const { data, setData, errors } = useForm({
-    collectionName: '',
-    collectionDescription: '',
-    collectionAsset: '',
+    name: '',
+    description: '',
+    asset: '',
   })
 
   const handleChange = async (event) => {
@@ -35,7 +36,7 @@ const CreateCollection = ({ user }) => {
         setImageFile(fileReader.result)
       }
     }
-    await fileReader.readAsDataURL(key === 'collectionAsset' && event.target.files[0])
+    await fileReader.readAsDataURL(key === 'asset' && event.target.files[0])
   }
 
   const classes = useStyle()
@@ -66,14 +67,14 @@ const CreateCollection = ({ user }) => {
                   <input
                     margin="normal"
                     type="file"
-                    id='collectionAsset'
-                    name='collectionAsset'
+                    id='asset'
+                    name='asset'
                     accept='image/*'
-                    value={data.collectionAsset}
+                    value={data.asset}
                     onChange={handleChange}
                     style={{ position: 'absolute', opacity: 0, justifyContent: 'center' }} />
                   {!imageFile && <PhotoCamera />}
-                  <span>{errors.collectionAsset}</span>
+                  <span>{errors.asset}</span>
                 </Button>
               </Grid>
               <Grid item sm={6} md={8}>
@@ -82,11 +83,11 @@ const CreateCollection = ({ user }) => {
                   margin="normal"
                   required
                   fullWidth
-                  id='collectionName'
-                  name='collectionName'
+                  id='name'
+                  name='name'
                   placeholder='Title of Collection'
-                  errors={errors.collectionName}
-                  value={data.collectionName}
+                  errors={errors.name}
+                  value={data.name}
                   onChange={handleChange} />
 
                 <TextField
@@ -95,11 +96,11 @@ const CreateCollection = ({ user }) => {
                   required
                   fullWidth
                   minRows={5}
-                  id='collectionDescription'
-                  name='collectionDescription'
+                  id='description'
+                  name='description'
                   placeholder='Description of your collection'
-                  errors={errors.collectionDescription}
-                  value={data.collectionDescription}
+                  errors={errors.description}
+                  value={data.description}
                   onChange={handleChange} />
 
               </Grid>

@@ -78,15 +78,9 @@ const Navbar = ({ auth, authAvatar }) => {
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'left', }}
               keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
+              transformOrigin={{ vertical: 'top', horizontal: 'left', }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
@@ -151,11 +145,15 @@ const Navbar = ({ auth, authAvatar }) => {
                   open={Boolean(anchorE)}
                   onClose={handleClose}
                   sx={{ mt: '50px', p: '10px' }}>
-                  <Link href={`/profile/${auth.guards.web.user.username.replace(' ', '_')}`} style={{ textDecoration: 'none', color:'#fff' }}>
+                  <Link 
+                    href={`/profile/${auth.guards.web.user.username.split(' ').join('_')}`} 
+                    style={{ textDecoration: 'none', color:'#fff' }}>
                     <MenuItem> <Person sx={{ mr: '10px', width: '20px' }} /> Profile</MenuItem>
                   </Link>
                   <MenuItem onClick={handleClose} sx={{color: '#fff' }}> <Settings sx={{ mr: '10px', width: '20px'}} /> Setting</MenuItem>
-                  <Link href='/logout' style={{ textDecoration: 'none', color:'#fff' }}>
+                  <Link 
+                    href='/logout' 
+                    style={{ textDecoration: 'none', color:'#fff' }}>
                     <MenuItem> <Logout sx={{ mr: '10px', width: '20px' }} /> Logout</MenuItem>
                   </Link>
                 </Menu>

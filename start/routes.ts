@@ -44,10 +44,15 @@ Route.group(() => {
     }).prefix('/post')
 }).prefix('/dashbord').middleware('auth')
 
+Route.group(() => {
+    Route.get('/new', 'CollectionsController.createCollection')
+    Route.post('/new', 'CollectionsController.saveCollection')
+    Route.get('/add-product', 'CollectionsController.addProductInCollection')
+    Route.post('/add-product', 'CollectionsController.saveProductInCollection')
+}).prefix('/collection').middleware('auth')
+
 Route.group(()=> {
     Route.get('/:username', 'ProfilesController.showProfile').as('profile.show')
-    Route.get('/collection/new', 'CollectionsController.createCollection')
-    Route.post('/collection/new', 'CollectionsController.saveCollection')
     Route.group(() => {
         Route.get('/', 'ProfilesController.showEditProfile').as('profile.edit')
         Route.post('/', 'ProfilesController.edit')

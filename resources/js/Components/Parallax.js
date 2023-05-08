@@ -10,6 +10,7 @@ const styles = {
         position: "relative",
         backgroundPosition: "center center",
         backgroundSize: "cover",
+        objectFit: 'fill',
         margin: "0",
         padding: "0",
         border: "0",

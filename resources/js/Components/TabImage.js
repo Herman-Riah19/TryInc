@@ -5,6 +5,7 @@ import { Info } from '@mui/icons-material'
 import AutoAwesomeMosaicIcon from '@mui/icons-material/AutoAwesomeMosaic'
 import CardProduct from './Card/CardProduct'
 import { Link } from '@inertiajs/inertia-react'
+import Portfolio from './Portfolio'
 
 export function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -26,7 +27,7 @@ export function TabPanel(props) {
     );
 }
 
-const TabImage = ({ products, username, profile, avatar, banner, productUrl }) => {
+const TabImage = ({ products, username, profile, avatar, banner, productUrl, collections, collectionUrl }) => {
     const [value, setValue] = useState(0)
 
     const handleChange = (event, newValue) => {
@@ -74,58 +75,22 @@ const TabImage = ({ products, username, profile, avatar, banner, productUrl }) =
                 </Grid>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <Link href={'/profile/collection/new'}>
+                <Link href={'/collection/new'}>
                     <Button variant='contained' color='secondary'>
                         Create a new Collection
                     </Button>
                 </Link>
+                <Grid container spacing={2}>
+                    {collections.map(collection => (
+                        <Grid item xs={12} sm={6} md={4} lg={3}>
+                            <CardProduct product={collection} username={username} url={collectionUrl} />
+                        </Grid>
+                    ))}
+                </Grid>
             </TabPanel>
             <TabPanel value={value} index={2}>
                 <Container sx={{ m: 2 }}>
-                    <Grid container spacing={2}>
-                        <Grid item md={4}>
-                            <img src={`${avatar}/${profile.avatar}`} alt={profile.lastname} style={{ borderRadius: '20px' }} />
-                        </Grid>
-                        <Grid item md={7}>
-                            <Box>
-                                <Typography variant='h4' sx={{m:2}}>Informations</Typography>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '600px' }}>
-                                    <Typography variant='h6'>Name : </Typography>
-                                    <Typography variant='p'>{profile.lastname}</Typography>
-                                </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '600px' }}>
-                                    <Typography variant='h6'>Firstname : </Typography>
-                                    <Typography variant='p'>{profile.firstname}</Typography>
-                                </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '600px' }}>
-                                    <Typography variant='h6'>Biographies : </Typography>
-                                    <Typography variant='p'>{profile.biography}</Typography>
-                                </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '600px' }}>
-                                    <Typography variant='h6'>Location : </Typography>
-                                    <Typography variant='p'>{profile.location}</Typography>
-                                </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '600px' }}>
-                                    <Typography variant='h6'>Company : </Typography>
-                                    <Typography variant='p'>{profile.company}</Typography>
-                                </div>
-
-                                <Typography variant='h4' sx={{m:2}}>Contacts</Typography>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '600px' }}>
-                                    <Typography variant='h6'>Facebook : </Typography>
-                                    <a href={profile.facebook_url}>{profile.lastname}</a>
-                                </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '600px' }}>
-                                    <Typography variant='h6'>Instagram : </Typography>
-                                    <a href={profile.instagram_url}>{profile.lastname}</a>
-                                </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '600px' }}>
-                                    <Typography variant='h6'>Twitter : </Typography>
-                                    <a href={profile.twitter_url}>{profile.lastname}</a>
-                                </div>
-                            </Box>
-                        </Grid>
-                    </Grid>
+                    <Portfolio profile={profile} avatar={avatar} />
                 </Container>
             </TabPanel>
         </Box>

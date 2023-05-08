@@ -5,8 +5,8 @@ export default class CollectionValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    collectionName: schema.string({ trim: true }, [rules.maxLength(100)]),
-    collectionDescription: schema.string.optional({ trim: true }, [rules.maxLength(2524)]),
+    name: schema.string({ trim: true }, [rules.maxLength(100)]),
+    description: schema.string.optional({ trim: true }, [rules.maxLength(2524)]),
   })
 
   public messages: CustomMessages = {}
