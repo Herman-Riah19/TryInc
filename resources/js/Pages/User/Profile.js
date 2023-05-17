@@ -26,7 +26,7 @@ const Profile = ({ user, profile, auth, authenticateProfile, products, productUr
   return (
     <Box>
       <Navbar auth={auth} authAvatar={authenticateProfile ? `${avatarUrl}/${authenticateProfile.avatar}` : null} />
-      <Box sx={{ mt: 5 }}>
+      <Box sx={{ mt: 10 }}>
         <Container sx={{ mb: 1 }}>
           <div className={classes.banner} style={{ backgroundImage: `url(${profileBannerUrl}/${profile.banner})` }} >
             <div className={classes.avatar}>
@@ -34,25 +34,23 @@ const Profile = ({ user, profile, auth, authenticateProfile, products, productUr
                 alt={user.username}
                 sx={{
                   boxShadow: "0 10px 30px -12px rgba(0, 0, 0, 0.42)",
-                  width: '100px',
-                  height: '100px'
+                  width: '150px',
+                  height: '150px'
                 }}
                 src={`${avatarUrl}/${profile.avatar}`} />
             </div>
           </div>
           <Grid container>
-            <Grid item xs={7} sm={8} md={9}>
-              <Typography variant='h6'>
+            <Grid item xs={6} sm={6} md={8}>
+              <Typography variant='h5' className={classes.username}>
                 {profile ? (
                   <>
                     {profile.lastname} {profile.firstname}
                   </>
                 ) : user.username}
               </Typography>
-              <Typography variant='paragraph' color='text.thirdy'> {profile.biography} </Typography>
-              <Typography variant='body2' color='text.thirdy'> {profile.company} </Typography>
             </Grid>
-            <Grid item xs={4} sm={4} md={2}>
+            <Grid item xs={6} sm={6} md={4}>
               <ButtonGroup variant='outlined' sx={{justifyContent: 'space-between'}}>
                 {auth.guards.web.isLoggedIn && auth.guards.web.user.username == user.username && (
                   <Link href={`/profile/edit/${user.id}`}>

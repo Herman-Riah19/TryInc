@@ -4,7 +4,7 @@ const profileStyle = {
   container,
   banner: {
     position: 'relative',
-    height: '15rem',
+    height: '20rem',
     width: 'auto',
     marginBottom: '50px',
     backgroundPosition: "center center",
@@ -24,11 +24,14 @@ const profileStyle = {
   },
   avatar: {
     position: 'relative',
-    top: '175px',
+    top: '250px',
     left: '50px',
-    height: '100px',
-    width: '100px',
     justifyContent: 'center'
+  },
+  username: {
+    position: 'relative',
+    top: '-20px',
+    left: '200px'
   }
 
 };
