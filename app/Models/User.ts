@@ -18,16 +18,14 @@ import EmailHistory from './EmailHistory'
 import Post from './Post'
 import Product from './Product'
 import Collection from './Collection'
-import { adminColumn } from '@ioc:Adonis/Addons/AdminJS'
+import Like from './Like'
+import NonFungibleToken from './NonFungibleToken'
 
 class User extends BaseModel {
   @column({ isPrimary: true })
   public id!: number
 
   @column()
-  @adminColumn({
-    enum: Role
-  })
   public roleId!: number
 
   @column()
@@ -35,21 +33,12 @@ class User extends BaseModel {
     strategy: 'dbIncrement',
     fields: ['username'],
   })
-  @adminColumn({
-    visible: true,
-  })
   public username!: string
 
   @column()
-  @adminColumn({
-    visible: true,
-  })
   public email!: string
 
   @column({ serializeAs: null })
-  @adminColumn({
-    visible: false,
-  })
   public password!: string
 
   @column()
@@ -68,12 +57,18 @@ class User extends BaseModel {
     }
   }
 
+  @hasMany(() => Like)
+  public likes!: HasMany<typeof Like>
+
   @hasMany(() => Post)
   public posts!: HasMany<typeof Post>
 
   @hasMany(() => Product)
   public products!: HasMany<typeof Product>
-
+  
+  @hasMany(() => NonFungibleToken)
+  public nfts!: HasMany<typeof NonFungibleToken>
+  
   @hasMany(() => Collection)
   public collections!: HasMany<typeof Collection>
 

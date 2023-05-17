@@ -10,9 +10,10 @@ import ProductValidator from 'App/Validators/ProductValidator'
 import AssetService from 'App/Services/AssetService'
 import { ProfileService } from 'App/Services/ProfileService'
 import Collection from 'App/Models/Collection'
+import Like from 'App/Models/Like'
 
 export default class ProductsController {
-  async create({ inertia, auth, response }: HttpContextContract) {
+  public async create({ inertia, auth, response }: HttpContextContract) {
     if(!auth) {
       return response.redirect().toRoute('user.login')
     }
@@ -30,7 +31,7 @@ export default class ProductsController {
     return inertia.render('Product/ProductCreate', { categories, stateEnum, auth, authCollections })
   }
 
-  async store({ request, response, session, auth }: HttpContextContract) {
+  public async store({ request, response, session, auth }: HttpContextContract) {
     const product = new Product()
 
     product.asset = await AssetService.uploadFile(
@@ -42,13 +43,13 @@ export default class ProductsController {
     const data = await request.validate(ProductValidator)
 
     product
-      .merge({ ...data, stateId: State.PUBLIC, userId: auth.user?.id })
+      .merge({ ...data, nomberLike: 0, stateId: State.PUBLIC, userId: auth.user?.id })
       .save()
     session.flash('success', 'Your product is saved')
     return response.redirect('/')
   }
 
-  async show({ inertia, params, auth }: HttpContextContract) {
+  public async show({ inertia, params, auth }: HttpContextContract) {
     const product = await Product.findBy('id', params.id)
     const assetUrl = await Drive.getUrl('./products')
     
@@ -75,20 +76,14 @@ export default class ProductsController {
     const users = await User.all()
 
     return inertia.render('Product/ProductShow', {
-      product,
-      auth,
-      assetUrl,
-      artist,
-      profile,
-      avatarUrl,
-      categorie,
-      otherProducts,
-      users,
-      authenticateProfile
+      product, assetUrl,
+      artist, profile, avatarUrl,
+      categorie, otherProducts,
+      auth, users, authenticateProfile
     })
   }
 
-  async download({ response, params }: HttpContextContract) {
+  public async download({ response, params }: HttpContextContract) {
     const file = await Product.findBy('id', params.id)
     const artiste = await User.findBy('id', file?.userId)
     const filePath = Application.tmpPath(
@@ -96,5 +91,22 @@ export default class ProductsController {
     )
 
     response.download(filePath, true)
+  }
+
+  public async handleIsLiked({params, response, auth}: HttpContextContract) {
+    const product = await Product.findBy('id', params.id)
+    if(!auth) {
+      return response.redirect().toRoute('user.login')
+    }
+    const isLiked = new Like()
+    isLiked.merge({
+      userId: auth.user?.id,
+      productId: product?.id,
+      isLiked: true
+    }).save()
+
+    product!.nomberLike += 1
+    product?.save()
+    return response.redirect(`/product/show/${product?.id}`)
   }
 }

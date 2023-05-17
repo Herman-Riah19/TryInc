@@ -1,14 +1,15 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column, computed } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, HasMany, belongsTo, column, computed, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import { slugify } from '@ioc:Adonis/Addons/LucidSlugify'
 import User from './User'
 import Categorie from './Categorie'
 import State from 'App/Enums/Constants'
 import Collection from './Collection'
+import Like from './Like'
 
 export default class Product extends BaseModel {
   @column({ isPrimary: true })
-  public id!: string
+  public id!: number
 
   @column()
   public userId!: number
@@ -33,7 +34,7 @@ export default class Product extends BaseModel {
   public isFree!: boolean
 
   @column()
-  public price!: number | 0
+  public nomberLike!: number | 0
 
   @column()
   public asset!: string
@@ -49,6 +50,9 @@ export default class Product extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt!: DateTime
+
+  @hasMany(() => Like)
+  public likes!: HasMany<typeof Like>
 
   @belongsTo(() => User)
   public user!: BelongsTo<typeof User>
