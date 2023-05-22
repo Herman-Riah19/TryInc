@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 import { Link } from "@inertiajs/inertia-react";
 import {
-  Download,
   Favorite,
   Share,
   Comment,
@@ -103,29 +102,15 @@ const CardProductShow = ({ artiste, avatar, categorieName, product }) => {
         )}
       </CardContent>
       <CardActions>
-        <Stack direction="row" spacing={2} sx={{ justifyContent: "end", margin: "5px" }}>
           <Button
             variant="contained"
             color="success"
+            fullWidth
             sx={{ justifyContent: "space-between" }}
             startIcon={<Comment />}
           >
             Comment
           </Button>
-          <Link
-            href={`/product/download/${product.id}`}
-            style={{ textDecoration: "none", color: "white" }}
-          >
-            <Button
-              variant="contained"
-              color="secondary"
-              sx={{ justifyContent: "space-between" }}
-              startIcon={<Download />}
-            >
-              Download
-            </Button>
-          </Link>
-        </Stack>
       </CardActions>
     </Card>
   );

@@ -79,7 +79,6 @@ export default class UsersController {
     const data = await request.validate({ schema: passwordValidate})
     const user = await User.query().where('email', data.email).firstOrFail()
 
-    //return response.redirect().toRoute('user.login.password', { username: user?.username})
     return response.redirect(`/login/new-password/${user.username}`)
   }
   
@@ -98,7 +97,6 @@ export default class UsersController {
     const user = await User.query().where('email', data.email).firstOrFail()
 
     if(user?.password == data.password) {
-      //return response.redirect().toRoute('user.login.password', { email: user?.email})
       return response.redirect(`/login/new-password/${user.username}`)
     } 
 

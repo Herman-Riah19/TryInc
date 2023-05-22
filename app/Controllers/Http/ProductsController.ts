@@ -97,7 +97,13 @@ export default class ProductsController {
     const product = await Product.findBy('id', params.id)
     if(!auth) {
       return response.redirect().toRoute('user.login')
-    }
+    } else {
+      const hasBeenLiked = await Like.findBy('product_id', product?.id)
+      if(hasBeenLiked?.userId == auth.user?.id) {
+        return response.redirect(`/product/show/${product?.id}`)
+      }
+    }    
+
     const isLiked = new Like()
     isLiked.merge({
       userId: auth.user?.id,
