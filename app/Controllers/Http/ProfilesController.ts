@@ -40,16 +40,10 @@ export default class ProfilesController {
     const collectionUrl = await Drive.getUrl('./collections')
 
     return inertia.render('User/Profile', {
-      user,
-      profile,
-      auth,
-      authenticateProfile,
-      products,
-      productUrl,
-      avatarUrl,
-      profileBannerUrl,
-      collections,
-      collectionUrl
+      user, profile, auth, authenticateProfile,
+      products, productUrl,
+      avatarUrl, profileBannerUrl,
+      collections, collectionUrl
     })
   }
 
@@ -60,11 +54,8 @@ export default class ProfilesController {
     const profileAvatarUrl = await Drive.getUrl(`./avatar`)
     const profileBannerUrl = await Drive.getUrl(`./banner`)
     return inertia.render('User/EditUser', {
-      user,
-      profile,
+      user, profile, profileAvatarUrl, profileBannerUrl,
       auth,
-      profileAvatarUrl,
-      profileBannerUrl,
     })
   }
 

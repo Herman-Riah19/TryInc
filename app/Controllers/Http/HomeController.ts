@@ -6,7 +6,6 @@ import User from "App/Models/User";
 import Profile from "App/Models/Profile";
 import { ProfileService } from "App/Services/ProfileService";
 import Categorie from '../../Models/Categorie';
-import { layoutElementParser } from "adminjs";
 
 export default class HomeController {
   public async home({ inertia, auth, }: HttpContextContract) {
@@ -58,7 +57,7 @@ export default class HomeController {
     });
   }
 
-  public async search({ inertia, request, auth, response }: HttpContextContract) {
+  public async search({ inertia, request, auth }: HttpContextContract) {
     const { avatarUrl, authenticateProfile } = await ProfileService.getAthenticateProfile(auth);
     const users = await User.all();
     const productUrl = await Drive.getUrl("./products");
