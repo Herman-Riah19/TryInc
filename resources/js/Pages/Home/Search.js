@@ -17,7 +17,7 @@ const Search = (props) => {
         return user
     }
 
-    const user = findUserById(products.artiste_id)
+    const user = findUserById(products.user_id)
 
 
     return (

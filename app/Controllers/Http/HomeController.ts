@@ -60,9 +60,7 @@ export default class HomeController {
   public async search({ inertia, request, auth }: HttpContextContract) {
     const { avatarUrl, authenticateProfile } = await ProfileService.getAthenticateProfile(auth);
 
-    const products = await Product.query().whereRaw(
-            `name = '${request.input('keyWord')}'`
-    );
+    const products = await Product.findBy('name', request.input('keyWord'))
 
     const productUrl = await Drive.getUrl("./products");
 

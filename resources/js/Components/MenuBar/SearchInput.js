@@ -59,6 +59,10 @@ const SearchInput = () => {
     }))
   }
 
+  const handleSubmit = (event) => {
+    post('/search')
+  }
+
   return (
     <Search action='/search' method='get'>
       <StyledInputBase
@@ -70,7 +74,7 @@ const SearchInput = () => {
         placeholder="Search…"
         inputProps={{ 'aria-label': 'search' }}
       />
-      <Button type='submit'>
+      <Button type='submit' onSubmit={handleSubmit}>
         <SearchIconWrapper>
           <SearchIcon />
         </SearchIconWrapper>

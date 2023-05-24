@@ -55,6 +55,44 @@ export default function Home({ users, posts, postUrl, products, productUrl, cate
         return user
     }
 
+    const slideBreakpoint = {
+        425: {
+            slidesPerView: 1,
+            spaceBetween: 10
+        },
+        768: {
+            slidesPerView: 2,
+            spaceBetween: 10
+        },
+        1020: {
+            slidesPerView: 3,
+            spaceBetween: 10
+        },
+        1440: {
+            slidesPerView: 4,
+            spaceBetween: 10
+        },
+    }
+
+    const slideCategorieBreakpoint = {
+        425: {
+            slidesPerView: 1,
+            spaceBetween: 10
+        },
+        768: {
+            slidesPerView: 3,
+            spaceBetween: 10
+        },
+        1020: {
+            slidesPerView: 4,
+            spaceBetween: 15
+        },
+        1440: {
+            slidesPerView: 5,
+            spaceBetween: 15
+        },
+    }
+
     return (
         <Box>
             <Navbar auth={auth} authAvatar={authenticateProfile ? `${avatarUrl}/${authenticateProfile.avatar}` : null} />
@@ -94,24 +132,7 @@ export default function Home({ users, posts, postUrl, products, productUrl, cate
 
                     <Swiper
                         modules={[Navigation, A11y]}
-                        breakpoints={{
-                            425: {
-                                slidesPerView: 1,
-                                spaceBetween: 10
-                            },
-                            768: {
-                                slidesPerView: 2,
-                                spaceBetween: 10
-                            },
-                            1020: {
-                                slidesPerView: 3,
-                                spaceBetween: 15
-                            },
-                            1440: {
-                                slidesPerView: 4,
-                                spaceBetween: 15
-                            },
-                        }}
+                        breakpoints={slideCategorieBreakpoint}
                         navigation
                         pagination={{ clickable: true }}
                         scrollbar={{ draggable: true }}
@@ -128,20 +149,7 @@ export default function Home({ users, posts, postUrl, products, productUrl, cate
                     <Title title='Top artist' link='/artist-list' />
                     <Swiper
                         modules={[Navigation, A11y]}
-                        breakpoints={{
-                            425: {
-                                slidesPerView: 1,
-                                spaceBetween: 10
-                            },
-                            768: {
-                                slidesPerView: 2,
-                                spaceBetween: 10
-                            },
-                            1020: {
-                                slidesPerView: 3,
-                                spaceBetween: 10
-                            },
-                        }}
+                        breakpoints={slideBreakpoint}
                         navigation
                         pagination={{ clickable: true }}
                         scrollbar={{ draggable: true }}
@@ -227,24 +235,7 @@ export default function Home({ users, posts, postUrl, products, productUrl, cate
                     <Title title='Blog post' link={'/posts'} />
                     <Swiper
                         modules={[Navigation, A11y]}
-                        breakpoints={{
-                            425: {
-                                slidesPerView: 1,
-                                spaceBetween: 10
-                            },
-                            768: {
-                                slidesPerView: 2,
-                                spaceBetween: 10
-                            },
-                            1020: {
-                                slidesPerView: 3,
-                                spaceBetween: 10
-                            },
-                            1440: {
-                                slidesPerView: 4,
-                                spaceBetween: 10
-                            },
-                        }}
+                        breakpoints={slideBreakpoint}
                         navigation
                         pagination={{ clickable: true }}
                         scrollbar={{ draggable: true }}
