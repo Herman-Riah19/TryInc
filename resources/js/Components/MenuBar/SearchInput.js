@@ -4,7 +4,7 @@ import { Button, InputBase } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useForm } from '@inertiajs/inertia-react';
 
-const Search = styled('form')(({ theme }) => ({
+export const SearchForm = styled('form')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   border: 'solid 1px #0001',
@@ -20,7 +20,7 @@ const Search = styled('form')(({ theme }) => ({
   }
 }))
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
+export const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 1),
   height: '100%',
   position: 'absolute',
@@ -30,11 +30,11 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center',
 }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
+export const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'white',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    paddingLeft: `calc(1em + ${theme.spacing(1)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -43,10 +43,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const SearchInput = () => {
+const SearchInput = ({keyWord}) => {
 
   const { data, setData, error, post } = useForm({
-    keyWord: ''
+    keyWord: keyWord 
   })
 
   const handleChange = (event) => {
@@ -64,7 +64,7 @@ const SearchInput = () => {
   }
 
   return (
-    <Search action='/search' method='get'>
+    <SearchForm action='/search' method='get'>
       <StyledInputBase
         type='search'
         id='keyWord'
@@ -79,7 +79,7 @@ const SearchInput = () => {
           <SearchIcon />
         </SearchIconWrapper>
       </Button>
-    </Search>
+    </SearchForm>
   )
 }
 

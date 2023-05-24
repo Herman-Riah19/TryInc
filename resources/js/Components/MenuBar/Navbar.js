@@ -6,7 +6,7 @@ import { Explore, Logout, Person, RecentActors, Settings, Facebook, Instagram, M
 import MenuIcon from '@mui/icons-material/Menu'
 import SearchInput from './SearchInput'
 
-const Navbar = ({ auth, authAvatar }) => {
+const Navbar = ({ auth, authAvatar, keyWord }) => {
   const isLoggedIn = auth.guards.web.isLoggedIn
   const pages = [
     {
@@ -30,6 +30,8 @@ const Navbar = ({ auth, authAvatar }) => {
       link: isLoggedIn ? '/product/create/' : '/login'
     },
   ]
+
+  console.log(keyWord)
   
 
   const [anchorE, setAnchorE] = useState(null)
@@ -112,7 +114,7 @@ const Navbar = ({ auth, authAvatar }) => {
             ))}
           </Box>
           <Box >
-            <SearchInput />
+            <SearchInput keyWord={keyWord}/>
           </Box>
           <Box>
             {isLoggedIn ? (

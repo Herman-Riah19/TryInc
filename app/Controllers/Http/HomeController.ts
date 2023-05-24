@@ -6,6 +6,7 @@ import User from "App/Models/User";
 import Profile from "App/Models/Profile";
 import { ProfileService } from "App/Services/ProfileService";
 import Categorie from '../../Models/Categorie';
+import { layoutElementParser } from "adminjs";
 
 export default class HomeController {
   public async home({ inertia, auth, }: HttpContextContract) {
@@ -57,16 +58,25 @@ export default class HomeController {
     });
   }
 
-  public async search({ inertia, request, auth }: HttpContextContract) {
+  public async search({ inertia, request, auth, response }: HttpContextContract) {
     const { avatarUrl, authenticateProfile } = await ProfileService.getAthenticateProfile(auth);
-
-    const products = await Product.findBy('name', request.input('keyWord'))
-
+    const users = await User.all();
     const productUrl = await Drive.getUrl("./products");
 
-    const users = await User.all();
+    let product = await Product.findBy('name', request.input('keyWord'))
+    if(!product){
+      product = new Product()
+    }
 
-    return inertia.render('Home/Search', { auth, avatarUrl, authenticateProfile, products, productUrl, users });
+    const keyWord = request.input('keyWord')
+
+    const otherProducts = await Product.all()
+
+    return inertia.render('Home/Search', { 
+      auth, avatarUrl, authenticateProfile, 
+      product, productUrl, otherProducts,
+      users, keyWord
+    });
   }
 
   public async artistList({ inertia, auth }: HttpContextContract) {

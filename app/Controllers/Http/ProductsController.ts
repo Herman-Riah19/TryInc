@@ -90,7 +90,7 @@ export default class ProductsController {
       `uploads/collections/${artiste?.username}/${file?.name}`,
     )
 
-    response.download(filePath, true)
+    return response.download(filePath, true)
   }
 
   public async handleIsLiked({params, response, auth}: HttpContextContract) {

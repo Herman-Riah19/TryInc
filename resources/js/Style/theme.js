@@ -31,7 +31,7 @@ const theme = createTheme ({
     error: {
       main: red.A400,
     },
-    divider: '#19174b',
+    divider: '#fff',
     text: {
       primary: '#fff',
       secondary: '#c7d4e1',

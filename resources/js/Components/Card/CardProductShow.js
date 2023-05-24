@@ -102,15 +102,7 @@ const CardProductShow = ({ artiste, avatar, categorieName, product }) => {
         )}
       </CardContent>
       <CardActions>
-          <Button
-            variant="contained"
-            color="success"
-            fullWidth
-            sx={{ justifyContent: "space-between" }}
-            startIcon={<Comment />}
-          >
-            Comment
-          </Button>
+          
       </CardActions>
     </Card>
   );
