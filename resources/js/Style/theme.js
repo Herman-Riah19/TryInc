@@ -40,7 +40,7 @@ const theme = createTheme ({
   },
   typography: {
     fontSize: 12,
-    fontFamily: ['Inter','Nunito'
+    fontFamily: ['roboto-regular','Roboto'
     ].join(','),
     color: '#fff',
     fontWeightLight: 400,
@@ -52,42 +52,42 @@ const theme = createTheme ({
       fontSize: '1rem',
     },
     h1: {
-      fontFamily: 'Inter',
+      fontFamily: 'Roboto',
       fontSize: 66, //theme.spacing(9)
       fontWeight: 900
     },
     h2: {
-      fontFamily: 'Inter',
+      fontFamily: 'Roboto',
       fontSize: 60, //theme.spacing(8)
       fontWeight: 900
     },
     h3: {
-      fontFamily: 'Inter',
+      fontFamily: 'Roboto',
       fontSize: 51, //theme.spacing(6)
       fontWeight: 800
     },
     h4: {
-      fontFamily: 'Inter',
+      fontFamily: 'Roboto',
       fontSize: 32, //theme.spacing(5)
       fontWeight: 800
     },
     h5: {
-      fontFamily: 'Inter',
+      fontFamily: 'Roboto',
       fontSize: 25, //theme.spacing(3.5)
       fontWeight: 800
     },
     h6: {
-      fontFamily: 'Inter',
+      fontFamily: 'Roboto',
       fontSize: 20, //theme.spacing(3)
       fontWeight: 800
     },
     body1: {
-      fontFamily: 'Nunito',
+      fontFamily: 'Roboto',
       fontWeight: 'normal',
       fontSize: 18,
     },
     body2: {
-      fontFamily: 'Nunito',
+      fontFamily: 'Roboto',
       fontWeight: 'normal',
       fontSize: 20,
     },

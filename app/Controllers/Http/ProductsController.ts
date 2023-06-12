@@ -28,7 +28,9 @@ export default class ProductsController {
       }
     })
 
-    return inertia.render('Product/ProductCreate', { categories, stateEnum, auth, authCollections })
+    return inertia.render('Product/ProductCreate', { 
+      categories, stateEnum, auth, authCollections 
+    })
   }
 
   public async store({ request, response, session, auth }: HttpContextContract) {

@@ -98,6 +98,9 @@ const Footer = ({ auth }) => {
                 <Link href={'/explores'} className={classes.link}>
                   Explores
                 </Link>
+                <Link href={'/posts'} className={classes.link}>
+                  Blogs
+                </Link>
                 <Link href={'/product/create'} className={classes.link}>
                   Create
                 </Link>
@@ -117,6 +120,9 @@ const Footer = ({ auth }) => {
                   About us
                 </Typography>
                 <Link href='/' className={classes.link}>
+                  Presentation
+                </Link>
+                <Link href='/' className={classes.link}>
                   Team
                 </Link>
                 <Link href='/' className={classes.link}>
@@ -124,9 +130,6 @@ const Footer = ({ auth }) => {
                 </Link>
                 <Link href='/' className={classes.link}>
                   Partener
-                </Link>
-                <Link href='/' className={classes.link}>
-                  Donate
                 </Link>
               </Grid>
 

@@ -1,48 +1,67 @@
-import React, { useState } from 'react'
-import { Box, AppBar, Toolbar, IconButton, Typography, Button, Menu, MenuItem, Avatar } from '@mui/material'
-import AccountCircle from '@mui/icons-material/AccountCircle'
-import { Link } from '@inertiajs/inertia-react'
-import { Explore, Logout, Person, RecentActors, Settings, Facebook, Instagram, MoreVert, Info, AddBox, RssFeed } from '@mui/icons-material'
-import MenuIcon from '@mui/icons-material/Menu'
-import SearchInput from './SearchInput'
+import React, { useState } from "react";
+import {
+  Box,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Button,
+  Menu,
+  MenuItem,
+  Avatar,
+} from "@mui/material";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import { Link } from "@inertiajs/inertia-react";
+import {
+  Explore,
+  Logout,
+  Person,
+  RecentActors,
+  Settings,
+  Facebook,
+  Instagram,
+  MoreVert,
+  Info,
+  AddBox,
+  RssFeed,
+} from "@mui/icons-material";
+import MenuIcon from "@mui/icons-material/Menu";
+import SearchInput from "./SearchInput";
 
 const Navbar = ({ auth, authAvatar, keyWord }) => {
-  const isLoggedIn = auth.guards.web.isLoggedIn
+  const isLoggedIn = auth.guards.web.isLoggedIn;
   const pages = [
     {
-      title: 'Explores',
+      title: "Explores",
       icon: <Explore />,
-      link: '/explores',
+      link: "/explores",
     },
     {
-      title: 'Artists',
+      title: "Artists",
       icon: <RecentActors />,
-      link: '/artist-list',
+      link: "/artist-list",
     },
     {
-      title: 'Blogs',
+      title: "Blogs",
       icon: <RssFeed />,
-      link: '/posts'
+      link: "/posts",
     },
     {
-      title: 'Publish',
+      title: "Publish",
       icon: <AddBox />,
-      link: isLoggedIn ? '/product/create/' : '/login'
+      link: isLoggedIn ? "/product/create/" : "/login",
     },
-  ]
+  ];
 
-  console.log(keyWord)
-  
-
-  const [anchorE, setAnchorE] = useState(null)
+  const [anchorE, setAnchorE] = useState(null);
 
   const handleMenu = (event) => {
-    setAnchorE(event.currentTarget)
-  }
+    setAnchorE(event.currentTarget);
+  };
 
   const handleClose = () => {
     setAnchorE(null);
-  }
+  };
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
@@ -66,55 +85,71 @@ const Navbar = ({ auth, authAvatar, keyWord }) => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar sx={{bgcolor: '#212439'}}>
-        <Toolbar sx={{ p: '0' }}>
-          <Typography variant='h5' component='div' sx={{ flexGrow: 1 }}>
-            <Link href='/' style={{ textDecoration: 'none', color:'#fff'}}>
-              <Avatar sx={{height: '50px', width:'50px'}} src={'/favicon.svg'}/> 
+      <AppBar sx={{ bgcolor: "#212439" }}>
+        <Toolbar sx={{ p: "0" }}>
+          <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+            <Link href="/" style={{ textDecoration: "none", color: "#fff" }}>
+              <Avatar
+                sx={{ height: "50px", width: "50px" }}
+                src={"/favicon.svg"}
+              />
             </Link>
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton size="large" sx={{color: 'white'}} aria-label="account of current user" aria-controls="menu-appbar" aria-haspopup="true" onClick={handleOpenNavMenu}>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              sx={{ color: "white" }}
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+            >
               <MenuIcon />
             </IconButton>
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'left', }}
+              anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
               keepMounted
-              transformOrigin={{ vertical: 'top', horizontal: 'left', }}
+              transformOrigin={{ vertical: "top", horizontal: "left" }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: "block", md: "none" },
               }}
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Link href={page.link} style={{ textDecoration: 'none', color:'#fff'}}>
+                  <Link
+                    href={page.link}
+                    style={{ textDecoration: "none", color: "#fff" }}
+                  >
                     {page.title}
                   </Link>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                variant='text'
-                sx={{ ml: 5, color: '#fff'}}
+                variant="text"
+                sx={{ ml: 5, color: "#fff" }}
                 startIcon={page.icon}
               >
-                <Link href={page.link} style={{ textDecoration: 'none', color:'#fff',}}>
-                 {page.title}
+                <Link
+                  href={page.link}
+                  style={{ textDecoration: "none", color: "#fff" }}
+                >
+                  {page.title}
                 </Link>
               </Button>
             ))}
           </Box>
-          <Box >
-            <SearchInput keyWord={keyWord}/>
+          <Box>
+            <SearchInput keyWord={keyWord} />
           </Box>
           <Box>
             {isLoggedIn ? (
@@ -125,9 +160,13 @@ const Navbar = ({ auth, authAvatar, keyWord }) => {
                   aria-controls="menu-appbar"
                   aria-haspopup="true"
                   onClick={handleMenu}
-                  color="inherit">
+                  color="inherit"
+                >
                   {authAvatar ? (
-                    <Avatar sx={{ bgcolor: 'red', width: '30px', height: '30px' }} src={authAvatar} />
+                    <Avatar
+                      sx={{ alignItems: "center", bgcolor: "red", width: "30px", height: "30px" }}
+                      src={authAvatar}
+                    />
                   ) : (
                     <AccountCircle />
                   )}
@@ -136,78 +175,109 @@ const Navbar = ({ auth, authAvatar, keyWord }) => {
                   id="menu-appbar"
                   anchorEl={anchorE}
                   anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right'
+                    vertical: "top",
+                    horizontal: "right",
                   }}
                   keepMounted
                   transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right'
+                    vertical: "top",
+                    horizontal: "right",
                   }}
                   open={Boolean(anchorE)}
                   onClose={handleClose}
-                  sx={{ mt: '50px', p: '10px' }}>
-                  <Link 
-                    href={`/profile/${auth.guards.web.user.username.split(' ').join('_')}`} 
-                    style={{ textDecoration: 'none', color:'#fff' }}>
-                    <MenuItem> <Person sx={{ mr: '10px', width: '20px' }} /> Profile</MenuItem>
+                  sx={{ mt: "50px", p: "10px" }}
+                >
+                  <Link
+                    href={`/profile/${auth.guards.web.user.username
+                      .split(" ")
+                      .join("_")}`}
+                    style={{ textDecoration: "none", color: "#fff" }}
+                  >
+                    <MenuItem>
+                      {" "}
+                      <Person sx={{ mr: "10px", width: "20px" }} /> Profile
+                    </MenuItem>
                   </Link>
-                  <MenuItem onClick={handleClose} sx={{color: '#fff' }}> <Settings sx={{ mr: '10px', width: '20px'}} /> Setting</MenuItem>
-                  <Link 
-                    href='/logout' 
-                    style={{ textDecoration: 'none', color:'#fff' }}>
-                    <MenuItem> <Logout sx={{ mr: '10px', width: '20px' }} /> Logout</MenuItem>
+                  <MenuItem onClick={handleClose} sx={{ color: "#fff" }}>
+                    {" "}
+                    <Settings sx={{ mr: "10px", width: "20px" }} /> Setting
+                  </MenuItem>
+                  <Link
+                    href="/logout"
+                    style={{ textDecoration: "none", color: "#fff" }}
+                  >
+                    <MenuItem>
+                      {" "}
+                      <Logout sx={{ mr: "10px", width: "20px" }} /> Logout
+                    </MenuItem>
                   </Link>
                 </Menu>
               </Box>
             ) : (
               <Box>
-                <Link href='/login' style={{ textDecoration: 'none' }}>
-                  <Button sx={{ marginTop: '0', marginLeft:'5px', height: '100%' }} variant='contained' color='secondary'>Connected</Button>
+                <Link href="/login" style={{ textDecoration: "none" }}>
+                  <Button
+                    sx={{ marginTop: "0", marginLeft: "5px", height: "100%" }}
+                    variant="contained"
+                    color="secondary"
+                  >
+                    Connected
+                  </Button>
                 </Link>
               </Box>
             )}
           </Box>
-              <Box>
-              <IconButton
-                  id='more-button'
-                  aria-controls={MoreButtonOpen ? 'basic-menu' : undefined}
-                  aria-haspopup="true"
-                  color='primary'
-                  variant='contained'
-                  aria-expanded={MoreButtonOpen ? 'true' : undefined}
-                  onClick={handleMoreButtonClick}>
-                  <MoreVert />
-                </IconButton>
-                <Menu
-                  id="more-menu"
-                  anchorEl={moreMenu}
-                  open={MoreButtonOpen}
-                  onClose={handleCloseMenu}
-                  MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                  }}>
-                  <Link href={`https://www.facebook.com/profile.php?id=100072431139370`} style={{ textDecoration: 'none', color: 'white' }}>
-                    <MenuItem>
-                      <Info sx={{ mr: '10px', width: '20px' }} /> About Trinkz
-                    </MenuItem>
-                  </Link>
-                  <a href={`https://www.facebook.com/profile.php?id=100072431139370`} style={{ textDecoration: 'none', color: 'white' }}>
-                    <MenuItem>
-                      <Facebook sx={{ mr: '10px', width: '20px' }} /> Facebook
-                    </MenuItem>
-                  </a>
-                  <a href={`https://www.instagram.com/hermannchrist19/`} style={{ textDecoration: 'none', color: 'white' }}>
-                    <MenuItem>
-                      <Instagram sx={{ mr: '10px', width: '20px' }} /> Instagram
-                    </MenuItem>
-                  </a>
-                </Menu>
-              </Box>
+          <Box>
+            <IconButton
+              id="more-button"
+              aria-controls={MoreButtonOpen ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              color="primary"
+              variant="contained"
+              aria-expanded={MoreButtonOpen ? "true" : undefined}
+              onClick={handleMoreButtonClick}
+            >
+              <MoreVert />
+            </IconButton>
+            <Menu
+              id="more-menu"
+              anchorEl={moreMenu}
+              open={MoreButtonOpen}
+              onClose={handleCloseMenu}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+            >
+              <Link
+                href={`https://www.facebook.com/profile.php?id=100072431139370`}
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                <MenuItem>
+                  <Info sx={{ mr: "10px", width: "20px" }} /> About Trinkz
+                </MenuItem>
+              </Link>
+              <a
+                href={`https://www.facebook.com/profile.php?id=100072431139370`}
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                <MenuItem>
+                  <Facebook sx={{ mr: "10px", width: "20px" }} /> Facebook
+                </MenuItem>
+              </a>
+              <a
+                href={`https://www.instagram.com/hermannchrist19/`}
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                <MenuItem>
+                  <Instagram sx={{ mr: "10px", width: "20px" }} /> Instagram
+                </MenuItem>
+              </a>
+            </Menu>
+          </Box>
         </Toolbar>
       </AppBar>
     </Box>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

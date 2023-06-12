@@ -11,19 +11,12 @@ import { render } from 'react-dom'
 import { createInertiaApp } from '@inertiajs/inertia-react'
 import { InertiaProgress } from '@inertiajs/progress'
 import { CssBaseline } from '@mui/material'
-import WebFont from 'webfontloader'
 import { ThemeProvider } from '@emotion/react'
 import theme from './Style/theme'
 
 InertiaProgress.init({
   color: '#EF89DA',
   showSpinner: false
-})
-
-WebFont.load({
-  google: {
-    families: ['Inter', 'Nunito']
-  }
 })
 
 createInertiaApp({

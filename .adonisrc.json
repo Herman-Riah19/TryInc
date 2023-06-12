@@ -32,8 +32,7 @@
     "@adonisjs/lucid",
     "@eidellev/inertia-adonisjs",
     "@adonisjs/auth",
-    "@adonisjs/lucid-slugify",
-    "adminjs-adonis"
+    "@adonisjs/lucid-slugify"
   ],
   "metaFiles": [
     {

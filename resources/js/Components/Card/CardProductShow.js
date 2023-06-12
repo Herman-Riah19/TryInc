@@ -11,12 +11,7 @@ import {
   Grid,
 } from "@mui/material";
 import { Link } from "@inertiajs/inertia-react";
-import {
-  Favorite,
-  Share,
-  Comment,
-  AccountCircle,
-} from "@mui/icons-material";
+import { Favorite, Share, Comment, AccountCircle } from "@mui/icons-material";
 
 const CardProductShow = ({ artiste, avatar, categorieName, product }) => {
   const username = artiste.username.split(" ").join("_");
@@ -36,13 +31,13 @@ const CardProductShow = ({ artiste, avatar, categorieName, product }) => {
           title={<Typography variant="h6">{artiste.username}</Typography>}
           subheader={
             <Typography variant="body1" color="text.thirdy">
-              {categorieName}
+              {artiste.email}
             </Typography>
           }
           sx={{ p: "10px", color: "#fff" }}
         />
       </Link>
-      <CardContent sx={{ p: "10px", height: '30vw' }}>
+      <CardContent sx={{ p: "10px", height: "30vw" }}>
         <Grid container space={2} columns={{ xs: 2, md: 12 }}>
           <Grid item xs={8}>
             <Typography
@@ -82,6 +77,20 @@ const CardProductShow = ({ artiste, avatar, categorieName, product }) => {
         <Typography variant="p" color="text.thirdy">
           {product.description}
         </Typography>
+      </CardContent>
+      <CardActions>
+        <Link href={`/categorie/${categorieName}`}>
+          <Typography
+            variant="body1"
+            color="secondary"
+            border={1}
+            borderRadius={50}
+            textAlign={"center"}
+            padding={1}
+          >
+            {categorieName}
+          </Typography>
+        </Link>
         {product.price && (
           <Typography
             variant="h6"
@@ -100,9 +109,6 @@ const CardProductShow = ({ artiste, avatar, categorieName, product }) => {
             <span style={{ margin: 0, padding: 0 }}> {product.price} ETH</span>
           </Typography>
         )}
-      </CardContent>
-      <CardActions>
-          
       </CardActions>
     </Card>
   );

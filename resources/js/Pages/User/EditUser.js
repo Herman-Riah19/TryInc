@@ -15,10 +15,10 @@ const EditUser = ({ user, profile, auth}) => {
         biography: profile.biography,
         location: profile.location,
         company: profile.company,
-        facebookUrl: profile.facebook_url,
-        instagramUrl: profile.instagram_url,
-        twitterUrl: profile.twitter_url,
-        youtubeUrl: profile.youtube_url,
+        facebookUrl: 'https://www.facebook.com' || profile.facebook_url,
+        instagramUrl: 'http://www.instagram.com' || profile.instagram_url,
+        twitterUrl: 'http://www.twitter.com' || profile.twitter_url,
+        youtubeUrl: 'http://www.youtube.com' || profile.youtube_url,
     })
 
     const readFileUser = async (event) => {

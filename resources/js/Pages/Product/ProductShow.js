@@ -8,10 +8,8 @@ import Footer from "../../Components/Footer/Footer";
 
 const styles = makeStyles(() => ({
   imgShow: {
-    minWidth: "120px",
-    minHeight: "120px",
-    maxWidth: "600px",
-    maxHeight: "500px",
+    width: "35vw",
+    height: "40vw",
     borderRadius: "20px",
     textAlign: "center",
   },
@@ -56,9 +54,8 @@ const ProductShow = ({
         <Grid container spacing={2}>
           <Grid
             item
-            sm={6}
-            md={5}
-            lg={6}
+            md={4}
+            lg={5}
             sx={{ justifyContent: "space-between" }}
           >
             <img
@@ -67,7 +64,7 @@ const ProductShow = ({
               alt={product.name}
             />
           </Grid>
-          <Grid item sm={12} md={7} lg={6}>
+          <Grid item sm={12} md={8} lg={7}>
             <CardProductShow
               artiste={artist}
               avatar={`${avatarUrl}/${profile.avatar}`}

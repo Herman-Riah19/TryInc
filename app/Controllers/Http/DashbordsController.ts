@@ -87,7 +87,7 @@ export default class DashbordsController {
   }
 
   public async deleteProduct({ params, response }: HttpContextContract) {
-    const product = await Product.findOrFail(params.id)
+    const product = await Product.findBy('id',params.id)
 
     await product?.delete()
     return response.redirect('/dashbord/collections')

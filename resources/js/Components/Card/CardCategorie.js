@@ -39,7 +39,7 @@ const CardCategorie = ({ categorie, categorieUrl, auth }) => {
     }
 
     return (
-        <Card>
+        <Card >
             <CardActionArea>
                 <Link href={`/categorie/${categorieName}`}>
                     <CardContent class={classes.cardBody}>
