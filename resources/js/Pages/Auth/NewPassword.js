@@ -21,8 +21,7 @@ const style = {
   }
 
 const NewPassword = ({ user }) => {
-    const { data, setData, errors } = useForm({
-        email: user.email,
+    const [ data, setData ] = useState({
         password: ''
     })
     const [showPassword, setShowPassword] = useState(false)
@@ -50,8 +49,8 @@ const NewPassword = ({ user }) => {
                 <Avatar sx={style.avatar}> <LockClockOutlined /> </Avatar>
                 <Typography component='h1' variant='h5'>Forgot Password</Typography>
                 <Box component='form' method='post'>
-                    <Typography variant='h5'>{data.email}</Typography>
-                    <FormControl error={errors?.password} sx={{ width: '100%' }} variant="outlined">
+                    <Typography variant='h5'>{user.email}</Typography>
+                    <FormControl sx={{ width: '100%' }} variant="outlined">
                         <InputLabel htmlFor="password">Password</InputLabel>
                         <OutlinedInput
                             id="password"
@@ -73,9 +72,6 @@ const NewPassword = ({ user }) => {
                             value={data.password}
                             onChange={handleChange}
                         />
-                        <FormHelperText sx={{ color: 'red' }}>
-                            {errors?.password && errors?.password.message}
-                        </FormHelperText>
                     </FormControl>
                     <Button type="submit" fullWidth variant="contained" color='secondary' sx={{ mt: 3, mb: 2 }} >
                         Sign In

@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Avatar, Box, Container, TextField, Typography, Button } from '@mui/material'
 import { LockClockOutlined } from '@mui/icons-material'
-import { useForm } from '@inertiajs/inertia-react'
 
 const style = {
     form: {
@@ -21,7 +20,7 @@ const style = {
 }
 
 const ForgotPassword = () => {
-    const { data, setData, errors } = useForm({
+    const [ data, setData ] = useState({
         email: '',
     })
 
@@ -43,15 +42,12 @@ const ForgotPassword = () => {
                     <TextField
                         margin="normal"
                         fullWidth
-                        id="uid"
+                        id="email"
                         label="Email Address"
-                        name="uid"
-                        autoComplete="uid"
+                        name="email"
                         autoFocus
-                        value={data.uid}
+                        value={data.email}
                         onChange={handleChange}
-                        error={errors?.uid}
-                        helperText={errors?.uid && errors?.uid}
                     />
                     <Button type="submit" fullWidth variant="contained" color='secondary' sx={{ mt: 3, mb: 2 }} >
                         Next

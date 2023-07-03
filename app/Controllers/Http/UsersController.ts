@@ -72,14 +72,9 @@ export default class UsersController {
   }
   
   public async forgotPassword({request, response}:HttpContextContract) {
-    const passwordValidate = await schema.create({
-      email: schema.string(),
-    })
+    const user = await User.findBy('email', request.input('email'))
 
-    const data = await request.validate({ schema: passwordValidate})
-    const user = await User.query().where('email', data.email).firstOrFail()
-
-    return response.redirect(`/login/new-password/${user.username}`)
+    return response.redirect(`/login/new-password/${user?.username}`)
   }
   
   public async newPasswordShow({ inertia, params }:HttpContextContract) {
@@ -87,22 +82,14 @@ export default class UsersController {
     return inertia.render('Auth/NewPassword', { user })
   }
   
-  public async newPassword({ session, request, response, auth }:HttpContextContract) {
-    const passwordValidate = await schema.create({
-      email: schema.string(),
-      password: schema.string({trim: true}),
-    })
+  public async newPassword({ session, request, response, auth , params}:HttpContextContract) {
+    const user = await User.findBy('username', params.username)
 
-    const data = await request.validate({ schema: passwordValidate})
-    const user = await User.query().where('email', data.email).firstOrFail()
+    const password = request.input('password')
 
-    if(user?.password == data.password) {
-      return response.redirect(`/login/new-password/${user.username}`)
-    } 
+    await user?.merge({ password: password}).save()
 
-    await user?.merge({ password: data.password}).save()
-
-    await auth.login(user)
+    await auth.login(user?)
 
     session.flash('success', `Welcome back, ${auth.user!.username}!`)
     return response.redirect('/')
