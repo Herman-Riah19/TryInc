@@ -110,7 +110,7 @@ const Register = () => {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="/login">
+                <Link href="/login" style={{color:"#0094FF"}}>
                   {"Already have an account. Sign in"}
                 </Link>
               </Grid>

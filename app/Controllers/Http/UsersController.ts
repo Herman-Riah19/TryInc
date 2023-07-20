@@ -5,7 +5,6 @@ import LoginValidator from 'App/Validators/LoginValidator'
 import RegisterValidator from 'App/Validators/RegisterValidator'
 import Hash from '@ioc:Adonis/Core/Hash'
 import Profile from 'App/Models/Profile'
-import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class UsersController {
   public async registerShow({inertia}: HttpContextContract) {
@@ -89,7 +88,7 @@ export default class UsersController {
 
     await user?.merge({ password: password}).save()
 
-    await auth.login(user?)
+    await auth.login(user)
 
     session.flash('success', `Welcome back, ${auth.user!.username}!`)
     return response.redirect('/')
