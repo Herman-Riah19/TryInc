@@ -16,7 +16,7 @@ export default class AssetService {
     const file = await request.file(name)
     let fileName = ''
     if (file) {
-      fileName = profile + '_' + string.generateRandom(8) +'.' + file.extname
+      fileName = `${profile}_${string.generateRandom(8)}.${file.extname}`
       await file.moveToDisk(`./${name}/`, {
         name: fileName,
       })
