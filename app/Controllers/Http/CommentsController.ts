@@ -5,7 +5,7 @@ import Product from 'App/Models/Product';
 import CommentValidator from 'App/Validators/CommentValidator'
 
 export default class CommentsController {
-    public async addComment({params, request, response, session, auth}: HttpContextContract) {
+    public async addComment({params, request, response, auth}: HttpContextContract) {
         if(!auth) {
             return response.redirect().toRoute('user.login')
         }
