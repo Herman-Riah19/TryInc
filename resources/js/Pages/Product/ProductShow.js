@@ -29,6 +29,7 @@ const ProductShow = ({
   otherProducts,
   users,
   authenticateProfile,
+  comments, profileComments,
 }) => {
   const classes = styles();
 
@@ -70,6 +71,9 @@ const ProductShow = ({
               avatar={`${avatarUrl}/${profile.avatar}`}
               categorieName={categorie.name}
               product={product}
+              comments={comments}
+              profileComments={profileComments}
+              assetUrl={avatarUrl}
             />
           </Grid>
         </Grid>

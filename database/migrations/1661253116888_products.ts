@@ -19,6 +19,7 @@ export default class extends BaseSchema {
       table.text('description').nullable()
       table.boolean('is_free').notNullable().defaultTo(false)
       table.integer('nomber_like').nullable()
+      table.integer('nomber_comment').nullable()
       table.string('asset').notNullable()
       table.integer('state_id').unsigned().notNullable()
       table.timestamp('publish_at').nullable()

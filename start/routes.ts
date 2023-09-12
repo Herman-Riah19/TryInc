@@ -24,6 +24,7 @@ Route.group(() => {
     Route.group(() => {
         Route.get('/create', 'ProductsController.create').as('product.create')
         Route.post('/create', 'ProductsController.store')
+        Route.post('/show/:id', 'ProductsController.addComment')
     }).middleware('auth')
     Route.get('/show/:id', 'ProductsController.show').as('product.show')
     Route.get('/is-liked/:id', 'ProductsController.handleIsLiked').middleware('auth')
@@ -59,6 +60,5 @@ Route.group(()=> {
         Route.post('/', 'ProfilesController.edit')
     }).prefix('/edit/:id').middleware('auth')
 }).prefix('/profile')
-
 
 Route.get('/not-found', 'ErrorsController.pageNotFound').as('error.notFound')

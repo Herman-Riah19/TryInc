@@ -9,9 +9,10 @@ export default class extends BaseSchema {
       table.string('name').nullable()
       table.integer('post_id').unsigned().references('posts.id').nullable()
       table.integer('user_id').unsigned().references('users.id').nullable()
-      table.integer('reply_to').unsigned().references('comments.id').notNullable()
+      table.integer('product_id').unsigned().references('users.id').nullable()
+      table.integer('reply_to').unsigned().references('comments.id').nullable()
       table.integer('state_id').notNullable()
-      table.string('identity').notNullable()
+      table.string('identity').nullable()
       table.text('body')
 
       table.integer('root_parent_id').unsigned().references('id').inTable('comments')

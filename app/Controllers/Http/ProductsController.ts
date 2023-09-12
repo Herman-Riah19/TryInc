@@ -11,6 +11,8 @@ import AssetService from 'App/Services/AssetService'
 import { ProfileService } from 'App/Services/ProfileService'
 import Collection from 'App/Models/Collection'
 import Like from 'App/Models/Like'
+import Comment from 'App/Models/Comment'
+import CommentValidator from 'App/Validators/CommentValidator'
 
 export default class ProductsController {
   public async create({ inertia, auth, response }: HttpContextContract) {
@@ -45,7 +47,7 @@ export default class ProductsController {
     const data = await request.validate(ProductValidator)
 
     product
-      .merge({ ...data, nomberLike: 0, stateId: State.PUBLIC, userId: auth.user?.id })
+      .merge({ ...data, nomberLike: 0, nomberComment: 0, stateId: State.PUBLIC, userId: auth.user?.id })
       .save()
     session.flash('success', 'Your product is saved')
     return response.redirect('/')
@@ -54,6 +56,22 @@ export default class ProductsController {
   public async show({ inertia, params, auth }: HttpContextContract) {
     const product = await Product.findBy('id', params.id)
     const assetUrl = await Drive.getUrl('./products')
+
+    const AllComments = await Comment.all()
+    const allProfiles = await Profile.all()
+    const profileComments = Array<Profile>()
+    const comments = Array<Comment>()
+    AllComments.filter(comment => {
+      if(comment.productId === product?.id) {
+        comments.push(comment);
+
+        allProfiles.filter(prof => {
+          if(comment.userId === prof.userId) {
+            profileComments.push(prof)
+          }
+        })
+      }
+    })
     
     const artist = await User.findBy('id', product?.userId)
     const profile = await Profile.findBy('user_id', artist?.id)
@@ -81,6 +99,7 @@ export default class ProductsController {
       product, assetUrl,
       artist, profile, avatarUrl,
       categorie, otherProducts,
+      comments, profileComments,
       auth, users, authenticateProfile
     })
   }
@@ -93,6 +112,27 @@ export default class ProductsController {
     )
 
     return response.download(filePath, true)
+  }
+
+  public async addComment({params, request, response, session, auth}: HttpContextContract) {
+      if(!auth) {
+          return response.redirect().toRoute('user.login')
+      }
+      const product = await Product.findBy('id', params.id);
+
+      const data = await request.validate(CommentValidator);
+
+      console.log(data)
+      await Comment.create({
+          ...data, 
+          stateId: State.PUBLIC, 
+          userId: auth.user?.id, 
+          productId: product?.id})
+          
+      product!.nomberComment += 1;
+      product?.save();
+      session.flash('success', 'Your product is commented')
+      return response.redirect(`/product/show/${product?.id}`)
   }
 
   public async handleIsLiked({params, response, auth}: HttpContextContract) {

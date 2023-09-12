@@ -35,6 +35,9 @@ export default class Product extends BaseModel {
 
   @column()
   public nomberLike!: number | 0
+  
+  @column()
+  public nomberComment!: number | 0
 
   @column()
   public asset!: string
