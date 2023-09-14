@@ -2,22 +2,21 @@ import React from "react";
 import {
   Button,
   Card,
-  CardActions,
   CardContent,
   CardHeader,
+  CardActions,
   Avatar,
   Stack,
   Typography,
   Grid,
-  TextField,
 } from "@mui/material";
 import { Link } from "@inertiajs/inertia-react";
-import { Favorite, Share, Comment, AccountCircle } from "@mui/icons-material";
-import CardComment from "./CardComment";
+import { Favorite, Comment, AccountCircle } from "@mui/icons-material";
 
-const CardProductShow = ({ artiste, avatar, categorieName, product, comments, profileComments, assetUrl }) => {
+const CardProductShow = ({ artiste, avatar, categorieName, product }) => {
+  
   const username = artiste.username.split(" ").join("_");
-  console.log(assetUrl)
+
   return (
     <Card sx={{ MinHeight: "40vw" }}>
       <Link
@@ -31,9 +30,9 @@ const CardProductShow = ({ artiste, avatar, categorieName, product, comments, pr
               src={avatar ? avatar : <AccountCircle />}
             />
           }
-          title={<Typography variant="h6">{artiste.username}</Typography>}
+          title={<Typography variant="h5">{artiste.username}</Typography>}
           subheader={
-            <Typography variant="body1" color="text.thirdy">
+            <Typography variant="body2" color="text.thirdy">
               {artiste.email}
             </Typography>
           }
@@ -73,20 +72,14 @@ const CardProductShow = ({ artiste, avatar, categorieName, product, comments, pr
                 >
                   {product.nomber_comment}
                 </Button>
-              <Button
-                variant="outlined"
-                color="primary"
-                sx={{ justifyContent: "space-between" }}
-                startIcon={<Share />}
-              >
-                Share
-              </Button>
             </Stack>
           </Grid>
         </Grid>
         <Typography variant="p" color="text.thirdy">
           {product.description}
         </Typography>
+      </CardContent>
+      <CardActions>
         <Grid container>
           <Grid item>
           <Link href={`/categorie/${categorieName}`}>
@@ -121,9 +114,6 @@ const CardProductShow = ({ artiste, avatar, categorieName, product, comments, pr
             )}
           </Grid>
         </Grid>
-      </CardContent>
-      <CardActions>
-        <CardComment id={`${product.id}`} comments={comments} person={profileComments} assetUrl={assetUrl}/>
       </CardActions>
     </Card>
   );

@@ -58,27 +58,27 @@ const theme = createTheme ({
     },
     h2: {
       fontFamily: 'Roboto',
-      fontSize: 60, //theme.spacing(8)
+      fontSize: 57, //theme.spacing(8)
       fontWeight: 900
     },
     h3: {
       fontFamily: 'Roboto',
-      fontSize: 51, //theme.spacing(6)
+      fontSize: 45, //theme.spacing(6)
       fontWeight: 800
     },
     h4: {
       fontFamily: 'Roboto',
-      fontSize: 32, //theme.spacing(5)
+      fontSize: 25, //theme.spacing(5)
       fontWeight: 800
     },
     h5: {
       fontFamily: 'Roboto',
-      fontSize: 25, //theme.spacing(3.5)
+      fontSize: 22, //theme.spacing(3.5)
       fontWeight: 800
     },
     h6: {
       fontFamily: 'Roboto',
-      fontSize: 20, //theme.spacing(3)
+      fontSize: 18, //theme.spacing(3)
       fontWeight: 800
     },
     body1: {
@@ -89,7 +89,7 @@ const theme = createTheme ({
     body2: {
       fontFamily: 'Roboto',
       fontWeight: 'normal',
-      fontSize: 20,
+      fontSize: 15,
     },
   },
   shape: {

@@ -1,10 +1,25 @@
 import React from "react";
-import { Box, Container, Grid, Typography, Button } from "@mui/material";
+import { 
+  Box, 
+  Container, 
+  Grid, 
+  Typography,
+  InputBase,
+  IconButton,
+  Paper, 
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  CardMedia,
+  Card} from "@mui/material";
 import Navbar from "../../Components/MenuBar/Navbar";
 import CardProduct from "../../Components/Card/CardProduct";
 import CardProductShow from "../../Components/Card/CardProductShow";
 import { makeStyles } from "@mui/styles";
 import Footer from "../../Components/Footer/Footer";
+import CardComment from "../../Components/Card/CardComment";
+import { useForm } from "@inertiajs/inertia-react";
+import {Comment, ExpandMore } from "@mui/icons-material";
 
 const styles = makeStyles(() => ({
   imgShow: {
@@ -32,6 +47,10 @@ const ProductShow = ({
   comments, profileComments,
 }) => {
   const classes = styles();
+  const { data, setData, errors, post} = useForm({
+    name: 'New comment',
+    body: '',
+  })
 
   const findUserById = (index) => {
     let user = new Object();
@@ -40,6 +59,20 @@ const ProductShow = ({
     });
     return user;
   };
+
+  const handleChange = (event) => {
+    const key = event.target.id
+    const value = event.target.value
+    setData(values => ({
+      ...values,
+      [key]: value
+    }))
+  }
+
+  const handleComment = (event) => {
+    console.log("comment button clicked: " + event.target.value)
+    post(`/product/show/${product.id}`, data)
+  }
 
   return (
     <Box>
@@ -55,26 +88,57 @@ const ProductShow = ({
         <Grid container spacing={2}>
           <Grid
             item
-            md={4}
-            lg={5}
+            xs={12}
+            sm={7}
+            md={7}
             sx={{ justifyContent: "space-between" }}
           >
-            <img
-              class={classes.imgShow}
-              src={`${assetUrl}/${artist.username}/${product.asset}`}
-              alt={product.name}
-            />
+            <Card>
+              <CardMedia
+                component="img"
+                sx={classes.img}
+                image={`${assetUrl}/${artist.username}/${product.asset}`}
+                alt={product.name}/>
+            </Card>
           </Grid>
-          <Grid item sm={12} md={8} lg={7}>
-            <CardProductShow
-              artiste={artist}
-              avatar={`${avatarUrl}/${profile.avatar}`}
-              categorieName={categorie.name}
-              product={product}
-              comments={comments}
-              profileComments={profileComments}
-              assetUrl={avatarUrl}
-            />
+          <Grid item xs={12} sm={5} md={5}>
+            <Paper>
+              <CardProductShow
+                artiste={artist}
+                avatar={`${avatarUrl}/${profile.avatar}`}
+                categorieName={categorie.name}
+                product={product}
+                assetUrl={avatarUrl}
+              />
+              
+              <Accordion>
+                <AccordionSummary sx={{color:'white'}} expandIcon={<ExpandMore/>}>
+                <Paper
+                  component="form"
+                  sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '100%' }}
+                  method='post' 
+                >
+                  <InputBase
+                    id="body"
+                    name="body"
+                    value={data.body}
+                    onChange={handleChange} 
+                    error={errors?.body}
+                    helperText={errors?.body && errors?.body}
+                    sx={{ ml: 1, flex: 1, width: "100%" }}
+                    placeholder="Add Comment"
+                    inputProps={{ 'aria-label': 'Add comment' }}
+                  />
+                  <IconButton type="submit" sx={{ p: '10px', color:'white'}}  onClick={handleComment}>
+                    <Comment />
+                  </IconButton>
+                </Paper>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <CardComment id={`${product.id}`} users={users} comments={comments} profileComments={profileComments} assetUrl={avatarUrl}/>
+                </AccordionDetails>
+              </Accordion>              
+            </Paper>
           </Grid>
         </Grid>
         <Box sx={{ margin: "10px" }}>

@@ -122,12 +122,15 @@ export default class ProductsController {
 
       const data = await request.validate(CommentValidator);
 
+      const comment = new Comment();
+
+      comment.merge({
+        ...data,
+        stateId: State.PUBLIC, 
+        userId: auth.user?.id, 
+        productId: product?.id
+      }).save()
       console.log(data)
-      await Comment.create({
-          ...data, 
-          stateId: State.PUBLIC, 
-          userId: auth.user?.id, 
-          productId: product?.id})
           
       product!.nomberComment += 1;
       product?.save();
