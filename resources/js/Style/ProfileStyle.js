@@ -1,4 +1,5 @@
-import { container, title } from "./style";
+import { container } from "./style";
+import theme from "./theme";
 
 const profileStyle = {
   container,
@@ -28,12 +29,6 @@ const profileStyle = {
     left: '50px',
     justifyContent: 'center'
   },
-  username: {
-    position: 'relative',
-    top: '-20px',
-    left: '200px'
-  }
-
 };
 
 export default profileStyle;

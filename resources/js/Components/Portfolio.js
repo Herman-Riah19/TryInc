@@ -1,12 +1,17 @@
 import React from 'react'
-import { Grid, Box, Typography, Button, ButtonGroup, Card, CardHeader, CardContent, TableContainer, TableBody, TableRow, TableCell } from '@mui/material'
+import { Grid, Box, Typography, Button, ButtonGroup, Card, CardHeader, CardContent, TableContainer, TableBody, TableRow, TableCell, CardMedia } from '@mui/material'
 import { Facebook, Instagram, Twitter } from '@mui/icons-material'
 
 const Portfolio = ({ profile, avatar }) => {
     return (
         <Grid container spacing={2}>
             <Grid item md={4}>
-                <img src={`${avatar}/${profile.avatar}`} alt={profile.lastname} style={{ borderRadius: '20px' }} />
+                <Card sx={{m: '1vw'}}>
+                    <CardMedia
+                        component="img"
+                        image={`${avatar}/${profile.avatar}`}
+                        alt={profile.lastname} />
+                </Card>
                 <ButtonGroup fullWidth variant='contained' orientation='vertical' color='secondary' aria-label="Contacts">
                     <Button endIcon={<Facebook />}>
                         <a href={profile.facebook_url}>Facebook</a>
@@ -22,55 +27,58 @@ const Portfolio = ({ profile, avatar }) => {
             </Grid>
             <Grid item md={7}>
                 <Box>
-                    <Card>
+                    <Card sx={{m:'1vw'}}>
                         <CardHeader title='About me' />
                         <CardContent>
-                            <Typography variant='p'>{profile.biography}</Typography>
-
-                            <Typography variant='h5'>Personnal Informations</Typography>
+                            <Typography variant='p' color="text.thirdy">{profile.biography}</Typography>
+                        </CardContent>
+                    </Card>
+                    <Card sx={{m:'1vw'}}>
+                        <CardHeader title="Personnal Informations"/>
+                        <CardContent>
                             <TableContainer >
                                 <TableBody>
                                     <TableRow>
-                                        <TableCell>
+                                        <TableCell sx={{border: 'none'}}>
                                             <Typography variant='h6'>Lastname </Typography>
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell sx={{border: 'none'}}>
                                             <Typography variant='p'>:</Typography>
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell sx={{border: 'none'}}>
                                             <Typography variant='p'>{profile.lastname}</Typography>
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell>
+                                        <TableCell sx={{border: 'none'}}>
                                             <Typography variant='h6'>Firstname </Typography>
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell sx={{border: 'none'}}>
                                             <Typography variant='p'>:</Typography>
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell sx={{border: 'none'}}>
                                             <Typography variant='p'>{profile.firstname}</Typography>
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell>
+                                        <TableCell sx={{border: 'none'}}>
                                             <Typography variant='h6'>Location </Typography>
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell sx={{border: 'none'}}>
                                             <Typography variant='p'>:</Typography>
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell sx={{border: 'none'}}>
                                             <Typography variant='p'>{profile.location}</Typography>
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell>
+                                        <TableCell sx={{border: 'none'}}>
                                             <Typography variant='h6'>Company </Typography>
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell sx={{border: 'none'}}>
                                             <Typography variant='p'>:</Typography>
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell sx={{border: 'none'}}>
                                             <Typography variant='p'>{profile.company}</Typography>
                                         </TableCell>
                                     </TableRow>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Card, CardActionArea, CardActions, CardMedia, Typography } from '@mui/material'
+import { Avatar, Box, Card, CardActionArea, CardActions, CardMedia, Typography } from '@mui/material'
 import { Link } from "@inertiajs/inertia-react"
 const style = {
     banner: {
@@ -36,9 +36,14 @@ const CardUserProfile = (props) => {
                         alt={user.username}
                         sx={style.avatar}
                         src={`${avatarUrl}/${profile.avatar}`} />
-                    <Typography variant='h5' sx={style.username}>
-                        {user.username}
-                    </Typography>
+                    <Box>
+                        <Typography variant='h5' sx={style.username}>
+                            {user.username} {profile.firstname}
+                        </Typography> <br/>
+                        <Typography variant='body2' sx={style.username}>
+                            {profile.company}
+                        </Typography>
+                    </Box>
                 </CardActions>
             </CardActionArea>
         </Card>
