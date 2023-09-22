@@ -130,7 +130,7 @@ const Profile = ({ user, profile, auth, authenticateProfile, products, productUr
           </Grid>
         </Container>
 
-        <Container sx={{ margin: '10px' }}>
+        <Container sx={{ mb: 1 }}>
           <TabImage
             products={products}
             username={user.username}

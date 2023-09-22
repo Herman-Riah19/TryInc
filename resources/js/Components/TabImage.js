@@ -36,7 +36,7 @@ const TabImage = ({ products, username, profile, avatar, banner, productUrl, col
     };
 
     return (
-        <Box sx={{ width: '100%', m: 0 }}>
+        <Box sx={{ width: '100%' }}>
             <Box sx={{}}>
                 <Tabs
                     value={value}
@@ -51,11 +51,11 @@ const TabImage = ({ products, username, profile, avatar, banner, productUrl, col
                         iconPosition="start"
                         label='All'
                         sx={{ textTransform: 'capitalize' }} />
-                    <Tab
+                    {/* <Tab
                         icon={<AutoAwesomeMosaicIcon />}
                         iconPosition="start"
                         label='Collection'
-                        sx={{ textTransform: 'capitalize' }} />
+                        sx={{ textTransform: 'capitalize' }} /> */}
                     <Tab
                         icon={<Info />}
                         iconPosition="start"
@@ -74,7 +74,7 @@ const TabImage = ({ products, username, profile, avatar, banner, productUrl, col
                     })}
                 </Grid>
             </TabPanel>
-            <TabPanel value={value} index={1}>
+            {/* <TabPanel value={value} index={1}>
                 <Link href={'/collection/new'}>
                     <Button variant='contained' color='secondary'>
                         Create a new Collection
@@ -87,8 +87,8 @@ const TabImage = ({ products, username, profile, avatar, banner, productUrl, col
                         </Grid>
                     ))}
                 </Grid>
-            </TabPanel>
-            <TabPanel value={value} index={2}>
+            </TabPanel> */}
+            <TabPanel value={value} index={1}>
                 <Container sx={{ m: 2 }}>
                     <Portfolio profile={profile} avatar={avatar} />
                 </Container>
