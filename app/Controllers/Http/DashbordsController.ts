@@ -29,6 +29,17 @@ export default class DashbordsController {
     })
   }
 
+  public async statisticOfActivity({inertia, auth, response}: HttpContextContract) {
+    if(auth.user?.roleId != 2) {
+      return response.redirect('/login')
+    }
+    const products = await Product.all();
+    
+    return inertia.render('Dashbord/Statistic', {
+      products, auth
+    })
+  }
+
   public async collections({ inertia, auth, response }:HttpContextContract) {
     if(auth.user?.roleId != 2) {
       return response.redirect('/login')

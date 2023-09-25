@@ -33,6 +33,7 @@ Route.group(() => {
 
 Route.group(() => {
     Route.get('/', 'DashbordsController.showDashbord')
+    Route.get('/statistic', 'DashbordsController.statisticOfActivity')
     Route.get('/collections', 'DashbordsController.collections')
     Route.delete('/collections/:id', 'DashbordsController.deleteProduct').as('dash.product.delete')
     Route.group(() => {

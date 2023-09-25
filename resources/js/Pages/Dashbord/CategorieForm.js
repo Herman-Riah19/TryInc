@@ -32,8 +32,7 @@ const DialogCreateCategory = () => {
     }
 
     return (
-
-        <Container sx={{ m: '10px', width: 'auto' }}>
+        <Container sx={{ mt: '50px', width: 'auto' }}>
             <Typography variant='h4'>Create Category</Typography>
             <form method="post" encType="multipart/form-data">
                 <TextField

@@ -31,7 +31,7 @@ const PostCreate = () => {
     }
 
     return (
-        <Container sx={{ m: '10px', width: 900 }}>
+        <Container sx={{ mt: '50px', width: 'auto' }}>
             <Typography variant="h4">
                 Create a new Post
             </Typography>

@@ -1,8 +1,41 @@
 import { ListItemIcon, ListItemText, MenuItem, MenuList } from '@mui/material'
-import { Category, Collections, Home, ManageAccounts, PostAdd } from '@mui/icons-material'
+import { Category, Collections, Home, Leaderboard, ManageAccounts, PostAdd } from '@mui/icons-material'
 import React from 'react'
 import { Link } from '@inertiajs/inertia-react'
 
+const route = [
+    {
+        id: 1,
+        link: '/dashbord',
+        title: 'Dashbord',
+        icon: <Home />
+    },
+    {
+        id: 2,
+        link: '/dashbord/collections',
+        title: 'Collections',
+        icon: <Collections />
+    },
+    {
+        id: 3,
+        link: '/dashbord/statistic',
+        title: 'Statistic',
+        icon: <Leaderboard />
+    },
+    {
+        id: 4,
+        link: '/dashbord/categorie/create',
+        title: 'Create Categorie',
+        icon: <Category />
+    },
+    {
+        id: 5,
+        link: '/dashbord/post/create',
+        title: 'Create Post',
+        icon: <PostAdd />
+    },
+    
+]
 const Sidebar = ({ isOpen }) => {
 
     const itemActiveStyle = {
@@ -26,56 +59,18 @@ const Sidebar = ({ isOpen }) => {
                 display: isOpen ? 'block':'none'
             }
         })}>
-            <MenuItem sx={itemActiveStyle}>
+        {route.map(item => (
+            <MenuItem key={item.id} sx={itemActiveStyle}>
                 <ListItemIcon sx={{color:'white'}}>
-                    <Home />
+                    {item.icon}
                 </ListItemIcon>
                 <ListItemText>
-                    <Link href={'/dashbord'}>
-                        Dashboard
+                    <Link href={item.link}>
+                        {item.title}
                     </Link>
                 </ListItemText>
             </MenuItem>
-            <MenuItem sx={itemActiveStyle}>
-                <ListItemIcon sx={{color:'white'}}>
-                    <PostAdd />
-                </ListItemIcon>
-                <ListItemText>
-                    <Link href={'/dashbord/post/create'}>
-                        Post
-                    </Link>
-                </ListItemText>
-            </MenuItem>
-            <MenuItem sx={itemActiveStyle}>
-                <ListItemIcon sx={{color:'white'}}>
-                    <Collections />
-                </ListItemIcon>
-                <ListItemText>
-                    <Link href={'/dashbord/collections'}>
-                        Collections
-                    </Link>
-                </ListItemText>
-            </MenuItem>
-            <MenuItem sx={itemActiveStyle}>
-                <ListItemIcon sx={{color:'white'}}>
-                    <Category />
-                </ListItemIcon>
-                <ListItemText>
-                    <Link href={'/dashbord/categorie/create'} >
-                        Categories
-                    </Link>
-                </ListItemText>
-            </MenuItem>
-            <MenuItem sx={itemActiveStyle}>
-                <ListItemIcon sx={{color:'white'}}>
-                    <ManageAccounts />
-                </ListItemIcon>
-                <ListItemText>
-                    <Link href='/'>
-                        Manage Account
-                    </Link>
-                </ListItemText>
-            </MenuItem>
+        ))}
         </MenuList>
     )
 }
