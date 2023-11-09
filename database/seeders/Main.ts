@@ -1,6 +1,5 @@
 import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
 import Categorie from 'App/Models/Categorie'
-import Collection from 'App/Models/Collection'
 import Role from 'App/Models/Role'
 import User from 'App/Models/User'
 
@@ -58,7 +57,7 @@ export default class extends BaseSeeder {
           "<li>Non-player character, or NPC, a character controlled by a game-master in tabletop role-playing games or by a program in video games.</li>"+
           "<li>Boss (video games), a significant computer-controlled enemy in video games</li>"+
           "<li>Mob (video games), short for 'mobile'. A type of computer-controlled non-player characters, whose primary purpose is to be killed for experience, quest objective, or loot</li></ul>",
-        asset: 'H5KOrkDH6Q5LM6SWoeYoF3K_tfyWTnoA.jpg'
+        asset: 'game_charactere.jpg'
       },
     ])
   }
