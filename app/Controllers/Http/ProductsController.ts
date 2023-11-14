@@ -145,6 +145,10 @@ export default class ProductsController {
     } else {
       const hasBeenLiked = await Like.findBy('product_id', product?.id)
       if(hasBeenLiked?.userId == auth.user?.id) {
+        hasBeenLiked!.isLiked = false
+        hasBeenLiked?.save()
+        product!.nomberLike -= 1
+        product?.save()
         return response.redirect(`/product/show/${product?.id}`)
       }
     }    

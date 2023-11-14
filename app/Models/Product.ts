@@ -6,6 +6,7 @@ import Categorie from './Categorie'
 import State from 'App/Enums/Constants'
 import Collection from './Collection'
 import Like from './Like'
+import Historic from './Historic'
 
 export default class Product extends BaseModel {
   @column({ isPrimary: true })
@@ -62,6 +63,9 @@ export default class Product extends BaseModel {
 
   @belongsTo(() => Categorie)
   public categorie!: BelongsTo<typeof Categorie>
+
+  @hasMany(() => Historic)
+  public historics!: HasMany<typeof Historic>
 
   @belongsTo(() => Collection)
   public collection!: BelongsTo<typeof Collection>
