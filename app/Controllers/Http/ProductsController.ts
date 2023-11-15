@@ -90,7 +90,7 @@ export default class ProductsController {
 
     let liked: boolean = false
     const hasBeenLiked = await Like.findBy('product_id', product?.id)
-    if(hasBeenLiked?.userId == auth.user?.id){
+    if(hasBeenLiked && hasBeenLiked?.userId == auth.user?.id){
       liked = hasBeenLiked!.isLiked 
     }
 
@@ -148,12 +148,12 @@ export default class ProductsController {
     const product = await Product.findBy('id', params.id)
     if(!auth) {
       return response.redirect().toRoute('user.login')
-    }
+    } 
     const hasBeenLiked = await Like.findBy('product_id', product?.id)
-    if(hasBeenLiked?.userId == auth.user?.id) {
+    if(auth && hasBeenLiked?.userId == auth.user?.id) {
         hasBeenLiked!.isLiked = !hasBeenLiked!.isLiked
         hasBeenLiked?.save()
-        product!.nomberLike = hasBeenLiked!.isLiked ? product!.nomberLike + 1: product!.nomberLike - 1
+        product!.nomberLike = hasBeenLiked!.isLiked ? product!.nomberLike++: product!.nomberLike--
         product?.save()
         return response.redirect(`/product/show/${product?.id}`)
     } 
