@@ -36,6 +36,7 @@ const styles = makeStyles(() => ({
 const ProductShow = ({
   product,
   auth,
+  liked,
   assetUrl,
   artist,
   profile,
@@ -105,6 +106,7 @@ const ProductShow = ({
             <Paper>
               <CardProductShow
                 artiste={artist}
+                liked={liked}
                 avatar={`${avatarUrl}/${profile.avatar}`}
                 categorieName={categorie.name}
                 product={product}

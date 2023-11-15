@@ -6,7 +6,7 @@ export default class PostValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    title: schema.string({ trim: true }, [rules.maxLength(100)]),
+    title: schema.string({ trim: true }, [rules.maxLength(200)]),
     description: schema.string.optional({ trim: true }),
     body: schema.string.optional({ trim: true }),
   })

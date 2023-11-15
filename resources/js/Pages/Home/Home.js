@@ -151,33 +151,6 @@ export default function Home({
         </Container>
 
         <Container sx={style.section}>
-          <Title title="Top artist" link="/artist-list" />
-          <Swiper
-            modules={[Navigation, A11y]}
-            breakpoints={slideBreakpoint}
-            navigation
-            pagination={{ clickable: true }}
-            scrollbar={{ draggable: true }}
-          >
-            {users.map((artist) => {
-              const profile = getProfileByUser(artist);
-              return (
-                <SwiperSlide>
-                  {artist.role_id != 2 && (
-                    <CardUserProfile
-                      user={artist}
-                      profile={profile}
-                      avatarUrl={avatarUrl}
-                      bannerUrl={bannerUrl}
-                    />
-                  )}
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
-        </Container>
-
-        <Container sx={style.section}>
           <Parallax filter image={`img/parallax.jpg`}>
             <Grid container sx={{ zIndex: "1", m: "25px" }}>
               <Grid item md={6}>
@@ -224,6 +197,33 @@ export default function Home({
               </Grid>
             </Grid>
           </Parallax>
+        </Container>
+
+        <Container sx={style.section}>
+          <Title title="Top artist" link="/artist-list" />
+          <Swiper
+            modules={[Navigation, A11y]}
+            breakpoints={slideBreakpoint}
+            navigation
+            pagination={{ clickable: true }}
+            scrollbar={{ draggable: true }}
+          >
+            {users.map((artist) => {
+              const profile = getProfileByUser(artist);
+              return (
+                <SwiperSlide>
+                  {artist.role_id != 2 && (
+                    <CardUserProfile
+                      user={artist}
+                      profile={profile}
+                      avatarUrl={avatarUrl}
+                      bannerUrl={bannerUrl}
+                    />
+                  )}
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
         </Container>
 
         <Container sx={style.section}>

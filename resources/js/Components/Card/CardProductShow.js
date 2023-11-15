@@ -11,9 +11,9 @@ import {
   Grid,
 } from "@mui/material";
 import { Link } from "@inertiajs/inertia-react";
-import { Favorite, Comment, AccountCircle } from "@mui/icons-material";
+import { Favorite, Comment, AccountCircle, FavoriteBorderOutlined } from "@mui/icons-material";
 
-const CardProductShow = ({ artiste, avatar, categorieName, product }) => {
+const CardProductShow = ({ artiste, avatar, categorieName, product, liked }) => {
   
   const username = artiste.username.split(" ").join("_");
 
@@ -60,7 +60,7 @@ const CardProductShow = ({ artiste, avatar, categorieName, product }) => {
                 <Button
                   variant="outlined"
                   color="warning"
-                  startIcon={<Favorite />}
+                  startIcon={liked ? <Favorite /> : <FavoriteBorderOutlined/>}
                 >
                   {product.nomber_like}
                 </Button>
