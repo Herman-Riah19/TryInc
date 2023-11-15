@@ -150,10 +150,10 @@ export default class ProductsController {
       return response.redirect().toRoute('user.login')
     } 
     const hasBeenLiked = await Like.findBy('product_id', product?.id)
-    if(auth && hasBeenLiked?.userId == auth.user?.id) {
+    if(hasBeenLiked?.userId == auth.user?.id) {
         hasBeenLiked!.isLiked = !hasBeenLiked!.isLiked
         hasBeenLiked?.save()
-        product!.nomberLike = hasBeenLiked!.isLiked ? product!.nomberLike++: product!.nomberLike--
+        product!.nomberLike = hasBeenLiked!.isLiked ? product!.nomberLike + 1: product!.nomberLike - 1
         product?.save()
         return response.redirect(`/product/show/${product?.id}`)
     } 

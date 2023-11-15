@@ -21,7 +21,7 @@ export default class UsersController {
     }).save()
     await auth.login(user)
     session.flash('success', 'You are register in it. Good navigation!')
-    return response.redirect('/')
+    return response.redirect().toRoute('profile.edit')
   }
 
   public async loginShow({inertia}: HttpContextContract) {
