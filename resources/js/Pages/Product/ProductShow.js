@@ -101,6 +101,34 @@ const ProductShow = ({
                 image={`${assetUrl}/${artist.username}/${product.asset}`}
                 alt={product.name}/>
             </Card>
+            <Accordion sx={{mt: '25px'}}>
+              <AccordionSummary sx={{ color: 'white' }} expandIcon={<ExpandMore />}>
+                <Paper
+                  component="form"
+                  sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '100%' }}
+                  method='post'
+                >
+                  <InputBase
+                    id="body"
+                    name="body"
+                    value={data.body}
+                    onChange={handleChange}
+                    error={errors?.body}
+                    helperText={errors?.body && errors?.body}
+                    sx={{ ml: 1, flex: 1, width: "100%" }}
+                    placeholder="Add Comment"
+                    inputProps={{ 'aria-label': 'Add comment' }}
+                    multiline
+                  />
+                  <IconButton type="submit" sx={{ p: '10px', color: 'white' }} onClick={handleComment}>
+                    <Comment />
+                  </IconButton>
+                </Paper>
+              </AccordionSummary>
+              <AccordionDetails>
+                <CardComment id={`${product.id}`} users={users} comments={comments} profileComments={profileComments} assetUrl={avatarUrl} />
+              </AccordionDetails>
+            </Accordion>   
           </Grid>
           <Grid item xs={12} sm={5} md={5}>
             <Paper>
@@ -111,35 +139,7 @@ const ProductShow = ({
                 categorieName={categorie.name}
                 product={product}
                 assetUrl={avatarUrl}
-              />
-              
-              <Accordion>
-                <AccordionSummary sx={{color:'white'}} expandIcon={<ExpandMore/>}>
-                <Paper
-                  component="form"
-                  sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '100%' }}
-                  method='post' 
-                >
-                  <InputBase
-                    id="body"
-                    name="body"
-                    value={data.body}
-                    onChange={handleChange} 
-                    error={errors?.body}
-                    helperText={errors?.body && errors?.body}
-                    sx={{ ml: 1, flex: 1, width: "100%" }}
-                    placeholder="Add Comment"
-                    inputProps={{ 'aria-label': 'Add comment' }}
-                  />
-                  <IconButton type="submit" sx={{ p: '10px', color:'white'}}  onClick={handleComment}>
-                    <Comment />
-                  </IconButton>
-                </Paper>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <CardComment id={`${product.id}`} users={users} comments={comments} profileComments={profileComments} assetUrl={avatarUrl}/>
-                </AccordionDetails>
-              </Accordion>              
+              />           
             </Paper>
           </Grid>
         </Grid>

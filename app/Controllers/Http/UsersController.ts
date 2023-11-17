@@ -88,7 +88,7 @@ export default class UsersController {
 
     await user?.merge({ password: password}).save()
 
-    await auth.login(user)
+    await auth.login(user!)
 
     session.flash('success', `Welcome back, ${auth.user!.username}!`)
     return response.redirect('/')

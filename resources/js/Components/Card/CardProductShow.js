@@ -50,7 +50,14 @@ const CardProductShow = ({ artiste, avatar, categorieName, product, liked }) => 
               {product.name}
             </Typography>
           </Grid>
-          <Grid item xs={6}>
+        </Grid>
+        <Typography variant="p" color="text.thirdy">
+          {product.description}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Grid container>
+          <Grid item xs={4}>
             <Stack
               direction="row"
               spacing={2}
@@ -60,29 +67,22 @@ const CardProductShow = ({ artiste, avatar, categorieName, product, liked }) => 
                 <Button
                   variant="outlined"
                   color="warning"
-                  startIcon={liked ? <Favorite /> : <FavoriteBorderOutlined/>}
+                  startIcon={liked ? <Favorite /> : <FavoriteBorderOutlined />}
                 >
                   {product.nomber_like}
                 </Button>
               </Link>
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                  startIcon={<Comment />}
-                >
-                  {product.nomber_comment}
-                </Button>
+              <Button
+                variant="outlined"
+                color="secondary"
+                startIcon={<Comment />}
+              >
+                {product.nomber_comment}
+              </Button>
             </Stack>
           </Grid>
-        </Grid>
-        <Typography variant="p" color="text.thirdy">
-          {product.description}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Grid container>
-          <Grid item>
-          <Link href={`/categorie/${categorieName}`}>
+          <Grid item xs={4}>
+            <Link href={`/categorie/${categorieName}`}>
               <Typography
                 variant="body1"
                 color="secondary"
