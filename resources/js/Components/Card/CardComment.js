@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, List, Card, CardHeader, CardContent, Typography, Avatar } from '@mui/material'
+import { Box, List, Card, CardHeader, Avatar } from '@mui/material'
 import { Link } from "@inertiajs/inertia-react";
 
 export default function CardComment({id, comments, users, profileComments, assetUrl}) {
@@ -42,14 +42,9 @@ export default function CardComment({id, comments, users, profileComments, asset
                     <CardHeader
                       avatar={<Avatar src={`${assetUrl}/${person.avatar}`} alt={person.lastname} />}
                       title={`${person.lastname} ${person.firstname}`}
-                      subheader={person.company}
+                      subheader={com.body}
                     />
                   </Link>
-                  <CardContent sx={{mt: '-10px', ml: '55px'}}>
-                    <Typography variant="body1" color="textSecondary">
-                      {com.body}
-                    </Typography>
-                  </CardContent>
                 </Card>
             )})}
           </>
