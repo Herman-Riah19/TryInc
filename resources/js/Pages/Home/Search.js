@@ -77,6 +77,7 @@ const Search = (props) => {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6} md={4} lg={3}>
               <CardProduct
+                key={product.id}
                 product={product}
                 username={user.username}
                 url={productUrl}
@@ -89,6 +90,7 @@ const Search = (props) => {
               {existProducts.map((prod) => (
                 <Grid key={prod.id} item xs={12} sm={6} md={4} lg={3}>
                   <CardProduct
+                    key={prod.id}
                     product={prod}
                     username={findUserById(prod.user_id).username}
                     url={productUrl}

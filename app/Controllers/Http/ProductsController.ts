@@ -54,7 +54,8 @@ export default class ProductsController {
   }
 
   public async show({ inertia, params, auth }: HttpContextContract) {
-    const product = await Product.findBy('id', params.id)
+    const productName = params.name.split('_').join(' ')
+    const product = await Product.findBy('name', productName)
     const assetUrl = await Drive.getUrl('./products')
 
     const AllComments = await Comment.all()

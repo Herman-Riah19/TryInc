@@ -37,11 +37,12 @@ const classes = {
   },
 };
 
-const CardProduct = ({ product, username, url }) => {
+const CardProduct = ({ key, product, username, url }) => {
+  const productName = product.name.split(' ').join('_')
   return (
-    <Card sx={classes.card}>
+    <Card key={key} sx={classes.card}>
       <CardActionArea>
-        <Link href={`/product/show/${product.id}`}>
+        <Link href={`/product/show/${productName}`}>
           <CardMedia
             component="img"
             sx={classes.img}

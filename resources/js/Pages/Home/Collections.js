@@ -70,6 +70,7 @@ const Collections = ({ auth, avatarUrl, authenticateProfile, categories, product
               <Tab label='All' sx={{ color: '#c7d4e1', textTransform: 'capitalize' }} />
               {categories.map(section => (
                 <Tab
+                  key={section.id}
                   label={section.name}
                   sx={{ color: '#c7d4e1', textTransform: 'capitalize' }} />
               ))}
@@ -83,7 +84,11 @@ const Collections = ({ auth, avatarUrl, authenticateProfile, categories, product
                 const user = findUserById(product.user_id)
                 return (
                   <Grid item xs={12} sm={6} md={4} lg={3}>
-                    <CardProduct product={product} username={user.username} url={productUrl} />
+                    <CardProduct
+                      key={product.id} 
+                      product={product} 
+                      username={user.username} 
+                      url={productUrl} />
                   </Grid>
                 )
               })}
@@ -100,7 +105,11 @@ const Collections = ({ auth, avatarUrl, authenticateProfile, categories, product
                     const user = findUserById(product.user_id)
                     return (
                       <Grid item xs={12} sm={6} md={4} lg={3}>
-                        <CardProduct product={product} username={user.username} url={productUrl} />
+                        <CardProduct 
+                          key={product.id}
+                          product={product} 
+                          username={user.username} 
+                          url={productUrl} />
                       </Grid>
                     )
                   })}
@@ -139,6 +148,7 @@ const Collections = ({ auth, avatarUrl, authenticateProfile, categories, product
             {posts.map(post => (
               <SwiperSlide>
                 <CardPost
+                  key={post.id}
                   title={post.title}
                   slug={post.slug}
                   content={post.description}

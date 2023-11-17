@@ -26,7 +26,7 @@ Route.group(() => {
         Route.post('/create', 'ProductsController.store')
         Route.post('/show/:id', 'ProductsController.addComment')
     }).middleware('auth')
-    Route.get('/show/:id', 'ProductsController.show').as('product.show')
+    Route.get('/show/:name', 'ProductsController.show').as('product.show')
     Route.get('/is-liked/:id', 'ProductsController.handleIsLiked').middleware('auth')
     Route.get('/download/:id', 'ProductsController.download').as('product.download')
 }).prefix('/product')

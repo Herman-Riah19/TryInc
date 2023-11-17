@@ -139,7 +139,7 @@ export default function Home({
             scrollbar={{ draggable: true }}
           >
             {categories.map((categ) => (
-              <SwiperSlide>
+              <SwiperSlide key={categ.id}>
                 <CardCategorie
                   categorie={categ}
                   categorieUrl={categorieUrl}
@@ -183,7 +183,7 @@ export default function Home({
                   scrollbar={{ draggable: true }}
                 >
                   {posts.map((post) => (
-                    <SwiperSlide>
+                    <SwiperSlide key={post.id}>
                       <CardPost
                         title={post.title}
                         slug={post.slug}
@@ -211,7 +211,7 @@ export default function Home({
             {users.map((artist) => {
               const profile = getProfileByUser(artist);
               return (
-                <SwiperSlide>
+                <SwiperSlide key={artist.id}>
                   {artist.role_id != 2 && (
                     <CardUserProfile
                       user={artist}
@@ -232,8 +232,9 @@ export default function Home({
             {products.map((product) => {
               const user = findUserById(product.user_id);
               return (
-                <Grid item xs={12} sm={5} md={4} lg={3}>
+                <Grid item xs={12} sm={5} md={4} lg={3} >
                   <CardProduct
+                    key={product.id}
                     product={product}
                     username={user.username}
                     url={productUrl}
@@ -256,6 +257,7 @@ export default function Home({
             {posts.map((post) => (
               <SwiperSlide>
                 <CardPost
+                  key={post.id}
                   title={post.title}
                   slug={post.slug}
                   content={post.description}

@@ -6,6 +6,7 @@ const CardUser = ({ user, avatar, profile }) => {
   const username = user.username.split(' ').join('_')
   return (
     <Card 
+      key={user.id}
       sx={{ 
         m: '12px', 
         color: '#000', 
