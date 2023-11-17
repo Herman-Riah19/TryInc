@@ -25,8 +25,8 @@ const theme = createTheme ({
       main: '#00cd5c',
     },
     background: {
-      default: '#181A2D',
-      paper: '#212439',
+      default: '#121212',
+      paper: '#18181C',
     },
     error: {
       main: red.A400,

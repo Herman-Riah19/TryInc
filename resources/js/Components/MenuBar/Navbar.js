@@ -85,7 +85,7 @@ const Navbar = ({ auth, authAvatar, keyWord }) => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar sx={{ bgcolor: "#212439" }}>
+      <AppBar sx={{ bgcolor: "#18181C" }}>
         <Toolbar sx={{ p: "0" }}>
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
             <Link href="/" style={{ textDecoration: "none", color: "#fff" }}>
@@ -141,7 +141,7 @@ const Navbar = ({ auth, authAvatar, keyWord }) => {
               >
                 <Link
                   href={page.link}
-                  style={{ textDecoration: "none", color: "#fff" }}
+                  style={{ textDecoration: "none", color: "#fff", textTransform:"capitalize", fontWeight: '200' }}
                 >
                   {page.title}
                 </Link>

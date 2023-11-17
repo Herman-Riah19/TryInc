@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Logout, Person, Settings } from '@mui/icons-material'
 import MenuIcon from '@mui/icons-material/Menu'
 import AccountCircle from '@mui/icons-material/AccountCircle'
+import { Link } from "@inertiajs/inertia-react";
 
 const SectionBar = ({ isLoggedIn, authAvatar }) => {
     const [value, setValue] = useState(0)

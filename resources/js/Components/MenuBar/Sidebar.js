@@ -47,7 +47,7 @@ const Sidebar = ({ isOpen }) => {
     return (
         <MenuList sx={theme => ({
             position: 'fixed',
-            background:'#35414c',
+            background:'#18181C',
             zIndex: 1,
             height: '50rem',
             transition: 'width 2s',

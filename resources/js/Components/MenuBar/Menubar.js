@@ -6,7 +6,7 @@ import { Link } from '@inertiajs/inertia-react'
 
 const Menubar = ({ onClick }) => {
   return (
-    <AppBar sx={{ boxShadow: 'none', background: '#35414c', color: '#fff' }}>
+    <AppBar sx={{ boxShadow: 'none', background: '#18181C', color: '#fff' }}>
       <Toolbar sx={{ p: '0' }}>
         <ListItemIcon sx={{ color: 'white', size: '25px' }} onClick={onClick}>
           <Menu />

@@ -37,7 +37,7 @@ const Search = (props) => {
 
   useEffect(() => {
     setExistProducts(
-      otherProducts.filter((produ) => produ.name.toLowerCase().includes(search)) ||
+      otherProducts.filter((produ) => produ.name.toLowerCase().includes(search)) |
       otherProducts.filter((produ) => produ.description.toLowerCase().includes(search)))
   },[search])
 
