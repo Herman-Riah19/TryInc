@@ -34,7 +34,7 @@ Route.group(() => {
 Route.group(() => {
     Route.get('/', 'DashbordsController.showDashbord')
     Route.get('/statistic', 'DashbordsController.statisticOfActivity')
-    Route.get('/collections', 'DashbordsController.collections')
+    Route.get('/collections', 'DashbordsController.collections').as('dashbord.collections')
     Route.delete('/collections/:id', 'DashbordsController.deleteProduct').as('dash.product.delete')
     Route.group(() => {
         Route.get('/create', 'DashbordsController.createCategorie')
@@ -45,6 +45,10 @@ Route.group(() => {
         Route.get('/create', 'PostsController.create').as('post.create')
         Route.post('/create', 'PostsController.store').as('post.store')
     }).prefix('/post')
+    Route.group(() => {
+        Route.get('/', 'DashbordsController.getAllUsers').as('dashbord.user')
+        Route.delete('/:id', 'DashbordsController.deleteUserById')
+    }).prefix('/users')
 }).prefix('/dashbord').middleware('auth')
 
 Route.group(() => {

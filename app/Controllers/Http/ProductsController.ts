@@ -54,61 +54,72 @@ export default class ProductsController {
   }
 
   public async show({ inertia, params, auth }: HttpContextContract) {
-    const productName = params.name.split('_').join(' ')
-    const product = await Product.findBy('name', productName)
-    const assetUrl = await Drive.getUrl('./products')
+    try {
+      const productName = params.name.split("_").join(" ");
+      const product = await Product.findBy("name", productName);
+      const assetUrl = await Drive.getUrl("./products");
 
-    const AllComments = await Comment.all()
-    const allProfiles = await Profile.all()
-    const profileComments = Array<Profile>()
-    const comments = Array<Comment>()
-    AllComments.filter(comment => {
-      if(comment.productId === product?.id) {
-        comments.push(comment);
+      const AllComments = await Comment.all();
+      const allProfiles = await Profile.all();
+      const profileComments = Array<Profile>();
+      const comments = Array<Comment>();
+      AllComments.filter((comment) => {
+        if (comment.productId === product?.id) {
+          comments.push(comment);
 
-        allProfiles.filter(prof => {
-          if(comment.userId === prof.userId) {
-            profileComments.push(prof)
-          }
-        })
-      }
-    })
-    
-    const artist = await User.findBy('id', product?.userId)
-    const profile = await Profile.findBy('user_id', artist?.id)
-
-    const categorie = await Categorie.findBy('id', product?.categorieId)
-
-    const otherProducts = Array<Product>()
-    const allProducts = await Product.all()
-    allProducts.map((prod) => {
-      if (prod.name != product?.name) {
-        if (prod.categorieId == product?.categorieId) {
-          otherProducts.push(prod)
+          allProfiles.filter((prof) => {
+            if (comment.userId === prof.userId) {
+              profileComments.push(prof);
+            }
+          });
         }
+      });
+
+      const artist = await User.findBy("id", product?.userId);
+      const profile = await Profile.findBy("user_id", artist?.id);
+
+      const categorie = await Categorie.findBy("id", product?.categorieId);
+
+      const otherProducts = Array<Product>();
+      const allProducts = await Product.all();
+      allProducts.map((prod) => {
+        if (prod.name != product?.name) {
+          if (prod.categorieId == product?.categorieId) {
+            otherProducts.push(prod);
+          }
+        }
+      });
+
+      let liked: boolean = false;
+      const hasBeenLiked = await Like.findBy("product_id", product?.id);
+      if (hasBeenLiked && hasBeenLiked?.userId == auth.user?.id) {
+        liked = hasBeenLiked!.isLiked;
       }
-    })
 
-    let liked: boolean = false
-    const hasBeenLiked = await Like.findBy('product_id', product?.id)
-    if(hasBeenLiked && hasBeenLiked?.userId == auth.user?.id){
-      liked = hasBeenLiked!.isLiked 
+      const { avatarUrl, authenticateProfile } =
+        await ProfileService.getAthenticateProfile(auth);
+
+      const users = await User.all();
+
+      return inertia.render("Product/ProductShow", {
+        product,
+        assetUrl,
+        liked,
+        artist,
+        profile,
+        avatarUrl,
+        categorie,
+        otherProducts,
+        comments,
+        profileComments,
+        auth,
+        users,
+        authenticateProfile,
+      });
+    } catch (error) {
+      console.log('une erreur est survenue'+ error)
+      return inertia.redirectBack()
     }
-
-    const {
-      avatarUrl,
-      authenticateProfile,
-    } = await ProfileService.getAthenticateProfile(auth)
-
-    const users = await User.all()
-
-    return inertia.render('Product/ProductShow', {
-      product, assetUrl, liked,
-      artist, profile, avatarUrl,
-      categorie, otherProducts,
-      comments, profileComments,
-      auth, users, authenticateProfile
-    })
   }
 
   public async download({ response, params }: HttpContextContract) {
@@ -146,28 +157,33 @@ export default class ProductsController {
   }
 
   public async handleIsLiked({params, response, auth}: HttpContextContract) {
-    const product = await Product.findBy('id', params.id)
-    if(!auth) {
-      return response.redirect().toRoute('user.login')
-    } 
-    const hasBeenLiked = await Like.findBy('product_id', product?.id)
-    if(hasBeenLiked?.userId == auth.user?.id) {
-        hasBeenLiked!.isLiked = !hasBeenLiked!.isLiked
-        hasBeenLiked?.save()
-        product!.nomberLike = hasBeenLiked!.isLiked ? product!.nomberLike + 1: product!.nomberLike - 1
-        product?.save()
-        return response.redirect(`/product/show/${product?.id}`)
-    } 
+    try{
+      const product = await Product.findBy('id', params.id)
+      if(!auth) {
+        return response.redirect().toRoute('user.login')
+      } 
+      const hasBeenLiked = await Like.findBy('product_id', product?.id)
+      if(hasBeenLiked?.userId == auth.user?.id) {
+          hasBeenLiked!.isLiked = !hasBeenLiked!.isLiked
+          hasBeenLiked?.save()
+          product!.nomberLike = hasBeenLiked!.isLiked ? product!.nomberLike + 1: product!.nomberLike - 1
+          product?.save()
+          return response.redirect(`/product/show/${product?.id}`)
+      } 
 
-    const isLiked = new Like()
-    isLiked.merge({
-      userId: auth.user?.id,
-      productId: product?.id,
-      isLiked: true
-    }).save()
+      const isLiked = new Like()
+      isLiked.merge({
+        userId: auth.user?.id,
+        productId: product?.id,
+        isLiked: true
+      }).save()
 
-    product!.nomberLike += 1
-    product?.save()
-    return response.redirect(`/product/show/${product?.id}`)
+      product!.nomberLike += 1
+      product?.save()
+      return response.redirect(`/product/show/${product?.id}`)
+    } catch(error) {
+      console.log('Une erreur est survenue:' + error)
+      return response.redirect().back()
+    }
   }
 }

@@ -24,12 +24,18 @@ const route = [
     },
     {
         id: 4,
+        link: '/dashbord/users',
+        title: 'Users List',
+        icon: <ManageAccounts />
+    },
+    {
+        id: 5,
         link: '/dashbord/categorie/create',
         title: 'Create Categorie',
         icon: <Category />
     },
     {
-        id: 5,
+        id: 6,
         link: '/dashbord/post/create',
         title: 'Create Post',
         icon: <PostAdd />
