@@ -42,7 +42,7 @@ const UsersList = (props) => {
                                                 style={{ width: '75px', height: '100px' }}
                                                 alt='' />
                                         </TableCell>
-                                        <TableCell>{user.name}</TableCell>
+                                        <TableCell>{user.username}</TableCell>
                                         <TableCell>{profile.lastname}</TableCell>
                                         <TableCell>{profile.firstname}</TableCell>
                                         <TableCell>
