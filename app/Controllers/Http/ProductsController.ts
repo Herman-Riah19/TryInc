@@ -96,8 +96,7 @@ export default class ProductsController {
         liked = hasBeenLiked!.isLiked;
       }
 
-      const { avatarUrl, authenticateProfile } =
-        await ProfileService.getAthenticateProfile(auth);
+      const { avatarUrl, authenticateProfile } = await ProfileService.getAthenticateProfile(auth);
 
       const users = await User.all();
 
