@@ -75,11 +75,7 @@ export default class DashbordsController {
     return inertia.render("Dashbord/CategorieForm");
   }
 
-  public async saveCategorie({
-    request,
-    response,
-    session,
-  }: HttpContextContract) {
+  public async saveCategorie({ request, response, session, }: HttpContextContract) {
     const categorie = new Categorie();
 
     categorie.asset = await AssetService.uploadFile(
@@ -95,9 +91,15 @@ export default class DashbordsController {
   }
 
   public async deleteCategorie({ response, params }: HttpContextContract) {
-    const categorie = await Categorie.findOrFail(params.id);
-    await categorie?.delete();
-    return response.redirect("/dashbord/collections");
+    try {
+      const categorie = await Categorie.findOrFail(params.id);
+      await categorie?.delete();
+      return response.redirect("/dashbord/collections");
+    } catch (error) {
+      console.error('There are an error: ', error)
+      return response.redirect("/dashbord/collections");
+
+    }
   }
 
   public async editProduct({ inertia, auth, response }: HttpContextContract) {

@@ -155,7 +155,7 @@ export default class ProductsController {
       return response.redirect(`/product/show/${product?.id}`)
   }
 
-  public async handleIsLiked({params, response, auth}: HttpContextContract) {
+  public async productIsLiked({params, response, auth}: HttpContextContract) {
     try{
       const product = await Product.findBy('id', params.id)
       if(!auth) {
