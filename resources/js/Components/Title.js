@@ -19,7 +19,7 @@ const Title = ({title, link}) => {
             <Typography variant='h4' sx={style.title}>{title}</Typography>
             {link && (
                 <Button 
-                    variant='contained' 
+                    variant='outlined' 
                     color='secondary' 
                     sx={style.titleButton} 
                     endIcon={<ArrowCircleRight />}>
