@@ -37,8 +37,8 @@ const Search = (props) => {
 
   useEffect(() => {
     setExistProducts(
-      otherProducts.filter((produ) => produ.name.toLowerCase().includes(search)) |
-      otherProducts.filter((produ) => produ.description.toLowerCase().includes(search)))
+      otherProducts.filter((produ) => produ.name.toLowerCase().includes(search)))
+    console.log(existProducts)
   },[search])
 
   return (
@@ -87,7 +87,7 @@ const Search = (props) => {
         ) : (
           <Box>
             <Grid container spacing={2}>
-              {existProducts.map((prod) => (
+                {existProducts.map((prod) => (
                 <Grid key={prod.id} item xs={12} sm={6} md={4} lg={3}>
                   <CardProduct
                     key={prod.id}
