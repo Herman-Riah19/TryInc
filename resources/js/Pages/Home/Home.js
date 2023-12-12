@@ -96,11 +96,11 @@ export default function Home({
       spaceBetween: 10,
     },
     1020: {
-      slidesPerView: 4,
+      slidesPerView: 5,
       spaceBetween: 15,
     },
     1440: {
-      slidesPerView: 5,
+      slidesPerView: 6,
       spaceBetween: 15,
     },
   };

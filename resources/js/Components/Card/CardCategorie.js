@@ -48,7 +48,7 @@ const CardCategorie = ({ categorie, categorieUrl, auth }) => {
                             class={classes.cardMedia}
                             image={`${categorieUrl}/${categorie.asset}`}
                             alt={categorie.slug} /> */}
-                            <Typography variant="h3" class={classes.cardTitle}>{categorie.name}</Typography>
+                        <Typography variant="h3" class={classes.cardTitle}>{categorie.name}</Typography>
                     </CardContent>
                 </Link>
             </CardActionArea>

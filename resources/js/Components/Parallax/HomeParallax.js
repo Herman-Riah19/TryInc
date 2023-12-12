@@ -2,8 +2,8 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Parallax from "./Parallax";
 import { Link } from "@inertiajs/inertia-react";
-import { CardHeader, Avatar, Card, Grid, Typography, Fab } from "@mui/material";
-import { AccountCircle, Category } from "@mui/icons-material";
+import { CardHeader, Avatar, Card, Grid, Typography, Container } from "@mui/material";
+import { AccountCircle } from "@mui/icons-material";
 import { Navigation, A11y } from "swiper";
 
 const HomeParallax = ({ users, existProfiles, avatarUrl, bannerUrl }) => {
@@ -31,22 +31,24 @@ const HomeParallax = ({ users, existProfiles, avatarUrl, bannerUrl }) => {
                 <Parallax filter image={`${bannerUrl}/${profile.banner}`}>
                   <Grid container sx={{ zIndex: "1", m: "25px" }}>
                     <Grid item sm={12} md={9}>
-                      <Typography variant="h4">
-                        {profile ? (
-                          <>
-                            {profile.lastname} {profile.firstname}
-                          </>
-                        ) : (
-                          user.username
-                        )}
-                      </Typography>
-                      <Typography variant="body2">
-                        {profile && profile.biography}
-                      </Typography>
+                      <Container sx={{m:2}}>
+                        <Typography variant="h4">
+                          {profile ? (
+                            <>
+                              {profile.lastname} {profile.firstname}
+                            </>
+                          ) : (
+                            user.username
+                          )}
+                        </Typography>
+                        <Typography variant="body2">
+                          {profile && profile.biography}
+                        </Typography>
+                      </Container>
                       <Link
                         href={`/profile/${user.username.split(" ").join("_")}`}
                       >
-                        <Card sx={{ m: 2, bgcolor: "transparent" }}>
+                        <Card sx={{ m: 2, mt: '100px', bgcolor: "transparent" }}>
                           <CardHeader
                             avatar={
                               <Avatar
