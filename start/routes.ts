@@ -20,6 +20,12 @@ Route.get('/register', 'UsersController.registerShow').as('user.register.show')
 Route.post('/register', 'UsersController.register').as('user.register')
 Route.get('/logout', 'UsersController.logout').as('user.logout')
 
+
+Route.group(() => {
+    Route.get('/users', 'ApiController.getAllUsers')
+    Route.get('/products', 'ApiController.getAllProducts')
+}).prefix('/api')
+
 Route.group(() => {
     Route.group(() => {
         Route.get('/create', 'ProductsController.create').as('product.create')

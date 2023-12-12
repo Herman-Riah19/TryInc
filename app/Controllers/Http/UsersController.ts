@@ -11,12 +11,7 @@ export default class UsersController {
     return inertia.render("Auth/Register");
   }
 
-  public async register({
-    auth,
-    session,
-    request,
-    response,
-  }: HttpContextContract) {
+  public async register({auth,session,request,response,}: HttpContextContract) {
     const data = await request.validate(RegisterValidator);
     const user = await User.create({ ...data, roleId: 1 });
 
