@@ -22,7 +22,7 @@ const useStyle = makeStyles(() => ({
     },
     cardTitle: {
         position: 'relative',
-        top: '-15px',
+        top: '5px',
         color: '#fff',
         fontSize: '22px',
         textAlign: 'center',
@@ -43,11 +43,11 @@ const CardCategorie = ({ categorie, categorieUrl, auth }) => {
             <CardActionArea>
                 <Link href={`/categorie/${categorieName}`}>
                     <CardContent class={classes.cardBody}>
-                        <CardMedia
+                        {/* <CardMedia
                             component='img'
                             class={classes.cardMedia}
                             image={`${categorieUrl}/${categorie.asset}`}
-                            alt={categorie.slug} />
+                            alt={categorie.slug} /> */}
                             <Typography variant="h3" class={classes.cardTitle}>{categorie.name}</Typography>
                     </CardContent>
                 </Link>

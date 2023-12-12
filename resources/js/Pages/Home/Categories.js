@@ -68,7 +68,7 @@ const Categories = (props) => {
     return (
         <Box>
             <Navbar auth={auth} authAvatar={authenticateProfile ? `${avatarUrl}/${authenticateProfile.avatar}` : null} />
-            <Container>
+            
                 <Grid container sx={{ mt: '65px' }}>
                     <Grid item md={2} sx={{ mb: "500px" }}>
                         <MenuList sx={theme => ({
@@ -135,7 +135,6 @@ const Categories = (props) => {
                         <Footer auth={auth} />
                     </Grid>
                 </Grid>
-            </Container>
         </Box>
     )
 }

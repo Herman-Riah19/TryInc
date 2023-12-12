@@ -46,33 +46,33 @@ const HomeParallax = ({ users, existProfiles, avatarUrl, bannerUrl }) => {
                       <Link
                         href={`/profile/${user.username.split(" ").join("_")}`}
                       >
-                      <Card sx={{ m: 2, bgcolor: "transparent" }}>
-                        <CardHeader
-                          avatar={
-                            <Avatar
-                              sx={{ bgcolor: "red" }}
-                              src={
-                                profile.avatar ? (
-                                  `${avatarUrl}/${profile.avatar}`
-                                ) : (
-                                  <AccountCircle />
-                                )
-                              }
-                            />
-                          }
-                          title={
-                            <Typography variant="h6">
-                              {profile.lastname} {profile.firstname}
-                            </Typography>
-                          }
-                          subheader={
-                            <Typography variant="body1" color="text.thirdy">
-                              {user.email}
-                            </Typography>
-                          }
-                          sx={{ p: "10px", color: "#fff" }}
-                        />
-                      </Card>
+                        <Card sx={{ m: 2, bgcolor: "transparent" }}>
+                          <CardHeader
+                            avatar={
+                              <Avatar
+                                sx={{ bgcolor: "red" }}
+                                src={
+                                  profile.avatar ? (
+                                    `${avatarUrl}/${profile.avatar}`
+                                  ) : (
+                                    <AccountCircle />
+                                  )
+                                }
+                              />
+                            }
+                            title={
+                              <Typography variant="h6">
+                                {profile.lastname} {profile.firstname}
+                              </Typography>
+                            }
+                            subheader={
+                              <Typography variant="body1" color="text.thirdy">
+                                {user.email}
+                              </Typography>
+                            }
+                            sx={{ p: "10px", color: "#fff" }}
+                          />
+                        </Card>     
                       </Link>
                     </Grid>
                   </Grid>
