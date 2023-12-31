@@ -96,12 +96,12 @@ const Login = () => {
             </Button>
             <Grid container>
               <Grid item lg={12}>
-                <Link href={`/login/forgot-password`}>
+                <Link href={`/auth/login/forgot-password`}>
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/register" style={{color: "#0094FF"}}>
+                <Link href="/auth/register" style={{color: "#0094FF"}}>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

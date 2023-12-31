@@ -76,6 +76,7 @@ const Categories = (props) => {
                             background: '#18181C',
                             zIndex: 1,
                             height: '50rem',
+                            width:'250px',
                             transition: 'width 2s',
                             display: open ? 'block' : 'none',
                             [theme.breakpoints.down('md')]: {
@@ -85,14 +86,11 @@ const Categories = (props) => {
                                 display: open ? 'block' : 'none'
                             }
                         })}>
+                            <MenuItem >
+                                <ListItemText primary='List of Categories'/>
+                            </MenuItem>
                             {categories.map(categ => (
                                 <MenuItem key={categ.id} sx={{ m: 1, p: 2, color: 'white' }}>
-                                    <ListItemAvatar>
-                                        <Avatar>
-                                            <img src={`${categorieUrl}/${categ.asset}`} alt={categ.name} />
-                                        </Avatar>
-                                    </ListItemAvatar>
-
                                     <Link href={`/categorie/${categ.name.split(' ').join('_')}`}>
                                         <ListItemText primary={categ.name} secondary={categ.slug} />
                                     </Link>

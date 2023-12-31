@@ -30,12 +30,7 @@ export default class UsersController {
     return inertia.render("Auth/Login");
   }
 
-  public async login({
-    auth,
-    request,
-    response,
-    session,
-  }: HttpContextContract) {
+  public async login({ auth, request, response, session, }: HttpContextContract) {
     const { uid, password } = await request.validate(LoginValidator);
 
     const loginAttemptRemaining =
@@ -52,7 +47,7 @@ export default class UsersController {
       const user = await User.query().where("email", uid).firstOrFail();
 
       if (!(await Hash.verify(user.password, password))) {
-        return response.badRequest("Invalid credentials password");
+        return response.redirect(`/auth/bad-password/${user.id}`)
       }
 
       await auth.login(user);
@@ -84,7 +79,34 @@ export default class UsersController {
   public async forgotPassword({ request, response }: HttpContextContract) {
     const user = await User.findBy("email", request.input("email"));
 
-    return response.redirect(`/login/new-password/${user?.username}`);
+    return response.redirect(`/auth/login/new-password/${user?.username}`);
+  }
+
+  public async badPassword({ inertia, params }: HttpContextContract) {
+    const user = await User.findBy("id", params.id);
+    return inertia.render("Auth/BadPassword", { user });
+  }
+
+  public async reenterPassword({ auth, session, request, response,params }: HttpContextContract) {
+    const user = await User.query().where("id", params.id).firstOrFail();
+    try {
+      
+      const password = request.input("password");
+      if (!(await Hash.verify(user.password, password))) {
+        return response.redirect(`/auth/bad-password/${user.id}`);
+      }
+
+      await auth.login(user);
+      await AuthAttemptsService.deleteBadAttempts(user.email);
+    } catch (error) {
+      await AuthAttemptsService.recordLoginAttempt(user.email);
+      session.flash("errors", {
+        form: "The provided email or password is incorrect",
+      });
+      return response.redirect().back();
+    }
+
+    return response.redirect(`/`);
   }
 
   public async newPasswordShow({ inertia, params }: HttpContextContract) {
@@ -94,13 +116,7 @@ export default class UsersController {
     return inertia.render("Auth/NewPassword", { user });
   }
 
-  public async newPassword({
-    session,
-    request,
-    response,
-    auth,
-    params,
-  }: HttpContextContract) {
+  public async newPassword({ session, request, response, auth, params, }: HttpContextContract) {
     const user = await User.findBy("username", params.username);
 
     const password = request.input("password");

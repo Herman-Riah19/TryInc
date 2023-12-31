@@ -49,7 +49,7 @@ const Navbar = ({ auth, authAvatar, keyWord }) => {
     {
       title: "Publish",
       icon: <AddBox />,
-      link: isLoggedIn ? "/product/create/" : "/login",
+      link: isLoggedIn ? "/product/create/" : "/auth/login",
     },
   ];
 
@@ -198,12 +198,14 @@ const Navbar = ({ auth, authAvatar, keyWord }) => {
                       <Person sx={{ mr: "10px", width: "20px" }} /> Profile
                     </MenuItem>
                   </Link>
-                  <MenuItem onClick={handleClose} sx={{ color: "#fff" }}>
-                    {" "}
-                    <Settings sx={{ mr: "10px", width: "20px" }} /> Setting
-                  </MenuItem>
+                  <Link href={`/profile/edit/${auth.guards.web.user.id}`}>
+                    <MenuItem onClick={handleClose} sx={{ color: "#fff" }}>
+                      {" "}
+                      <Settings sx={{ mr: "10px", width: "20px" }} /> Setting
+                    </MenuItem>
+                  </Link>
                   <Link
-                    href="/logout"
+                    href="/auth/logout"
                     style={{ textDecoration: "none", color: "#fff" }}
                   >
                     <MenuItem>
@@ -215,7 +217,7 @@ const Navbar = ({ auth, authAvatar, keyWord }) => {
               </Box>
             ) : (
               <Box>
-                <Link href="/login" style={{ textDecoration: "none" }}>
+                <Link href="/auth/login" style={{ textDecoration: "none" }}>
                   <Button
                     sx={{ marginTop: "0", marginLeft: "5px", height: "100%" }}
                     variant="contained"

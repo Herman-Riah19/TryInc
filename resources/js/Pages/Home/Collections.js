@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Typography, Toolbar, Tabs, Tab } from '@mui/material'
+import { Box, Container, Grid, Typography, Toolbar, Tabs, Tab, Paper } from '@mui/material'
 import React, { useState } from 'react'
 import Navbar from '../../Components/MenuBar/Navbar'
 import CardProduct from "../../Components/Card/CardProduct"
@@ -14,7 +14,7 @@ const style = {
   section: {
     position: 'relative',
     width: 'auto',
-    margin: '10px'
+    margin: '10px',
   },
 }
 
@@ -52,42 +52,45 @@ const Collections = ({ auth, avatarUrl, authenticateProfile, categories, product
   return (
     <Box>
       <Navbar auth={auth} authAvatar={authenticateProfile ? `${avatarUrl}/${authenticateProfile.avatar}` : null} />
-      <Container sx={{ mt: '100px' }}>
+      <Container sx={{ mt: '80px' }}>
         <Container sx={style.section}>
+
           <Toolbar
             component="nav"
             variant="container"
-            sx={{ justifyContent: 'space-between', overflowX: 'auto' }}>
-
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              indicatorColor="secondary"
-              textColor="secondary"
-              variant="scrollable"
-              scrollButtons="auto"
-              aria-label="scrollable auto tabs example">
-              <Tab label='All' sx={{ color: '#c7d4e1', textTransform: 'capitalize' }} />
-              {categories.map(section => (
-                <Tab
-                  key={section.id}
-                  label={section.name}
-                  sx={{ color: '#c7d4e1', textTransform: 'capitalize' }} />
-              ))}
-            </Tabs>
+            sx={{ justifyContent: 'space-between', position: 'fixed',zIndex:1 }}>
+            <Paper>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                indicatorColor="secondary"
+                textColor="secondary"
+                variant="scrollable"
+                scrollButtons="auto"
+                aria-label="scrollable auto tabs example">
+                <Tab label='All' sx={{ color: '#c7d4e1', textTransform: 'capitalize' }} />
+                {categories.map(section => (
+                  <Tab
+                    key={section.id}
+                    label={section.name}
+                    sx={{ color: '#c7d4e1', textTransform: 'capitalize' }} />
+                ))}
+              </Tabs>
+            </Paper>
           </Toolbar>
+
         </Container>
-        <Container sx={style.section}>
+        <Container sx={{ ...style.section }}>
           <TabPanel value={value} index={0}>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} sx={{ mt: '40px' }}>
               {products.map(product => {
                 const user = findUserById(product.user_id)
                 return (
                   <Grid item xs={12} sm={6} md={4} lg={3}>
                     <CardProduct
-                      key={product.id} 
-                      product={product} 
-                      username={user.username} 
+                      key={product.id}
+                      product={product}
+                      username={user.username}
                       url={productUrl} />
                   </Grid>
                 )
@@ -100,15 +103,15 @@ const Collections = ({ auth, avatarUrl, authenticateProfile, categories, product
             const key = categories.length - categorie.id + 1
             return (
               <TabPanel value={value} index={key}>
-                <Grid container spacing={2}>
+                <Grid container spacing={2} sx={{ mt: '40px' }}>
                   {productsInThisCategorie.map(product => {
                     const user = findUserById(product.user_id)
                     return (
                       <Grid item xs={12} sm={6} md={4} lg={3}>
-                        <CardProduct 
+                        <CardProduct
                           key={product.id}
-                          product={product} 
-                          username={user.username} 
+                          product={product}
+                          username={user.username}
                           url={productUrl} />
                       </Grid>
                     )
@@ -119,7 +122,7 @@ const Collections = ({ auth, avatarUrl, authenticateProfile, categories, product
           })}
         </Container>
 
-        <Container sx={style.section}>
+        <Container sx={{...style.section,mt: '40px' }}>
           <Title title='Blog post' link={'/posts'} />
           <Swiper
             modules={[Navigation, A11y]}

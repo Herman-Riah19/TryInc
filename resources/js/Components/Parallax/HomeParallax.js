@@ -32,7 +32,7 @@ const HomeParallax = ({ users, existProfiles, avatarUrl, bannerUrl }) => {
                   <Grid container sx={{ zIndex: "1", m: "25px" }}>
                     <Grid item sm={12} md={9}>
                       <Container sx={{m:2}}>
-                        <Typography variant="h4">
+                        <Typography variant="h1">
                           {profile ? (
                             <>
                               {profile.lastname} {profile.firstname}
@@ -40,9 +40,6 @@ const HomeParallax = ({ users, existProfiles, avatarUrl, bannerUrl }) => {
                           ) : (
                             user.username
                           )}
-                        </Typography>
-                        <Typography variant="body2">
-                          {profile && profile.biography}
                         </Typography>
                       </Container>
                       <Link

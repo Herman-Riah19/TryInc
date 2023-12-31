@@ -7,6 +7,7 @@ import ProfileValidator from 'App/Validators/ProfileValidator'
 import Profile from 'App/Models/Profile'
 import { ProfileService } from 'App/Services/ProfileService'
 import AssetService from 'App/Services/AssetService'
+import Like from 'App/Models/Like'
 
 export default class ProfilesController {
   public async showProfile({ inertia, params, auth }: HttpContextContract) {
@@ -21,6 +22,8 @@ export default class ProfilesController {
         products.push(prod)
       }
     })
+
+    const likes = await Like.all()
 
     const productUrl = await Drive.getUrl('./products')
     const profileBannerUrl = await Drive.getUrl(`./banner`)
@@ -41,7 +44,7 @@ export default class ProfilesController {
 
     return inertia.render('User/Profile', {
       user, profile, auth, authenticateProfile,
-      products, productUrl,
+      products, productUrl, likes,
       avatarUrl, profileBannerUrl,
       collections, collectionUrl
     })

@@ -28,7 +28,7 @@ const useStyle = makeStyles(() => ({
         textAlign: 'center',
     },
 }))
-const CardCategorie = ({ categorie, categorieUrl, auth }) => {
+const CardCategorieTitle = ({ categorie, auth }) => {
     const classes = useStyle()
     const categorieName = categorie.name.split(' ').join('_')
 
@@ -42,14 +42,7 @@ const CardCategorie = ({ categorie, categorieUrl, auth }) => {
         <Card >
             <CardActionArea>
                 <Link href={`/categorie/${categorieName}`}>
-                    <CardContent class={classes.cardBody}>
-                        <CardMedia
-                            component='img'
-                            class={classes.cardMedia}
-                            image={`${categorieUrl}/${categorie.asset}`}
-                            alt={categorie.slug} />
-                        <Typography variant="h3" class={classes.cardTitle}>{categorie.name}</Typography>
-                    </CardContent>
+                    <Typography variant="h3" class={classes.cardTitle}>{categorie.name}</Typography>
                 </Link>
             </CardActionArea>
             <CardActions class={classes.cardFooter}>
@@ -63,4 +56,4 @@ const CardCategorie = ({ categorie, categorieUrl, auth }) => {
     )
 }
 
-export default CardCategorie
+export default CardCategorieTitle

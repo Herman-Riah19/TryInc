@@ -5,23 +5,23 @@ import { useForm } from '@inertiajs/inertia-react'
 
 const style = {
     form: {
-      mt: 10,
-      padding: 5,
-      borderRadius: '5px',
-      boxShadow: '5px 5px 10px #8ea5d9',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      zIndex: 1
+        mt: 10,
+        padding: 5,
+        borderRadius: '5px',
+        boxShadow: '5px 5px 10px #8ea5d9',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        zIndex: 1
     },
     avatar: {
-      margin: 1,
-      bgcolor: 'secondary.main'
+        margin: 1,
+        bgcolor: 'secondary.main'
     }
-  }
+}
 
-const NewPassword = ({ user }) => {
-    const [ data, setData ] = useState({
+const BadPassword = ({ user }) => {
+    const [data, setData] = useState({
         password: ''
     })
     const [showPassword, setShowPassword] = useState(false)
@@ -42,12 +42,12 @@ const NewPassword = ({ user }) => {
             [key]: value
         }))
     }
-    
+
     return (
         <Container component='main' maxWidth='xs'>
             <Box sx={style.form}>
                 <Avatar sx={style.avatar}> <LockClockOutlined /> </Avatar>
-                <Typography component='h1' variant='h5'>Enter the new Password</Typography>
+                <Typography component='h1' variant='h5'>Restart to enter the Password</Typography>
                 <Box component='form' method='post'>
                     <Typography variant='h5'>{user.email}</Typography>
                     <FormControl sx={{ width: '100%' }} variant="outlined">
@@ -82,4 +82,4 @@ const NewPassword = ({ user }) => {
     )
 }
 
-export default NewPassword
+export default BadPassword

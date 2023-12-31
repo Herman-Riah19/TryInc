@@ -10,7 +10,7 @@ import Footer from '../../Components/Footer/Footer'
 
 const useStyle = makeStyles(profileStyle)
 
-const Profile = ({ user, profile, auth, authenticateProfile, products, productUrl, avatarUrl, profileBannerUrl, collections, collectionUrl }) => {
+const Profile = ({ user, profile, auth, authenticateProfile, products, productUrl, likes, avatarUrl, profileBannerUrl, collections, collectionUrl }) => {
   const classes = useStyle()
 
   const [moreMenu, setMoreMenu] = useState(null);
@@ -63,11 +63,6 @@ const Profile = ({ user, profile, auth, authenticateProfile, products, productUr
                       </Typography>
                     </>
                   ) : user.username}
-                </Container>
-                <Container sx={theme => ({[theme.breakpoints.down('sm')]:{ml:'2vw'}})}>
-                  <Typography variant='p' color='text.thirdy'>
-                    {profile && profile.biography}
-                  </Typography>
                 </Container>
               </Box>
             </Grid>
@@ -132,6 +127,7 @@ const Profile = ({ user, profile, auth, authenticateProfile, products, productUr
 
         <Container sx={{ mb: 1 }}>
           <TabImage
+            likes={likes}
             products={products}
             username={user.username}
             profile={profile}

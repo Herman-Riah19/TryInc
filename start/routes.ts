@@ -8,18 +8,24 @@ Route.get('/categorie/:name', 'HomeController.categorieList').as('categorie.list
 Route.get('/post/:slug', 'PostsController.show').as('post.show')
 Route.get('/posts', 'PostsController.postList').as('post.list')
 
-Route.get('/login', 'UsersController.loginShow').as('user.login')
-Route.post('/login', 'UsersController.login')
+Route.group(() => {
+    Route.get("/login", "UsersController.loginShow").as("user.login");
+    Route.post("/login", "UsersController.login");
 
-Route.get('/login/forgot-password', 'UsersController.forgotPasswordShow')
-Route.post('/login/forgot-password', 'UsersController.forgotPassword')
-Route.get('/login/new-password/:username', 'UsersController.newPasswordShow')
-Route.post('/login/new-password/:username', 'UsersController.newPassword').as('user.login.password')
+    Route.get("/bad-password/:id", "UsersController.badPassword").as("user.badPassword")
+    Route.post("/bad-password/:id", "UsersController.reenterPassword")
 
-Route.get('/register', 'UsersController.registerShow').as('user.register.show')
-Route.post('/register', 'UsersController.register').as('user.register')
-Route.get('/logout', 'UsersController.logout').as('user.logout')
+    Route.get("/login/forgot-password", "UsersController.forgotPasswordShow");
+    Route.post("/login/forgot-password", "UsersController.forgotPassword");
+    Route.get("/login/new-password/:username", "UsersController.newPasswordShow");
+    Route.post("/login/new-password/:username", "UsersController.newPassword").as(
+    "user.login.password"
+    );
 
+    Route.get("/register", "UsersController.registerShow").as("user.register.show");
+    Route.post("/register", "UsersController.register").as("user.register");
+    Route.get("/logout", "UsersController.logout").as("user.logout");
+}).prefix('/auth')
 
 Route.group(() => {
     Route.get('/users', 'ApiController.getAllUsers')

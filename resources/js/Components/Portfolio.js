@@ -1,6 +1,7 @@
 import React from 'react'
 import { Grid, Box, Typography, Button, ButtonGroup, Card, CardHeader, CardContent, TableContainer, TableBody, TableRow, TableCell, CardMedia } from '@mui/material'
 import { Facebook, Instagram, Twitter } from '@mui/icons-material'
+import CardAboutUser from './Card/CardAboutUser'
 
 const Portfolio = ({ profile, avatar }) => {
     return (
@@ -27,12 +28,7 @@ const Portfolio = ({ profile, avatar }) => {
             </Grid>
             <Grid item md={7}>
                 <Box>
-                    <Card sx={{m:'1vw'}}>
-                        <CardHeader title='About me' />
-                        <CardContent>
-                            <Typography variant='p' color="text.thirdy">{profile.biography}</Typography>
-                        </CardContent>
-                    </Card>
+                    <CardAboutUser biography={profile.biography} />
                     <Card sx={{m:'1vw'}}>
                         <CardHeader title="Personnal Informations"/>
                         <CardContent>

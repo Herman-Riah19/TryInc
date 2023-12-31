@@ -11,7 +11,7 @@ import CardProduct from "../../Components/Card/CardProduct";
 import CardUserProfile from "../../Components/Card/CardUserProfile";
 import Parallax from "../../Components/Parallax/Parallax";
 import Footer from "../../Components/Footer/Footer";
-import CardCategorie from "../../Components/Card/CardCategorie";
+import CardCategorieTitle from "../../Components/Card/CardCategorieTitle";
 import Navbar from "../../Components/MenuBar/Navbar";
 import { Link } from "@inertiajs/inertia-react";
 import Title from "../../Components/Title";
@@ -123,7 +123,7 @@ export default function Home({
             : null
         }
       />
-      <Container sx={{ mt: "80px" }}>
+      <Box sx={{ mt: "80px" }}>
         <Container sx={style.section}>
           <HomeParallax users={users} existProfiles={existProfiles} avatarUrl={avatarUrl} bannerUrl={bannerUrl} />
         </Container>
@@ -140,9 +140,8 @@ export default function Home({
           >
             {categories.map((categ) => (
               <SwiperSlide key={categ.id}>
-                <CardCategorie
+                <CardCategorieTitle
                   categorie={categ}
-                  categorieUrl={categorieUrl}
                   auth={auth}
                 />
               </SwiperSlide>
@@ -267,7 +266,7 @@ export default function Home({
             ))}
           </Swiper>
         </Container>
-      </Container>
+      </Box>
       <Footer auth={auth} />
     </Box>
   );
