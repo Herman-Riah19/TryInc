@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, CardContent, CardHeader, CardMedia, CardActions, Grid,  Stack, Button, Typography, Avatar, Paper } from '@mui/material'
-import { Favorite, Comment, AccountCircle, FavoriteBorderOutlined } from "@mui/icons-material";
+import { Favorite, Comment, AccountCircle, FavoriteBorderOutlined, Share } from "@mui/icons-material";
 import { Link } from "@inertiajs/inertia-react";
 
 const CardProductPost = ({ username, user, product, productUrl, liked, avatar }) => {
@@ -37,7 +37,7 @@ const CardProductPost = ({ username, user, product, productUrl, liked, avatar })
             <CardActions>
                 <Paper sx={{width:"100%"}}>
                     <Grid container>
-                        <Grid item xs={8}>
+                        <Grid item xs={12}>
                             <Stack
                                 direction="row"
                                 spacing={2}
@@ -46,7 +46,6 @@ const CardProductPost = ({ username, user, product, productUrl, liked, avatar })
                                 <Link href={`/product/is-liked/${product.id}`} style={{ width: "100%" }}>
                                     <Button
                                         fullWidth
-                                        variant="outlined"
                                         color="warning"
                                         startIcon={liked ? <Favorite /> : <FavoriteBorderOutlined />}
                                     >
@@ -55,33 +54,19 @@ const CardProductPost = ({ username, user, product, productUrl, liked, avatar })
                                 </Link>
                                 <Button
                                     fullWidth
-                                    variant="outlined"
-                                    color="secondary"
+                                    color="primary"
                                     startIcon={<Comment />}
                                 >
                                     {product.nomber_comment}
                                 </Button>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={4}>
-                            {product.price && (
-                                <Typography
-                                    variant="h6"
-                                    sx={{
-                                        color: "#fff",
-                                        margin: "10px",
-                                        justifyContent: "space-between",
-                                        textAlign: "justify",
-                                    }}
+                                <Button
+                                    fullWidth
+                                    color="secondary"
+                                    startIcon={<Share />}
                                 >
-                                    <img
-                                        src="/logos_ethereum.png"
-                                        alt="Ethereum"
-                                        style={{ width: "14px", height: "23px" }}
-                                    />
-                                    <span style={{ margin: 0, padding: 0 }}> {product.price} ETH</span>
-                                </Typography>
-                            )}
+                                    Share
+                                </Button>
+                            </Stack>
                         </Grid>
                     </Grid>
                 </Paper>

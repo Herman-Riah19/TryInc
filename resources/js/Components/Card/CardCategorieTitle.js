@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography } from '@mui/material'
+import { Button, Card, CardActionArea, CardActions, CardHeader, Avatar, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { Link } from '@inertiajs/inertia-react'
 import { Delete } from '@mui/icons-material'
@@ -9,26 +9,15 @@ const useStyle = makeStyles(() => ({
         boxSizing: 'border-box',
         overflow: 'hidden',
         inset: '0px',
-    },
-    cardMedia: {
-        objectFit: 'fill',
-        height: '100px',
-        width: '100%'
+        borderRadius: "50px"
     },
     cardFooter: {
         padding: '0px',
         m: '0',
         alignItems: 'center',
     },
-    cardTitle: {
-        position: 'relative',
-        top: '5px',
-        color: '#fff',
-        fontSize: '22px',
-        textAlign: 'center',
-    },
 }))
-const CardCategorieTitle = ({ categorie, auth }) => {
+const CardCategorieTitle = ({ categorie, url, auth }) => {
     const classes = useStyle()
     const categorieName = categorie.name.split(' ').join('_')
 
@@ -39,12 +28,19 @@ const CardCategorieTitle = ({ categorie, auth }) => {
     }
 
     return (
-        <Card >
-            <CardActionArea>
-                <Link href={`/categorie/${categorieName}`}>
-                    <Typography variant="h3" class={classes.cardTitle}>{categorie.name}</Typography>
-                </Link>
-            </CardActionArea>
+        <Card className={classes.cardBody}>
+            <Link href={`/categorie/${categorieName}`}>
+            <CardHeader
+                avatar={
+                    <Avatar sx={{ bgcolor: "red" }} src={`${url}/${categorie.asset}`} />
+                }
+                title={categorie.name}
+                subheader={
+                    <Typography variant="body" color="text.thirdy">
+                        {categorie.slug}
+                    </Typography>
+                } />
+            </Link>
             <CardActions class={classes.cardFooter}>
                 {admin == 1 && (
                     <Link href={`/categorie/delete/${categorie.id}`} class={classes.deleteBtn}>

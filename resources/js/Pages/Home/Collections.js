@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Typography, Toolbar, Tabs, Tab, Paper } from '@mui/material'
+import { Box, Grid, Typography, Toolbar, Tabs, Tab, Paper } from '@mui/material'
 import React, { useState } from 'react'
 import Navbar from '../../Components/MenuBar/Navbar'
 import CardProduct from "../../Components/Card/CardProduct"
@@ -14,7 +14,7 @@ const style = {
   section: {
     position: 'relative',
     width: 'auto',
-    margin: '10px',
+    margin: '50px',
   },
 }
 
@@ -52,8 +52,8 @@ const Collections = ({ auth, avatarUrl, authenticateProfile, categories, product
   return (
     <Box>
       <Navbar auth={auth} authAvatar={authenticateProfile ? `${avatarUrl}/${authenticateProfile.avatar}` : null} />
-      <Container sx={{ mt: '80px' }}>
-        <Container sx={style.section}>
+      <div style={{ marginTop: '80px' }}>
+        <Box sx={style.section}>
 
           <Toolbar
             component="nav"
@@ -68,7 +68,9 @@ const Collections = ({ auth, avatarUrl, authenticateProfile, categories, product
                 variant="scrollable"
                 scrollButtons="auto"
                 aria-label="scrollable auto tabs example">
+
                 <Tab label='All' sx={{ color: '#c7d4e1', textTransform: 'capitalize' }} />
+
                 {categories.map(section => (
                   <Tab
                     key={section.id}
@@ -79,14 +81,14 @@ const Collections = ({ auth, avatarUrl, authenticateProfile, categories, product
             </Paper>
           </Toolbar>
 
-        </Container>
-        <Container sx={{ ...style.section }}>
+        </Box>
+        <Box sx={{ ...style.section }}>
           <TabPanel value={value} index={0}>
             <Grid container spacing={2} sx={{ mt: '40px' }}>
               {products.map(product => {
                 const user = findUserById(product.user_id)
                 return (
-                  <Grid item xs={12} sm={6} md={4} lg={3}>
+                  <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
                     <CardProduct
                       key={product.id}
                       product={product}
@@ -120,48 +122,51 @@ const Collections = ({ auth, avatarUrl, authenticateProfile, categories, product
               </TabPanel>
             )
           })}
-        </Container>
+        </Box>
 
-        <Container sx={{...style.section,mt: '40px' }}>
+        <Box sx={{...style.section,mt: '40px' }}>
           <Title title='Blog post' link={'/posts'} />
-          <Swiper
-            modules={[Navigation, A11y]}
-            breakpoints={{
-              425: {
-                slidesPerView: 1,
-                spaceBetween: 10
-              },
-              768: {
-                slidesPerView: 2,
-                spaceBetween: 10
-              },
-              1020: {
-                slidesPerView: 3,
-                spaceBetween: 10
-              },
-              1440: {
-                slidesPerView: 4,
-                spaceBetween: 10
-              },
-            }}
-            navigation
-            pagination={{ clickable: true }}
-            scrollbar={{ draggable: true }}
-          >
-            {posts.map(post => (
-              <SwiperSlide>
-                <CardPost
-                  key={post.id}
-                  title={post.title}
-                  slug={post.slug}
-                  content={post.description}
-                  imageUrl={`${postUrl}/${post.post_image}`} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </Container>
+          <Box sx={{ ...style.section }}>
+            <Swiper
+              modules={[Navigation, A11y]}
+              breakpoints={{
+                425: {
+                  slidesPerView: 1,
+                  spaceBetween: 10
+                },
+                768: {
+                  slidesPerView: 2,
+                  spaceBetween: 10
+                },
+                1020: {
+                  slidesPerView: 3,
+                  spaceBetween: 10
+                },
+                1440: {
+                  slidesPerView: 4,
+                  spaceBetween: 10
+                },
+              }}
+              navigation
+              pagination={{ clickable: true }}
+              scrollbar={{ draggable: true }}
+            >
+              {posts.map(post => (
+                <SwiperSlide>
+                  <CardPost
+                    key={post.id}
+                    title={post.title}
+                    slug={post.slug}
+                    content={post.description}
+                    imageUrl={`${postUrl}/${post.post_image}`} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </Box>
+          
+        </Box>
 
-      </Container>
+      </div>
       <Footer auth={auth} />
     </Box>
   )

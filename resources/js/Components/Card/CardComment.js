@@ -11,7 +11,6 @@ export default function CardComment({id, comments, users, profileComments, asset
         person = profile
       }
     });
-    console.log(person)
     return person;
   }
     

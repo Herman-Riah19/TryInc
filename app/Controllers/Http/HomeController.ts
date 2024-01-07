@@ -57,25 +57,44 @@ export default class HomeController {
     });
   }
 
-  public async search({ inertia, request, auth }: HttpContextContract) {
+  public async search({ inertia, request, response, auth }: HttpContextContract) {
     const { avatarUrl, authenticateProfile } = await ProfileService.getAthenticateProfile(auth);
     const users = await User.all();
-    const productUrl = await Drive.getUrl("./products");
-
-    let product = await Product.findBy('name', request.input('keyWord'))
-    if(!product){
-      product = new Product()
-    }
 
     const keyWord = request.input('keyWord')
 
-    const otherProducts = await Product.all()
+    const otherProducts = await Product.all();
+    const otherUsersProfile = await Profile.all();
 
-    return inertia.render('Home/Search', { 
-      auth, avatarUrl, authenticateProfile, 
-      product, productUrl, otherProducts,
-      users, keyWord
-    });
+    const productUrl = await Drive.getUrl("./products");
+    const bannerUrl = await Drive.getUrl("./banner")
+
+      let product = await Product.findBy("name", keyWord) || new Product()
+      
+
+      let user = await User.findBy("username", keyWord) || new User();
+      
+
+      let profileUser =
+        (await Profile.findBy("firstname", keyWord)) ||
+        (await Profile.findBy("lastname", keyWord)) || new Profile()
+      
+
+      return inertia.render("Home/Search", {
+        auth,
+        avatarUrl,
+        bannerUrl,
+        authenticateProfile,
+        product,
+        productUrl,
+        otherProducts,
+        users,
+        keyWord,
+        otherUsersProfile,
+        profileUser,
+        user
+      });
+
   }
 
   public async artistList({ inertia, auth }: HttpContextContract) {

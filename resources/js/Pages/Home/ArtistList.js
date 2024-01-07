@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Container, Grid, Typography } from '@mui/material'
+import { Box, Grid, Typography } from '@mui/material'
 import Navbar from '../../Components/MenuBar/Navbar'
 import CardUserProfile from '../../Components/Card/CardUserProfile'
 import Footer from '../../Components/Footer/Footer'
@@ -8,7 +8,7 @@ const style = {
   section: {
     position: 'relative',
     width: 'auto',
-    margin: '20px'
+    margin: '50px'
   },
 }
 const ArtistList = ({ auth, avatarUrl, authenticateProfile, artists, profiles, bannerUrl }) => {
@@ -16,8 +16,8 @@ const ArtistList = ({ auth, avatarUrl, authenticateProfile, artists, profiles, b
   return (
     <Box>
       <Navbar auth={auth} authAvatar={authenticateProfile ? `${avatarUrl}/${authenticateProfile.avatar}` : null} />
-      <Container sx={{ mt: '100px' }}>
-        <Container sx={style.section}>
+      <Box sx={{ mt: '100px' }}>
+        <Box sx={style.section}>
           <Typography variant='h4'>All Artists</Typography>
           <Grid container spacing={2}>
             {artists.map(artist => {
@@ -40,9 +40,9 @@ const ArtistList = ({ auth, avatarUrl, authenticateProfile, artists, profiles, b
             }
             )}
           </Grid>
-        </Container>
+        </Box>
 
-      </Container>
+      </Box>
       <Footer auth={auth} />
     </Box>
   )

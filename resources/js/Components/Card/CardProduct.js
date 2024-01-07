@@ -52,19 +52,10 @@ const CardProduct = ({ key, product, username, url }) => {
         </Link>
         <CardActions sx={classes.cardContent}>
           <Grid container>
-            <Grid item md={8}>
+            <Grid item md={12}>
               <Typography variant="h6" sx={classes.title}>
                 {product.name}
               </Typography>
-            </Grid>
-            <Grid item md={3}>
-              <Button
-                variant="outlined"
-                color="warning"
-                startIcon={<Favorite />}
-              >
-                {product.nomber_like}
-              </Button>
             </Grid>
           </Grid>
         </CardActions>

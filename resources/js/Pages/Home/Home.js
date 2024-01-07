@@ -25,7 +25,7 @@ const style = {
   section: {
     position: "relative",
     width: "auto",
-    margin: "25px",
+    margin: "50px"
   },
   userSection: {
     mt: "50px",
@@ -95,12 +95,16 @@ export default function Home({
       slidesPerView: 3,
       spaceBetween: 10,
     },
-    1020: {
+    1024: {
+      slidesPerView: 4,
+      spaceBetween: 15,
+    },
+    1280: {
       slidesPerView: 5,
       spaceBetween: 15,
     },
-    1440: {
-      slidesPerView: 6,
+    1920: {
+      slidesPerView: 8,
       spaceBetween: 15,
     },
   };
@@ -124,11 +128,11 @@ export default function Home({
         }
       />
       <Box sx={{ mt: "80px" }}>
-        <Container sx={style.section}>
+        <Box sx={style.section}>
           <HomeParallax users={users} existProfiles={existProfiles} avatarUrl={avatarUrl} bannerUrl={bannerUrl} />
-        </Container>
+        </Box>
 
-        <Container sx={style.section}>
+        <Box sx={style.section}>
           <Title title="Categories list" link="/categorie/Illustration" />
 
           <Swiper
@@ -143,13 +147,14 @@ export default function Home({
                 <CardCategorieTitle
                   categorie={categ}
                   auth={auth}
+                  url={categorieUrl}
                 />
               </SwiperSlide>
             ))}
           </Swiper>
-        </Container>
+        </Box>
 
-        <Container sx={style.section}>
+        <Box sx={style.section}>
           <Parallax filter image={`img/parallax.jpg`}>
             <Grid container sx={{ zIndex: "1", m: "25px" }}>
               <Grid item md={6}>
@@ -196,9 +201,9 @@ export default function Home({
               </Grid>
             </Grid>
           </Parallax>
-        </Container>
+        </Box>
 
-        <Container sx={style.section}>
+        <Box sx={style.section}>
           <Title title="Top artist" link="/artist-list" />
           <Swiper
             modules={[Navigation, A11y]}
@@ -223,15 +228,15 @@ export default function Home({
               );
             })}
           </Swiper>
-        </Container>
+        </Box>
 
-        <Container sx={style.section}>
+        <Box sx={style.section}>
           <Title title="Top of picture" link="/explores" />
           <Grid container spacing={2}>
             {products.map((product) => {
               const user = findUserById(product.user_id);
               return (
-                <Grid item xs={12} sm={5} md={4} lg={3} >
+                <Grid item xs={12} sm={5} md={4} lg={3} xl={2}>
                   <CardProduct
                     key={product.id}
                     product={product}
@@ -242,9 +247,9 @@ export default function Home({
               );
             })}
           </Grid>
-        </Container>
+        </Box>
 
-        <Container sx={style.section}>
+        <Box sx={style.section}>
           <Title title="Blog post" link={"/posts"} />
           <Swiper
             modules={[Navigation, A11y]}
@@ -265,7 +270,7 @@ export default function Home({
               </SwiperSlide>
             ))}
           </Swiper>
-        </Container>
+        </Box>
       </Box>
       <Footer auth={auth} />
     </Box>

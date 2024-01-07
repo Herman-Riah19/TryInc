@@ -2,6 +2,7 @@ import React from 'react'
 import { Grid, Box, Typography, Button, ButtonGroup, Card, CardHeader, CardContent, TableContainer, TableBody, TableRow, TableCell, CardMedia } from '@mui/material'
 import { Facebook, Instagram, Twitter } from '@mui/icons-material'
 import CardAboutUser from './Card/CardAboutUser'
+import CardPersonalInformation from './Card/CardPersonalInformation'
 
 const Portfolio = ({ profile, avatar }) => {
     return (
@@ -29,59 +30,7 @@ const Portfolio = ({ profile, avatar }) => {
             <Grid item md={7}>
                 <Box>
                     <CardAboutUser biography={profile.biography} />
-                    <Card sx={{m:'1vw'}}>
-                        <CardHeader title="Personnal Informations"/>
-                        <CardContent>
-                            <TableContainer >
-                                <TableBody>
-                                    <TableRow>
-                                        <TableCell sx={{border: 'none'}}>
-                                            <Typography variant='h6'>Lastname </Typography>
-                                        </TableCell>
-                                        <TableCell sx={{border: 'none'}}>
-                                            <Typography variant='p'>:</Typography>
-                                        </TableCell>
-                                        <TableCell sx={{border: 'none'}}>
-                                            <Typography variant='p'>{profile.lastname}</Typography>
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell sx={{border: 'none'}}>
-                                            <Typography variant='h6'>Firstname </Typography>
-                                        </TableCell>
-                                        <TableCell sx={{border: 'none'}}>
-                                            <Typography variant='p'>:</Typography>
-                                        </TableCell>
-                                        <TableCell sx={{border: 'none'}}>
-                                            <Typography variant='p'>{profile.firstname}</Typography>
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell sx={{border: 'none'}}>
-                                            <Typography variant='h6'>Location </Typography>
-                                        </TableCell>
-                                        <TableCell sx={{border: 'none'}}>
-                                            <Typography variant='p'>:</Typography>
-                                        </TableCell>
-                                        <TableCell sx={{border: 'none'}}>
-                                            <Typography variant='p'>{profile.location}</Typography>
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell sx={{border: 'none'}}>
-                                            <Typography variant='h6'>Company </Typography>
-                                        </TableCell>
-                                        <TableCell sx={{border: 'none'}}>
-                                            <Typography variant='p'>:</Typography>
-                                        </TableCell>
-                                        <TableCell sx={{border: 'none'}}>
-                                            <Typography variant='p'>{profile.company}</Typography>
-                                        </TableCell>
-                                    </TableRow>
-                                </TableBody>
-                            </TableContainer>
-                        </CardContent>
-                    </Card>
+                    <CardPersonalInformation profile={profile}/>
                 </Box>
             </Grid>
         </Grid>

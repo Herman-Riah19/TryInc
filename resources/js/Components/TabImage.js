@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Tabs, Tab, Typography, Grid, Button, Container, Paper } from '@mui/material'
+import { Box, Tabs, Tab, Typography, Grid, Button, ButtonGroup, Container, Paper } from '@mui/material'
 import ImageIcon from '@mui/icons-material/Image'
 import { Info } from '@mui/icons-material'
 import AutoAwesomeMosaicIcon from '@mui/icons-material/AutoAwesomeMosaic'
@@ -8,6 +8,7 @@ import { Link } from '@inertiajs/inertia-react'
 import Portfolio from './Portfolio'
 import CardProductPost from './Card/CardProductPost'
 import CardAboutUser from './Card/CardAboutUser'
+import CardPersonalInformation from './Card/CardPersonalInformation'
 
 export function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -81,6 +82,18 @@ const TabImage = ({ likes, products, username, profile, avatar, productUrl }) =>
                 <Grid container spacing={2}>
                     <Grid item md={4}>
                         <CardAboutUser biography={profile.biography}/>
+                        <CardPersonalInformation profile={profile}/>
+                        <ButtonGroup fullWidth variant='contained' orientation='vertical' color='secondary' aria-label="Contacts">
+                            <Button endIcon={<Facebook />}>
+                                <a href={profile.facebook_url}>Facebook</a>
+                            </Button>
+                            <Button endIcon={<Instagram />}>
+                                <a href={profile.instagram_url}>Instagram</a>
+                            </Button>
+                            <Button endIcon={<Twitter />}>
+                                <a href={profile.twitter_url}>Twitter</a>
+                            </Button>
+                        </ButtonGroup>
                     </Grid>
                     <Grid item md={8}>
                         {products.map(prod =>{

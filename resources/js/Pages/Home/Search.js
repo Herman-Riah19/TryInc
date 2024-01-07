@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Container, Divider, Grid, Typography } from "@mui/material";
+import { Box, Divider, Grid, Typography } from "@mui/material";
 import Navbar from "../../Components/MenuBar/Navbar";
 import CardProduct from "../../Components/Card/CardProduct";
 import Footer from "../../Components/Footer/Footer";
@@ -14,16 +14,21 @@ const Search = (props) => {
   const {
     auth,
     avatarUrl,
+    bannerUrl,
     authenticateProfile,
     product,
     productUrl,
     otherProducts,
     users,
     keyWord,
+    otherUsersProfile,
+    profileUser,
+    user
   } = props;
 
   const [search, setSearch] = useState(keyWord);
   const [existProducts, setExistProducts] = useState([])
+  const [existUsers, setExistUsers] = useState([])
 
   const findUserById = (index) => {
     let user = new Object();
@@ -33,12 +38,11 @@ const Search = (props) => {
     return user;
   };
 
-  const user = findUserById(product.user_id);
+  const productUser = findUserById(product.user_id);
 
   useEffect(() => {
     setExistProducts(
       otherProducts.filter((produ) => produ.name.toLowerCase().includes(search)))
-    console.log(existProducts)
   },[search])
 
   return (
@@ -53,7 +57,7 @@ const Search = (props) => {
         keyWord={search}
       />
 
-      <Container sx={{ mt: "70px" }}>
+      <Box sx={{ mt: "70px", ml: "50px", mr:"50px" }}>
         <Box sx={{display: 'flex', m: 2}}>
           <Typography variant="h5" sx={{flexGrow: 1,}}>Results</Typography>
           <SearchForm method="get" sx={{display: 'flex',flexGrow: 1,}}>
@@ -73,13 +77,15 @@ const Search = (props) => {
         </Box>
         <Divider />
 
+        
+
         {product.name ? (
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6} md={4} lg={3}>
               <CardProduct
                 key={product.id}
                 product={product}
-                username={user.username}
+                username={productUser.username}
                 url={productUrl}
               />
             </Grid>
@@ -100,7 +106,7 @@ const Search = (props) => {
             </Grid>
           </Box>
         )}
-      </Container>
+      </Box>
       <Footer auth={auth} />
     </Box>
   );
