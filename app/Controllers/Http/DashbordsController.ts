@@ -10,7 +10,7 @@ import Profile from 'App/Models/Profile'
 export default class DashbordsController {
   async showDashbord({ inertia, auth, response }: HttpContextContract) {
     if (auth.user?.roleId != 2) {
-      return response.redirect("/login");
+      return response.redirect("/auth/login");
     }
     const products = await Product.all();
     const productUrl = await Drive.getUrl("./products");
@@ -36,7 +36,7 @@ export default class DashbordsController {
     response,
   }: HttpContextContract) {
     if (auth.user?.roleId != 2) {
-      return response.redirect("/login");
+      return response.redirect().toRoute("user.login");
     }
     const products = await Product.all();
 
@@ -48,7 +48,7 @@ export default class DashbordsController {
 
   public async collections({ inertia, auth, response }: HttpContextContract) {
     if (auth.user?.roleId != 2) {
-      return response.redirect("/login");
+      return response.redirect().toRoute("user.login");
     }
     const products = await Product.all();
     const productUrl = await Drive.getUrl("./products");
@@ -70,7 +70,7 @@ export default class DashbordsController {
 
   public createCategorie({ inertia, auth, response }: HttpContextContract) {
     if (auth.user?.roleId != 2) {
-      return response.redirect("/login");
+      return response.redirect().toRoute("user.login");
     }
     return inertia.render("Dashbord/CategorieForm");
   }
@@ -104,7 +104,7 @@ export default class DashbordsController {
 
   public async editProduct({ inertia, auth, response }: HttpContextContract) {
     if (auth.user?.roleId != 2) {
-      return response.redirect("/login");
+      return response.redirect().toRoute("user.login");
     }
     return inertia.render("Dashbord/EditProduct", { auth });
   }

@@ -3,13 +3,14 @@ import {
   Card,
   CardActionArea,
   CardActions,
-  Typography,
+  Paper,
+  Stack,
   CardMedia,
   Button,
   Grid,
 } from "@mui/material";
 import { Link } from "@inertiajs/inertia-react";
-import { Comment, Favorite } from "@mui/icons-material";
+import { Favorite, Comment, AccountCircle, FavoriteBorderOutlined, Share } from "@mui/icons-material";
 
 const classes = {
   card: {
@@ -51,13 +52,41 @@ const CardProduct = ({ key, product, username, url }) => {
           />
         </Link>
         <CardActions sx={classes.cardContent}>
-          <Grid container>
-            <Grid item md={12}>
-              <Typography variant="h6" sx={classes.title}>
-                {product.name}
-              </Typography>
+          <Paper sx={{ width: "100%" }}>
+            <Grid container>
+              <Grid item xs={12}>
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  sx={{ justifyContent: "end", margin: "5px" }}
+                >
+                  <Link href={`/product/is-liked/${product.id}`} style={{ width: "100%" }}>
+                    <Button
+                      fullWidth
+                      color="warning"
+                      startIcon={<FavoriteBorderOutlined />}
+                    >
+                      {product.nomber_like}
+                    </Button>
+                  </Link>
+                  <Button
+                    fullWidth
+                    color="primary"
+                    startIcon={<Comment />}
+                  >
+                    {product.nomber_comment}
+                  </Button>
+                  <Button
+                    fullWidth
+                    color="secondary"
+                    startIcon={<Share />}
+                  >
+                    Share
+                  </Button>
+                </Stack>
+              </Grid>
             </Grid>
-          </Grid>
+          </Paper>
         </CardActions>
       </CardActionArea>
     </Card>

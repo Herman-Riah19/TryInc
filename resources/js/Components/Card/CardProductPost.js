@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardContent, CardHeader, CardMedia, CardActions, Grid,  Stack, Button, Typography, Avatar, Paper } from '@mui/material'
+import { Card, CardHeader, CardMedia, CardActions, Grid,  Stack, Button, Typography, Avatar, Paper } from '@mui/material'
 import { Favorite, Comment, AccountCircle, FavoriteBorderOutlined, Share } from "@mui/icons-material";
 import { Link } from "@inertiajs/inertia-react";
 
@@ -23,11 +23,6 @@ const CardProductPost = ({ username, user, product, productUrl, liked, avatar })
                     }
                 />
             </Link>
-            <CardContent >
-                <Typography variant="h5">
-                    {product.name}
-                </Typography>
-            </CardContent>
             <Link href={`/product/show/${productName}`}>
                 <CardMedia
                     component='img'

@@ -95,20 +95,23 @@ const TabImage = ({ likes, products, username, profile, avatar, productUrl }) =>
                         </ButtonGroup>
                     </Grid>
                     <Grid item md={8}>
-                        {products.map(prod =>{
-                            const liked = findLikedUser(prod)
-                            return (
-                                <Grid item xs={12} sx={{ mt: "15px" }}>
-                                    <CardProductPost
-                                        liked={liked}
-                                        username={username}
-                                        user={profile}
-                                        product={prod}
-                                        productUrl={productUrl}
-                                        avatar={avatar} />
-                                </Grid>
-                            )
-                        } )}
+                        <Grid container spacing={2}>
+                            {products.map(prod => {
+                                const liked = findLikedUser(prod)
+                                return (
+                                    <Grid item xs={12} sx={{ mt: "15px" }}>
+                                        <CardProductPost
+                                            liked={liked}
+                                            username={username}
+                                            user={profile}
+                                            product={prod}
+                                            productUrl={productUrl}
+                                            avatar={avatar} />
+                                    </Grid>
+                                )
+                            })}
+                        </Grid>
+                        
                     </Grid>
                 </Grid>
                 

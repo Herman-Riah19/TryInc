@@ -10,8 +10,11 @@ import Footer from '../../Components/Footer/Footer'
 
 const useStyle = makeStyles(profileStyle)
 
-const Profile = ({ user, profile, auth, authenticateProfile, products, productUrl, likes, avatarUrl, profileBannerUrl, collections, collectionUrl }) => {
+const Profile = (props) => {
+  const { user, profile, auth, authenticateProfile, products, productUrl, likes, avatarUrl, profileBannerUrl, collections, collectionUrl, isFollowed } = props
   const classes = useStyle()
+
+  console.log(user)
 
   const [moreMenu, setMoreMenu] = useState(null);
   const MoreButtonOpen = Boolean(moreMenu);
@@ -83,40 +86,16 @@ const Profile = ({ user, profile, auth, authenticateProfile, products, productUr
                     )}
                   </Grid>
                   <Grid item sm={12} md={6}>
-                    <Button
-                      id='more-button'
-                      aria-controls={MoreButtonOpen ? 'basic-menu' : undefined}
-                      color='secondary'
-                      variant='outlined'
-                      aria-expanded={MoreButtonOpen ? 'true' : undefined}
-                      onClick={handleMoreButtonClick}
-                      endIcon={<Share /> }>
-                      Follow me 
-                    </Button>
-                    <Menu
-                      id="more-menu"
-                      anchorEl={moreMenu}
-                      open={MoreButtonOpen}
-                      onClose={handleClose}
-                      MenuListProps={{
-                        'aria-labelledby': 'basic-button',
-                      }}>
-                      <a href={`${profile.facebook_url}`} style={{ textDecoration: 'none', color: 'white' }}>
-                        <MenuItem>
-                          <Facebook sx={{ mr: '10px', width: '20px' }} /> Facebook
-                        </MenuItem>
-                      </a>
-                      <a href={`${profile.twitter_url}`} style={{ textDecoration: 'none', color: 'white' }}>
-                        <MenuItem>
-                          <Twitter sx={{ mr: '10px', width: '20px' }} /> Twitter
-                        </MenuItem>
-                      </a>
-                      <a href={`${profile.instagram_url}`} style={{ textDecoration: 'none', color: 'white' }}>
-                        <MenuItem>
-                          <Instagram sx={{ mr: '10px', width: '20px' }} /> Instagram
-                        </MenuItem>
-                      </a>
-                    </Menu>
+                    <Link href={`/profile/is-followed/${user.username.split(' ').join("_")}`}>
+                      <Button
+                        id='more-button'
+                        color='secondary'
+                        variant={isFollowed ? 'contained' : 'outlined'}
+                        endIcon={<Share />}>
+                        <Typography variant="p">hello {user.number_follower}</Typography>
+                      </Button>
+                    </Link>
+                    
                   </Grid>
                 </Grid>
                 

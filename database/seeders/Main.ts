@@ -37,6 +37,13 @@ export default class extends BaseSeeder {
       },
       {
         id: 2,
+        name: 'Photography',
+        slug: 'PHOTO',
+        description: "This is the digital photo make in the digital photo apparel or Camera with the talent and the art in there content",
+        asset: 'photography.png'
+      },
+      {
+        id: 3,
         name: 'Illustration',
         slug: 'ILL',
         description: "An Illustration is something that serves to illustrate: such as <ul>" + 
@@ -47,7 +54,7 @@ export default class extends BaseSeeder {
         asset: 'illustration-wallpaper.jpeg'
       },
       {
-        id: 3,
+        id: 4,
         name: 'Game Characters',
         slug: 'GAME',
         description: "A game character is a person, character, or any other entity acting in a game.<br/>"+

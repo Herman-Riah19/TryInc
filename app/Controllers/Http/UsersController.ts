@@ -33,8 +33,7 @@ export default class UsersController {
   public async login({ auth, request, response, session, }: HttpContextContract) {
     const { uid, password } = await request.validate(LoginValidator);
 
-    const loginAttemptRemaining =
-      await AuthAttemptsService.getRemainingAttempts(uid);
+    const loginAttemptRemaining = await AuthAttemptsService.getRemainingAttempts(uid);
     if (loginAttemptRemaining <= 0) {
       session.flash(
         "error",

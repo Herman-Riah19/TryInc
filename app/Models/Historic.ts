@@ -11,10 +11,16 @@ export default class Historic extends BaseModel {
   public action!:string | ''
 
   @column()
+  public description!:string | ''
+
+  @column()
   public status!: string
 
   @column()
-  public userId!: number
+  public senderId!: number
+
+  @column()
+  public receiverId!: number
 
   @column()
   public productId!: number
@@ -23,7 +29,10 @@ export default class Historic extends BaseModel {
   public product!: BelongsTo<typeof Product>
 
   @belongsTo(() => User)
-  public user!: BelongsTo<typeof User>
+  public sender!: BelongsTo<typeof User>
+  
+  @belongsTo(() => User)
+  public receiver!: BelongsTo<typeof User>
 
   @column.dateTime({ autoCreate: true })
   public createdAt!: DateTime
