@@ -97,7 +97,7 @@ export default class ProfilesController {
 
   public async hasBeenFollowed({ params, response, auth, session }: HttpContextContract) {
     try {
-      if (!auth) {
+      if (!auth.isLoggedIn) {
         return response.redirect().toRoute("user.login");
       }
 
