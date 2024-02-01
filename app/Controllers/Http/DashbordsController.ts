@@ -9,7 +9,7 @@ import Profile from 'App/Models/Profile'
 
 export default class DashbordsController {
   async showDashbord({ inertia, auth, response }: HttpContextContract) {
-    if (auth.user?.roleId != 2) {
+    if (auth && auth.user?.roleId != 2) {
       return response.redirect("/auth/login");
     }
     const products = await Product.all();

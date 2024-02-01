@@ -92,7 +92,7 @@ const Profile = (props) => {
                         color='secondary'
                         variant={isFollowed ? 'contained' : 'outlined'}
                         endIcon={<Share />}>
-                        <Typography variant="p">hello {user.number_follower}</Typography>
+                        <Typography variant="p">Followers {user.number_follower}</Typography>
                       </Button>
                     </Link>
                     

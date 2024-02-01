@@ -1,28 +1,29 @@
 import React from "react";
 import {
   Card,
-  CardActionArea,
   CardActions,
   Paper,
-  Stack,
   CardMedia,
   Button,
   Grid,
+  Typography,
 } from "@mui/material";
 import { Link } from "@inertiajs/inertia-react";
-import { Favorite, Comment, AccountCircle, FavoriteBorderOutlined, Share } from "@mui/icons-material";
+import { FavoriteBorderOutlined } from "@mui/icons-material";
 
 const classes = {
   card: {
     marginTop: "20px",
+    cardContent: {
+      display:"block",
+      margin: 0,
+      justifyContent: "space-between",
+    },
   },
   img: {
     height: "300px",
   },
-  cardContent: {
-    margin: 0,
-    justifyContent: "space-between",
-  },
+  
   cardAction: {
     justifyContent: "space-between",
   },
@@ -42,7 +43,6 @@ const CardProduct = ({ key, product, username, url }) => {
   const productName = product.name.split(' ').join('_')
   return (
     <Card key={key} sx={classes.card}>
-      <CardActionArea>
         <Link href={`/product/show/${productName}`}>
           <CardMedia
             component="img"
@@ -51,15 +51,20 @@ const CardProduct = ({ key, product, username, url }) => {
             alt={product.name}
           />
         </Link>
-        <CardActions sx={classes.cardContent}>
+        <CardActions sx={classes.card.cardContent}>
           <Paper sx={{ width: "100%" }}>
             <Grid container>
-              <Grid item xs={12}>
-                <Stack
-                  direction="row"
-                  spacing={2}
-                  sx={{ justifyContent: "end", margin: "5px" }}
+              <Grid item xs={8}>
+                <Typography
+                  variant="body1"
+                  color="primary"
+                  sx={{ fontSize: '15px', fontWeight: 300, mt:'5px' }}
                 >
+                  {product.name}
+                </Typography>
+              </Grid>
+              <Grid item xs={4}>
+                  
                   <Link href={`/product/is-liked/${product.id}`} style={{ width: "100%" }}>
                     <Button
                       fullWidth
@@ -69,26 +74,10 @@ const CardProduct = ({ key, product, username, url }) => {
                       {product.nomber_like}
                     </Button>
                   </Link>
-                  <Button
-                    fullWidth
-                    color="primary"
-                    startIcon={<Comment />}
-                  >
-                    {product.nomber_comment}
-                  </Button>
-                  <Button
-                    fullWidth
-                    color="secondary"
-                    startIcon={<Share />}
-                  >
-                    Share
-                  </Button>
-                </Stack>
               </Grid>
             </Grid>
           </Paper>
         </CardActions>
-      </CardActionArea>
     </Card>
   );
 };
