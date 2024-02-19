@@ -24,9 +24,11 @@ import {
   Info,
   AddBox,
   RssFeed,
+  Notifications,
 } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchInput from "./SearchInput";
+import CardNotification from "../Card/CardNotification";
 
 const Navbar = ({ auth, authAvatar, keyWord }) => {
   const isLoggedIn = auth.guards.web.isLoggedIn;
@@ -54,6 +56,8 @@ const Navbar = ({ auth, authAvatar, keyWord }) => {
   ];
 
   const [anchorE, setAnchorE] = useState(null);
+  const [anchorNotification, setAnchorNotification] = useState(null);
+
 
   const handleMenu = (event) => {
     setAnchorE(event.currentTarget);
@@ -62,6 +66,14 @@ const Navbar = ({ auth, authAvatar, keyWord }) => {
   const handleClose = () => {
     setAnchorE(null);
   };
+
+  const handleMenuNotification = (event) => {
+    setAnchorNotification(event.currentTarget);
+  };
+
+  const handleCloseNotification = () => {
+    setAnchorNotification(null);
+  }
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
@@ -84,8 +96,7 @@ const Navbar = ({ auth, authAvatar, keyWord }) => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar sx={{ bgcolor: "#18181C" }}>
+      <AppBar sx={{  bgcolor: "#18181C" }}>
         <Toolbar sx={{ p: "0" }}>
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
             <Link href="/" style={{ textDecoration: "none", color: "#fff" }}>
@@ -154,6 +165,43 @@ const Navbar = ({ auth, authAvatar, keyWord }) => {
           <Box>
             {isLoggedIn ? (
               <Box>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenuNotification}
+                sx={{ color: "white" }}
+              >
+                <Notifications />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorNotification}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorNotification)}
+                onClose={handleCloseNotification}
+                sx={{ width: "40vw", mt: "50px", p: "5px" }}
+              >
+                <Link
+                  href={`/profile/${auth.guards.web.user.username
+                    .split(" ")
+                    .join("_")}`}
+                  style={{ textDecoration: "none", color: "#fff" }}
+                >
+                  <MenuItem sx={{width: "500px"}}>
+                    <CardNotification />
+                  </MenuItem>
+                </Link>
+              </Menu>
                 <IconButton
                   size="large"
                   aria-label="account of current user"
@@ -278,7 +326,6 @@ const Navbar = ({ auth, authAvatar, keyWord }) => {
           </Box>
         </Toolbar>
       </AppBar>
-    </Box>
   );
 };
 

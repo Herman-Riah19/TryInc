@@ -45,9 +45,6 @@ class User extends BaseModel {
   @column()
   public rememberMeToken?: string;
 
-  @column()
-  public numberFollower!: number | 0;
-
   @column.dateTime({ autoCreate: true })
   public createdAt!: DateTime;
 

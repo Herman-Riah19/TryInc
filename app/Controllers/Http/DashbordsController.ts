@@ -6,6 +6,7 @@ import Categorie from 'App/Models/Categorie'
 import AssetService from 'App/Services/AssetService'
 import CategorieValidator from 'App/Validators/CategorieValidator'
 import Profile from 'App/Models/Profile'
+import Like from 'App/Models/Like'
 
 export default class DashbordsController {
   async showDashbord({ inertia, auth, response }: HttpContextContract) {
@@ -113,6 +114,9 @@ export default class DashbordsController {
     const product = await Product.findBy("id", params.id);
 
     try {
+      const likes = await Like.query().where("product_id", product!.id);
+      likes.map(async (like) => await like.delete())
+
       await product?.delete();
       return response.redirect().toRoute("dashbord.collections");
     } catch (error) {
@@ -139,8 +143,8 @@ export default class DashbordsController {
 
     try{
       const userToDeleted = await User.findBy('id', params.id)
-      const profileOfUserToDeleted = await Profile.findBy('user_id', userToDeleted?.id)
-      await profileOfUserToDeleted?.delete()
+      const profileOfUserToDeleted = await Profile.query().where("user_id", userToDeleted!.id)
+      profileOfUserToDeleted.map( async (profile) => await profile.delete())
       await userToDeleted?.delete()
       return response.redirect().toRoute("dashbord.user");
     } catch(error) {

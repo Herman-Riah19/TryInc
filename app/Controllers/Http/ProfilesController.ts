@@ -101,14 +101,15 @@ export default class ProfilesController {
         return response.redirect().toRoute("user.login");
       }
 
-      const username = await params.username.split("_").join(" ");
-      const followingUser = await User.findBy("username", username);
-      const followerUser = await User.findBy("user_id", auth.user?.id);
+      const followingUser = await Profile.findBy("user_id", params.id);
+      const followerUser = await User.findBy("id", auth.user?.id);
+
+      const profileUser = await User.findBy("id", params.id)
+      const username = profileUser?.username.split(" ").join("_")
 
       const hasFollowed = await Following.findBy( "following_id", followingUser?.id);
       if (hasFollowed?.followerId == followerUser?.id) {
-        const isFollowed = !hasFollowed?.isFollowed;
-        hasFollowed!.isFollowed = isFollowed;
+        const isFollowed = (hasFollowed!.isFollowed = !hasFollowed?.isFollowed);
         hasFollowed?.save();
 
         let numberFollow = followingUser!.numberFollower;

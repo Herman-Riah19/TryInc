@@ -73,7 +73,7 @@ Route.group(() => {
 Route.group(()=> {
     Route.get('/:username', 'ProfilesController.showProfile').as('profile.show')
     Route.get(
-      "/is-followed/:username",
+      "/is-followed/:id",
       "ProfilesController.hasBeenFollowed"
     ).middleware("auth");
     Route.group(() => {

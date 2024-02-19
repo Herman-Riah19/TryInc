@@ -29,7 +29,7 @@ export function TabPanel(props) {
     );
 }
 
-const TabImage = ({ likes, products, username, profile, avatar, productUrl }) => {
+const TabImage = ({ auth, likes, products, username, profile, avatar, productUrl }) => {
     const [value, setValue] = useState(0)
 
     const handleChange = (event, newValue) => {
@@ -40,16 +40,18 @@ const TabImage = ({ likes, products, username, profile, avatar, productUrl }) =>
     const findLikedUser = (product) => {
         let liked = false
         likes.map(like => {
-            if(like.product_id == product.id){
-                liked = true
+            if (like.product_id == product.id) {
+                if(like.user_id == auth.guards.web.user.id){
+                    liked = true
+                }                   
             }
         })
         return liked
     }
 
     return (
-        <Box sx={{ width: '100%' }}>
-            <Box sx={{}}>
+        <Box>
+            <Box>
                 <Paper>
                     <Tabs
                         value={value}
@@ -79,9 +81,9 @@ const TabImage = ({ likes, products, username, profile, avatar, productUrl }) =>
             </Box>
             <TabPanel value={value} index={0}>
                 <Grid container spacing={2}>
-                    <Grid item md={4}>
-                        <CardAboutUser biography={profile.biography}/>
-                        <CardPersonalInformation profile={profile}/>
+                    <Grid item md={4} xl={2}>
+                        <CardAboutUser biography={profile.biography} />
+                        <CardPersonalInformation profile={profile} />
                         <ButtonGroup fullWidth variant='contained' orientation='vertical' color='secondary' aria-label="Contacts">
                             <Button endIcon={<Facebook />}>
                                 <a href={profile.facebook_url}>Facebook</a>
@@ -94,10 +96,10 @@ const TabImage = ({ likes, products, username, profile, avatar, productUrl }) =>
                             </Button>
                         </ButtonGroup>
                     </Grid>
-                    <Grid item md={8}>
+                    <Grid item md={8} xl={10}>
                         <Grid container spacing={2}>
                             {products.map(prod => {
-                                const liked = findLikedUser(prod)
+                                const liked = !auth.guards.web.isLoggedIn ? false : findLikedUser(prod)
                                 return (
                                     <Grid item xs={12} sx={{ mt: "15px" }}>
                                         <CardProductPost
@@ -111,13 +113,13 @@ const TabImage = ({ likes, products, username, profile, avatar, productUrl }) =>
                                 )
                             })}
                         </Grid>
-                        
+
                     </Grid>
                 </Grid>
-                
+
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <Grid container spacing={2} >
+                <Grid container spacing={2} sx={{ mt: 10 }} >
                     {products.map(product => {
                         return (
                             <Grid item xs={12} sm={6} md={4} lg={3}>

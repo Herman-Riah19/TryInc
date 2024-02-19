@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Container,
@@ -19,7 +19,7 @@ import { RssFeed } from "@mui/icons-material";
 import { Navigation, A11y } from "swiper";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import HomeParallax from "../../Components/Parallax/HomeParallax";
+import CardProductPost from "../../Components/Card/CardProductPost";
 
 const style = {
   section: {
@@ -45,6 +45,48 @@ const style = {
   },
 };
 
+const slideBreakpoint = {
+  425: {
+    slidesPerView: 1,
+    spaceBetween: 10,
+  },
+  768: {
+    slidesPerView: 2,
+    spaceBetween: 10,
+  },
+  1020: {
+    slidesPerView: 3,
+    spaceBetween: 10,
+  },
+  1440: {
+    slidesPerView: 4,
+    spaceBetween: 10,
+  },
+};
+
+const slideCategorieBreakpoint = {
+  425: {
+    slidesPerView: 1,
+    spaceBetween: 10,
+  },
+  768: {
+    slidesPerView: 3,
+    spaceBetween: 10,
+  },
+  1024: {
+    slidesPerView: 4,
+    spaceBetween: 15,
+  },
+  1280: {
+    slidesPerView: 5,
+    spaceBetween: 15,
+  },
+  1920: {
+    slidesPerView: 8,
+    spaceBetween: 15,
+  },
+};
+
 export default function Home({
   users,
   posts,
@@ -58,55 +100,17 @@ export default function Home({
   avatarUrl,
   bannerUrl,
   existProfiles,
+  likes
 }) {
+  const [firstColumn, setFirstColumn] = useState([])
+  const [secondColumn, setSecondColumn] = useState([])
+
   const findUserById = (index) => {
     let user = new Object();
     users.map((data) => {
       if (data.id == index) user = data;
     });
     return user;
-  };
-
-  const slideBreakpoint = {
-    425: {
-      slidesPerView: 1,
-      spaceBetween: 10,
-    },
-    768: {
-      slidesPerView: 2,
-      spaceBetween: 10,
-    },
-    1020: {
-      slidesPerView: 3,
-      spaceBetween: 10,
-    },
-    1440: {
-      slidesPerView: 4,
-      spaceBetween: 10,
-    },
-  };
-
-  const slideCategorieBreakpoint = {
-    425: {
-      slidesPerView: 1,
-      spaceBetween: 10,
-    },
-    768: {
-      slidesPerView: 3,
-      spaceBetween: 10,
-    },
-    1024: {
-      slidesPerView: 4,
-      spaceBetween: 15,
-    },
-    1280: {
-      slidesPerView: 5,
-      spaceBetween: 15,
-    },
-    1920: {
-      slidesPerView: 8,
-      spaceBetween: 15,
-    },
   };
 
   const getProfileByUser = (user) => {
@@ -116,6 +120,36 @@ export default function Home({
     });
     return profile;
   };
+
+  const findLikedUser = (product) => {
+    let liked = false;
+    likes.map(like => {
+      if (like.product_id === product.id) {
+        liked = like.is_liked
+      }
+    })
+    return liked
+  }
+
+  useEffect(() => {
+    const divisionProducts = () => {
+      const product1 = [];
+      const product2 = [];
+
+      for (let i = 0; i < products.length; i++) {
+        const pair = i % 2;
+        if (pair == 0) {
+          product1.push(products[i]);
+        } else {
+          product2.push(products[i]);
+        }
+      }
+      setFirstColumn(product1);
+      setSecondColumn(product2);
+    }
+
+    divisionProducts();
+  }, [])
 
   return (
     <Box>
@@ -128,42 +162,17 @@ export default function Home({
         }
       />
       <Box sx={{ mt: "80px" }}>
-        <Box sx={style.section}>
-          <HomeParallax users={users} existProfiles={existProfiles} avatarUrl={avatarUrl} bannerUrl={bannerUrl} />
-        </Box>
-
-        <Box sx={style.section}>
-          <Title title="Categories list" link="/categorie/Illustration" />
-
-          <Swiper
-            modules={[Navigation, A11y]}
-            breakpoints={slideCategorieBreakpoint}
-            navigation
-            pagination={{ clickable: true }}
-            scrollbar={{ draggable: true }}
-          >
-            {categories.map((categ) => (
-              <SwiperSlide key={categ.id}>
-                <CardCategorieTitle
-                  categorie={categ}
-                  auth={auth}
-                  url={categorieUrl}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </Box>
 
         <Box sx={style.section}>
           <Parallax filter image={`img/parallax.jpg`}>
             <Grid container sx={{ zIndex: "1", m: "25px" }}>
               <Grid item md={6}>
                 <Typography variant="h4" sx={style.parallaxTitle}>
-                  All of our post
+                  Hi! Welcome to Trynk Application
                 </Typography>
                 <Typography variant="body2">
-                  In this section You can see every blog post about our
-                  community and more information about us.
+                  This is the new Social Media for Every Digital Artists
+                  Who can Improuve there Drawing Skill and received the result in there community
                 </Typography>
                 <Link href={"/posts"}>
                   <Fab
@@ -201,6 +210,26 @@ export default function Home({
               </Grid>
             </Grid>
           </Parallax>
+        </Box>
+
+        <Box sx={style.section}>
+          <Swiper
+            modules={[Navigation, A11y]}
+            breakpoints={slideCategorieBreakpoint}
+            navigation
+            pagination={{ clickable: true }}
+            scrollbar={{ draggable: true }}
+          >
+            {categories.map((categ) => (
+              <SwiperSlide key={categ.id}>
+                <CardCategorieTitle
+                  categorie={categ}
+                  auth={auth}
+                  url={categorieUrl}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </Box>
 
         <Box sx={style.section}>
@@ -244,35 +273,12 @@ export default function Home({
                     url={productUrl}
                   />
                 </Grid>
-              );
-            })}
-          </Grid>
-        </Box>
-
-        <Box sx={style.section}>
-          <Title title="Blog post" link={"/posts"} />
-          <Swiper
-            modules={[Navigation, A11y]}
-            breakpoints={slideBreakpoint}
-            navigation
-            pagination={{ clickable: true }}
-            scrollbar={{ draggable: true }}
-          >
-            {posts.map((post) => (
-              <SwiperSlide>
-                <CardPost
-                  key={post.id}
-                  title={post.title}
-                  slug={post.slug}
-                  content={post.description}
-                  imageUrl={`${postUrl}/${post.post_image}`}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+                );
+                })}
+            </Grid>
         </Box>
       </Box>
       <Footer auth={auth} />
-    </Box>
+    </Box >
   );
 }

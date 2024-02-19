@@ -1,5 +1,4 @@
 import { container } from "./style";
-import theme from "./theme";
 
 const profileStyle = {
   container,
@@ -25,7 +24,7 @@ const profileStyle = {
   },
   avatar: {
     position: 'relative',
-    top: '250px',
+    top: '235px',
     left: '50px',
     justifyContent: 'center'
   },

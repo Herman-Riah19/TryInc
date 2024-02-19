@@ -14,6 +14,7 @@ export default class extends BaseSchema {
       table.text('biography').nullable().defaultTo('')
       table.string('location', 255).nullable()
       table.string('company', 255).nullable()
+      table.integer("number_follower").nullable();
       table.string('facebook_url', 255).nullable()
       table.string('instagram_url', 255).nullable()
       table.string('twitter_url', 255).nullable()

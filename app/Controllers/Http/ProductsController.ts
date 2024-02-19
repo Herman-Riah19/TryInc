@@ -180,33 +180,36 @@ export default class ProductsController {
 
   public async productIsLiked({ params, response, auth }: HttpContextContract) {
     try {
-      const product = await Product.findBy("id", params.id);
+      const product = await Product.findBy("id", params?.id);
       if (!auth) {
         return response.redirect().toRoute("user.login");
       }
-      const hasBeenLiked = await Like.findBy("product_id", product?.id);
-      if (hasBeenLiked?.userId == auth.user?.id) {
-        hasBeenLiked!.isLiked = !hasBeenLiked!.isLiked;
-        hasBeenLiked?.save();
-        product!.nomberLike = hasBeenLiked!.isLiked
-          ? product!.nomberLike + 1
-          : product!.nomberLike - 1;
-        product?.save();
-        return response.redirect(`/product/show/${product?.id}`);
-      } else {
-        const isLiked = new Like();
-        isLiked
-          .merge({
-            userId: auth.user?.id,
-            productId: product?.id,
-            isLiked: true,
-          })
-          .save();
 
-        product!.nomberLike += 1;
-        product?.save();
-        return response.redirect(`/product/show/${product?.id}`);
-      }
+      const hasBeenLikeds = await Like.query().where("product_id", product!.id);
+      hasBeenLikeds.map((hasBeenLiked) => {
+        if (hasBeenLiked?.userId == auth.user?.id) {
+          hasBeenLiked!.isLiked = !hasBeenLiked!.isLiked;
+          hasBeenLiked?.save();
+          product!.nomberLike = hasBeenLiked!.isLiked
+            ? product!.nomberLike + 1
+            : product!.nomberLike - 1;
+          product?.save();
+          return response.redirect(`/product/show/${product?.id}`);
+        }
+      });
+
+      const isLiked = new Like();
+      isLiked
+        .merge({
+          userId: auth.user?.id,
+          productId: product?.id,
+          isLiked: true,
+        })
+        .save();
+
+      product!.nomberLike += 1;
+      product?.save();
+      return response.redirect(`/product/show/${product?.id}`);
     } catch (error) {
       console.log("Une erreur est survenue:" + error);
       return response.redirect().back();

@@ -4,50 +4,53 @@ import User from './User'
 
 export default class Profile extends BaseModel {
   @column({ isPrimary: true })
-  public id!: number
+  public id!: number;
 
   @column()
-  public userId!: number
+  public userId!: number;
 
   @column()
-  public avatar!: string
+  public avatar!: string;
 
   @column()
-  public banner!: string
+  public banner!: string;
 
   @column()
-  public lastname!: string 
+  public lastname!: string;
 
   @column()
-  public firstname!: string 
+  public firstname!: string;
 
   @column()
-  public biography!: string 
+  public biography!: string;
 
   @column()
-  public location!: string 
+  public location!: string;
 
   @column()
-  public company!: string 
+  public company!: string;
 
   @column()
-  public facebookUrl!: string 
+  public numberFollower!: number | 0;
 
   @column()
-  public instagramUrl!: string 
+  public facebookUrl!: string;
 
   @column()
-  public twitterUrl!: string 
+  public instagramUrl!: string;
 
   @column()
-  public youtubeUrl!: string 
+  public twitterUrl!: string;
+
+  @column()
+  public youtubeUrl!: string;
 
   @column.dateTime({ autoCreate: true })
-  public createdAt!: DateTime
+  public createdAt!: DateTime;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt!: DateTime
+  public updatedAt!: DateTime;
 
   @belongsTo(() => User)
-  public user!: BelongsTo<typeof User>
+  public user!: BelongsTo<typeof User>;
 }

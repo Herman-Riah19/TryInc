@@ -54,7 +54,7 @@ const CardProduct = ({ key, product, username, url }) => {
         <CardActions sx={classes.card.cardContent}>
           <Paper sx={{ width: "100%" }}>
             <Grid container>
-              <Grid item xs={8}>
+              <Grid item xs={12}>
                 <Typography
                   variant="body1"
                   color="primary"
@@ -62,18 +62,6 @@ const CardProduct = ({ key, product, username, url }) => {
                 >
                   {product.name}
                 </Typography>
-              </Grid>
-              <Grid item xs={4}>
-                  
-                  <Link href={`/product/is-liked/${product.id}`} style={{ width: "100%" }}>
-                    <Button
-                      fullWidth
-                      color="warning"
-                      startIcon={<FavoriteBorderOutlined />}
-                    >
-                      {product.nomber_like}
-                    </Button>
-                  </Link>
               </Grid>
             </Grid>
           </Paper>

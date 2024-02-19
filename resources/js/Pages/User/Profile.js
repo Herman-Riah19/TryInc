@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { Avatar, Box, Container, Grid, Menu, MenuItem, Typography, ButtonGroup, IconButton, Button } from '@mui/material'
+import { Avatar, Box, Container, Grid, Menu, MenuItem, Typography, ButtonGroup, IconButton, Button, Paper } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import Navbar from '../../Components/MenuBar/Navbar'
 import TabImage from '../../Components/TabImage'
 import profileStyle from '../../Style/ProfileStyle'
-import { Edit, Facebook, Instagram, Share, Twitter } from '@mui/icons-material'
+import { ArrowBackIosNewSharp, Edit, FollowTheSigns } from '@mui/icons-material'
 import { Link } from '@inertiajs/inertia-react'
 import Footer from '../../Components/Footer/Footer'
 
@@ -13,8 +13,6 @@ const useStyle = makeStyles(profileStyle)
 const Profile = (props) => {
   const { user, profile, auth, authenticateProfile, products, productUrl, likes, avatarUrl, profileBannerUrl, collections, collectionUrl, isFollowed } = props
   const classes = useStyle()
-
-  console.log(user)
 
   const [moreMenu, setMoreMenu] = useState(null);
   const MoreButtonOpen = Boolean(moreMenu);
@@ -29,8 +27,8 @@ const Profile = (props) => {
   return (
     <Box>
       <Navbar auth={auth} authAvatar={authenticateProfile ? `${avatarUrl}/${authenticateProfile.avatar}` : null} />
-      <Box sx={{ mt: 10 }}>
-        <Container sx={{ mb: 1 }}>
+      <Box sx={{m:10}}>
+        <Paper sx={{ mb: 1 }}>
           <div className={classes.banner} style={{ backgroundImage: `url(${profileBannerUrl}/${profile.banner})` }} >
             <div className={classes.avatar}>
               <Avatar
@@ -86,13 +84,13 @@ const Profile = (props) => {
                     )}
                   </Grid>
                   <Grid item sm={12} md={6}>
-                    <Link href={`/profile/is-followed/${user.username.split(' ').join("_")}`}>
+                    <Link href={`/profile/is-followed/${user.id}`}>
                       <Button
                         id='more-button'
                         color='secondary'
                         variant={isFollowed ? 'contained' : 'outlined'}
-                        endIcon={<Share />}>
-                        <Typography variant="p">Followers {user.number_follower}</Typography>
+                        endIcon={<ArrowBackIosNewSharp />}>
+                        Followers {profile.number_follower}
                       </Button>
                     </Link>
                     
@@ -102,9 +100,9 @@ const Profile = (props) => {
               </ButtonGroup>
             </Grid>
           </Grid>
-        </Container>
+        </Paper>
 
-        <Container sx={{ mb: 1 }}>
+        <Box sx={{ mb: 1 }}>
           <TabImage
             likes={likes}
             products={products}
@@ -116,7 +114,7 @@ const Profile = (props) => {
             collections={collections}
             collectionUrl={collectionUrl}
             auth={auth} />
-        </Container>
+        </Box>
       </Box>
       <Footer auth={auth} />
     </Box>

@@ -11,6 +11,7 @@ const style = theme => ({
     titleButton: {
         height: '50px',
         margin: '10px', 
+        borderRadius: "50%"
     },
 })
 const Title = ({title, link}) => {

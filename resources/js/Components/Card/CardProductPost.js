@@ -5,6 +5,7 @@ import { Link } from "@inertiajs/inertia-react";
 
 const CardProductPost = ({ username, user, product, productUrl, liked, avatar }) => {
     const productName = product.name.split(' ').join('_')
+    const dateCreation = product.created_at.split("T")[0]
     return (
         <Card>
             <Link
@@ -15,12 +16,8 @@ const CardProductPost = ({ username, user, product, productUrl, liked, avatar })
                     avatar={
                         <Avatar sx={{ bgcolor: "red" }} src={avatar ? `${avatar}/${user.avatar}` : <AccountCircle />} />
                     }
-                    title={`${user.firstname} ${user.lastname}`}
-                    subheader={
-                        <Typography variant='body' color='text.thirdy'>
-                            {product.created_at}
-                        </Typography>
-                    }
+                    title={<Typography variant="h6">{user.firstname} {user.lastname}</Typography>}
+                    subheader={dateCreation}
                 />
             </Link>
             <Link href={`/product/show/${productName}`}>

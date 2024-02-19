@@ -7,7 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
 
-      table.integer("following_id").unsigned().references("users.id").notNullable();
+      table.integer("following_id").unsigned().references("profiles.id").notNullable();
       table.integer("follower_id").unsigned().references("users.id").notNullable();
       
       table.boolean("is_followed").defaultTo(false);

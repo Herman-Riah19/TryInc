@@ -6,6 +6,7 @@ import User from "App/Models/User";
 import Profile from "App/Models/Profile";
 import { ProfileService } from "App/Services/ProfileService";
 import Categorie from '../../Models/Categorie';
+import Like from "App/Models/Like";
 
 export default class HomeController {
   public async home({ inertia, auth, }: HttpContextContract) {
@@ -26,12 +27,15 @@ export default class HomeController {
 
     const bannerUrl = await Drive.getUrl('./banner');
 
+    const likes = await Like.all()
+
     return inertia.render("Home/Home", { 
       users, auth, authenticateProfile, 
       avatarUrl, bannerUrl, existProfiles,
       posts, postUrl, 
       products, productUrl, 
       categories, categorieUrl, 
+      likes
     });
   }
 
