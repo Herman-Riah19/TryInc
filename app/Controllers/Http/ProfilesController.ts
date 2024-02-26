@@ -34,8 +34,7 @@ export default class ProfilesController {
     const productUrl = await Drive.getUrl("./products");
     const profileBannerUrl = await Drive.getUrl(`./banner`);
 
-    const { avatarUrl, authenticateProfile } =
-      await ProfileService.getAthenticateProfile(auth);
+    const { avatarUrl, authenticateProfile } = await ProfileService.getAthenticateProfile(auth);
 
     const collections = await Collection.query().where('user_id', user!.id);;
 
