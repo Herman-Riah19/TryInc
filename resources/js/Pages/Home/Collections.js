@@ -22,8 +22,6 @@ const Collections = ({ auth, avatarUrl, authenticateProfile, categories, product
 
   const [value, setValue] = useState(0)
 
-  console.log(categories)
-
   const handleChange = (event, newValue) => {
     event.preventDefault()
     setValue(newValue);
@@ -39,7 +37,6 @@ const Collections = ({ auth, avatarUrl, authenticateProfile, categories, product
   }
 
   const findProductByCategorieId = (id) => {
-    console.log(id)
     const productsInThisCategorie = new Object([])
     products.map(product => {
       if (product.categorie_id == id) {

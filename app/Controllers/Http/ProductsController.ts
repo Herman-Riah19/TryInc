@@ -77,6 +77,7 @@ export default class ProductsController {
       const allProfiles = await Profile.all();
       const profileComments = Array<Profile>();
       const comments = Array<Comment>();
+
       AllComments.filter((comment) => {
         if (comment.productId === product?.id) {
           comments.push(comment);
@@ -94,20 +95,21 @@ export default class ProductsController {
 
       const categorie = await Categorie.findBy("id", product?.categorieId);
 
-      const otherProducts = Array<Product>();
-      const allProducts = await Product.all();
-      allProducts.map((prod) => {
-        if (prod.name != product?.name) {
-          if (prod.categorieId == product?.categorieId) {
-            otherProducts.push(prod);
-          }
-        }
-      });
+      const otherProducts = await Product.query()
+        .whereNot("name", product!.name)
+        .where("categorie_id", product!.categorieId);
 
       let liked: boolean = false;
-      const hasBeenLiked = await Like.findBy("product_id", product?.id);
-      if (hasBeenLiked && hasBeenLiked?.userId == auth.user?.id) {
-        liked = hasBeenLiked!.isLiked;
+      const hasBeenLikeds = await Like.query().where("product_id", product!.id);
+      if (hasBeenLikeds.length > 0) {
+        for await (const hasBeenLiked of hasBeenLikeds) {
+          if (hasBeenLiked && hasBeenLiked?.userId == auth.user?.id) {
+            liked = hasBeenLiked!.isLiked;
+            break;
+          } else {
+            continue;
+          }
+        }
       }
 
       const { avatarUrl, authenticateProfile } =
@@ -131,7 +133,7 @@ export default class ProductsController {
         authenticateProfile,
       });
     } catch (error) {
-      console.log("une erreur est survenue" + error);
+      console.log("une erreur est survenue: " + error);
       return inertia.redirectBack();
     }
   }
@@ -162,7 +164,7 @@ export default class ProductsController {
 
     const comment = new Comment();
 
-    comment
+    await comment
       .merge({
         ...data,
         stateId: State.PUBLIC,
@@ -180,38 +182,41 @@ export default class ProductsController {
 
   public async productIsLiked({ params, response, auth }: HttpContextContract) {
     try {
-      const product = await Product.findBy("id", params?.id);
+      const product = await Product.query().where("id", params?.id).firstOrFail();
       if (!auth) {
         return response.redirect().toRoute("user.login");
       }
 
       const hasBeenLikeds = await Like.query().where("product_id", product!.id);
-      hasBeenLikeds.map((hasBeenLiked) => {
-        if (hasBeenLiked?.userId == auth.user?.id) {
-          hasBeenLiked!.isLiked = !hasBeenLiked!.isLiked;
-          hasBeenLiked?.save();
-          product!.nomberLike = hasBeenLiked!.isLiked
-            ? product!.nomberLike + 1
-            : product!.nomberLike - 1;
-          product?.save();
-          return response.redirect(`/product/show/${product?.id}`);
+      if (hasBeenLikeds.length > 0) {
+        for await (const hasBeenLiked of hasBeenLikeds) {
+          if (hasBeenLiked?.userId == auth.user?.id) {
+            hasBeenLiked!.isLiked = !hasBeenLiked!.isLiked;
+            await hasBeenLiked?.save();
+            product!.nomberLike = hasBeenLiked!.isLiked
+              ? product!.nomberLike + 1
+              : product!.nomberLike - 1;
+            await product?.save();
+            break;
+          } 
         }
-      });
+        return response.redirect(`/product/show/${product?.id}`);
+      } else {
+        const isLiked = new Like();
+        await isLiked
+          .merge({
+            userId: auth.user?.id,
+            productId: product?.id,
+            isLiked: true,
+          })
+          .save();
 
-      const isLiked = new Like();
-      isLiked
-        .merge({
-          userId: auth.user?.id,
-          productId: product?.id,
-          isLiked: true,
-        })
-        .save();
-
-      product!.nomberLike += 1;
-      product?.save();
-      return response.redirect(`/product/show/${product?.id}`);
+        product!.nomberLike += 1;
+        await product?.save();
+        return response.redirect(`/product/show/${product?.id}`);
+      }
     } catch (error) {
-      console.log("Une erreur est survenue:" + error);
+      console.log("Une erreur est survenue: " + error);
       return response.redirect().back();
     }
   }

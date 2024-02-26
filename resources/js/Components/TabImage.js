@@ -40,10 +40,10 @@ const TabImage = ({ auth, likes, products, username, profile, avatar, productUrl
     const findLikedUser = (product) => {
         let liked = false
         likes.map(like => {
-            if (like.product_id == product.id) {
-                if(like.user_id == auth.guards.web.user.id){
-                    liked = true
-                }                   
+            if (auth.guards.web.isLoggedIn && like.user_id == auth.guards.web.user.id) {
+                if(product.id == like.product_id){
+                    liked = like.is_liked == 1 ? true : false
+                }
             }
         })
         return liked
@@ -99,7 +99,7 @@ const TabImage = ({ auth, likes, products, username, profile, avatar, productUrl
                     <Grid item md={8} xl={10}>
                         <Grid container spacing={2}>
                             {products.map(prod => {
-                                const liked = !auth.guards.web.isLoggedIn ? false : findLikedUser(prod)
+                                const liked = findLikedUser(prod)
                                 return (
                                     <Grid item xs={12} sx={{ mt: "15px" }}>
                                         <CardProductPost
@@ -119,7 +119,7 @@ const TabImage = ({ auth, likes, products, username, profile, avatar, productUrl
 
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <Grid container spacing={2} sx={{ mt: 10 }} >
+                <Grid container spacing={2} >
                     {products.map(product => {
                         return (
                             <Grid item xs={12} sm={6} md={4} lg={3}>

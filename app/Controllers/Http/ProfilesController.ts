@@ -16,18 +16,20 @@ export default class ProfilesController {
     const user = await User.findBy("username", username);
     const profile = await Profile.findBy("user_id", user?.id);
 
-    const following = await Following.findBy("following_id", user?.id)
+    const following = await Following.findBy("following_id", user?.id);
     let isFollowed = following?.followerId == auth.user?.id;
 
-    const products = Array<Product>();
-    const allProducts = await Product.all();
-    allProducts.map((prod) => {
-      if (prod.userId == user?.id) {
-        products.push(prod);
-      }
-    });
+    const products = await Product.query().where('user_id', user!.id);
 
-    const likes = await Like.all();
+    const likes = Array<Like>();
+    products.map(async (prod) => {
+      const allLike = await Like.query().where("product_id", prod.id);
+
+      allLike.map(jaime => {
+        likes.push(jaime)
+      })
+    })
+
 
     const productUrl = await Drive.getUrl("./products");
     const profileBannerUrl = await Drive.getUrl(`./banner`);
@@ -35,11 +37,7 @@ export default class ProfilesController {
     const { avatarUrl, authenticateProfile } =
       await ProfileService.getAthenticateProfile(auth);
 
-    const collections = Array<Collection>();
-    const allCollection = await Collection.all();
-    allCollection.map((coll) => {
-      if (coll.userId == user?.id) collections.push(coll);
-    });
+    const collections = await Collection.query().where('user_id', user!.id);;
 
     const collectionUrl = await Drive.getUrl("./collections");
 
@@ -55,7 +53,7 @@ export default class ProfilesController {
       profileBannerUrl,
       collections,
       collectionUrl,
-      isFollowed
+      isFollowed,
     });
   }
 
@@ -92,37 +90,50 @@ export default class ProfilesController {
     await profile!.merge({ ...data }).save();
 
     session.flash("success", "Your profile is enter");
-    return response.redirect(`/profile/${auth.user?.username.split(" ").join("_")}`);
+    return response.redirect(
+      `/profile/${auth.user?.username.split(" ").join("_")}`
+    );
   }
 
   public async hasBeenFollowed({ params, response, auth, session }: HttpContextContract) {
     try {
-      if (!auth) {
+      if (!auth.isLoggedIn) {
         return response.redirect().toRoute("user.login");
       }
 
       const followingUser = await Profile.findBy("user_id", params.id);
       const followerUser = await User.findBy("id", auth.user?.id);
 
-      const profileUser = await User.findBy("id", params.id)
-      const username = profileUser?.username.split(" ").join("_")
+      const profileUser = await User.findBy("id", params.id);
+      const username = profileUser?.username.split(" ").join("_");
 
-      const hasFollowed = await Following.findBy( "following_id", followingUser?.id);
-      if (hasFollowed?.followerId == followerUser?.id) {
-        const isFollowed = (hasFollowed!.isFollowed = !hasFollowed?.isFollowed);
-        hasFollowed?.save();
+      const hasFolloweds = await Following.query().where(
+        "following_id",
+        followingUser!.id
+      );
+      if (hasFolloweds.length > 0) {
+        for await (const hasFollowed of hasFolloweds) {
+          if (hasFollowed?.followerId == followerUser?.id) {
+            const isFollowed = (hasFollowed!.isFollowed =
+              !hasFollowed?.isFollowed);
+            await hasFollowed?.save();
 
-        let numberFollow = followingUser!.numberFollower;
-        followingUser!.numberFollower = isFollowed
-          ? numberFollow! + 1
-          : numberFollow! - 1;
-        followingUser?.save();
+            let numberFollow = followingUser!.numberFollower;
+            followingUser!.numberFollower = isFollowed
+              ? numberFollow! + 1
+              : numberFollow! - 1;
+            await followingUser?.save();
 
-        session.flash("Success", "User has been followed!");
+            session.flash("Success", "User has been followed!");
+            break;
+          } else {
+            continue;
+          }
+        }
         return response.redirect(`/profile/${username}`);
       } else {
         const isFollowed = new Following();
-        isFollowed
+        await isFollowed
           .merge({
             followingId: followingUser?.id,
             followerId: followerUser?.id,
@@ -130,7 +141,7 @@ export default class ProfilesController {
           })
           .save();
         followingUser!.numberFollower += 1;
-        followingUser?.save();
+        await followingUser?.save();
         session.flash("Success", "User has been followed!");
         return response.redirect(`/profile/${username}`);
       }
@@ -140,5 +151,5 @@ export default class ProfilesController {
     }
   }
 
-  public async destroy({}: HttpContextContract) {}
+  public async destroy({ }: HttpContextContract) { }
 }
