@@ -14,7 +14,6 @@ import {
 } from '@ioc:Adonis/Lucid/Orm'
 import Role from './Role'
 import Profile from './Profile'
-import EmailHistory from './EmailHistory'
 import Post from './Post'
 import Product from './Product'
 import Collection from './Collection'
@@ -81,9 +80,6 @@ class User extends BaseModel {
 
   @hasOne(() => Profile)
   public profile!: HasOne<typeof Profile>;
-
-  @hasMany(() => EmailHistory)
-  public emailHistory!: HasMany<typeof EmailHistory>;
 }
 
 export default User
