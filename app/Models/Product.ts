@@ -9,12 +9,7 @@ import Like from './Like'
 import Historic from './Historic'
 
 export default class Product extends BaseModel {
-  static all() {
-    throw new Error("Method not implemented.")
-  }
-  static query() {
-    throw new Error("Method not implemented.")
-  }
+
   @column({ isPrimary: true })
   public id!: number
 
