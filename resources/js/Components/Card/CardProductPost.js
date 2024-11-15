@@ -23,7 +23,8 @@ const CardProductPost = ({ username, user, product, productUrl, liked, avatar })
             <Link href={`/product/show/${productName}`}>
                 <CardMedia
                     component='img'
-                    image={`${productUrl}/${username}/${product.asset}`} />
+                    image={`${productUrl}/${username}/${product.asset}`}
+                    sx={{height: "70vh"}} />
             </Link>
             
             <CardActions>

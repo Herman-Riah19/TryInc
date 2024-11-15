@@ -101,7 +101,7 @@ const TabImage = ({ auth, likes, products, username, profile, avatar, productUrl
                             {products.map(prod => {
                                 const liked = findLikedUser(prod)
                                 return (
-                                    <Grid item xs={12} sx={{ mt: "15px" }}>
+                                    <Grid item xs={6} sx={{ mt: "15px" }}>
                                         <CardProductPost
                                             liked={liked}
                                             username={username}
