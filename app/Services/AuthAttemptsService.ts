@@ -42,16 +42,8 @@ export default class AuthAttemptsService {
     }
 
     public static async changeEmail(user: User, email: string) {
-        const emailHistory = await user.related('emailHistory').create({
-            emailFrom: user.email,
-            emailTo: email
-        })
-
         user.email = email
-        
         await user.save()
         await this.deleteBadAttempts(email)
-
-        return emailHistory
     }
 }
